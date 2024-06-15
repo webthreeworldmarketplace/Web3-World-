@@ -78,15 +78,6 @@ export default function Nav() {
                 BTC: 52.4% ETH: 18.2%
               </span>
             </span>
-            <span className="font-bold text-xs flex items-center">
-              <img
-                src={PetrolPumpIcon}
-                alt="Petrol Pump"
-                className="h-4 w-4 mr-1"
-              />{" "}
-              ETH Gas:{" "}
-              <span className="text-blue-600 text-xs ml-1">18 Gwei</span>
-            </span>
           </div>
           <div className="flex items-center space-x-8">
             <Menu as="div" className="relative inline-block text-left">
@@ -248,7 +239,7 @@ export default function Nav() {
                 />
               </Link>
               <Link to="/">
-                <h1 className="cursor-pointer -ml-2">Webthreeworld</h1>
+                <h1 className="cursor-pointer -ml-2"><span style={{ marginLeft: '15px', lineHeight: '2.25'}}>Webthreeworld</span></h1>
               </Link>
             </div>
             <div className="flex space-x-8">

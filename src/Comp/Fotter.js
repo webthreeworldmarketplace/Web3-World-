@@ -6,7 +6,6 @@ import { faTelegram } from '@fortawesome/free-brands-svg-icons';
 import { faLinkedin } from '@fortawesome/free-brands-svg-icons';
 import playstore from "./playstore.png";
 import appstore from "./appstore.png";
-// import X from "./X.png";
 import Discord from "./discord.png";
 import Telegram from "./telegram.jpg";
 import Instagram from "./instagram.png";

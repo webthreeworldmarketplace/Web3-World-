@@ -5,6 +5,7 @@ import { FaInfoCircle } from "react-icons/fa";
 import axios from "axios";
 import "../index.css";
 import gauge from "./gauge.png";
+import video from "./bgvideo.mp4";
 
 const constantData = {
   title: "Fear & Greed Index",
@@ -119,8 +120,9 @@ function New() {
     <div className="App">
       <header className="bg-white border-b border-gray-200 py-6">
         <div className="container mx-auto px-4">
-          <div className="flex justify-between items-center">
-            <h1 className="text-2xl font-bold">Today's Cryptocurrency Prices by Market Cap</h1>
+          <video src={video} autoPlay loop muted class="relative bottom-0 object-cover"/>
+          <div className="z-10 flex justify-between items-center">
+            <h1 className="flex text-2xl font-bold">Today's Cryptocurrency Prices by Market Cap</h1>
             <div className="flex items-center space-x-4">
               <span className="text-gray-500 font-bold">Highlights</span>
               <Switch
@@ -164,7 +166,7 @@ function New() {
         </div>
       </header>
       {enabled && (
-        <div className="container mx-auto px-4 py-8 flex flex-wrap -mx-2">
+        <div className=" static container mx-auto px-4 py-8 flex flex-wrap -mx-2">
           <div className="w-full md:w-1/3 px-2 mb-4">
             <Slider {...settings}>
               {[
