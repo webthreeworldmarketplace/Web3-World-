@@ -6,6 +6,7 @@ import { faTelegram } from '@fortawesome/free-brands-svg-icons';
 import { faLinkedin } from '@fortawesome/free-brands-svg-icons';
 import playstore from "./playstore.png";
 import appstore from "./appstore.png";
+// import X from "./X.png";
 import Discord from "./discord.png";
 import Telegram from "./telegram.jpg";
 import Instagram from "./instagram.png";
@@ -15,24 +16,20 @@ import Web3world from "./CoinMarketCap-logo (1).png"
 const Footer = () => {
   return (
     <footer className="bg-white py-8">
-      <div className="max-w-7xl mx-auto ">
+      <div className="max-w-7xl mx-auto">
         <div className="flex flex-wrap justify-between">
-        <div className="flex items-center space-x-2 -mx-4 font-medium size-5">
-              {/* Group logo and title together */}
-              
-                <img
-                  src={Web3world}
-                  alt="Web3world"
-                  className="h-16 w-18 cursor-pointer"
-                />
-              
-              
-                <h1 className="cursor-pointer -ml-2">Webthreeworld</h1>
-              
-            </div>
-          <div className="flex flex-col md:flex-row md:space-x-10">
+          <div className="flex items-center space-x-2 -mx-4 font-medium size-5">
+            {/* Group logo and title together */}
+            <img
+              src={Web3world}
+              alt="Web3world"
+              className="h-20 w-20 cursor-pointer ml-5"
+            />
+            
+          </div>
+          <div className="flex flex-col md:flex-row md:space-x-20 space-y-30 md:space-y-0">
             <div>
-              <h3 className="text-sm font-semibold uppercase mb-2">COMPANY</h3>
+              <h3 className="text-sm font-semibold uppercase mb-2 mr-60 ">COMPANY</h3>
               <ul className="text-gray-500 space-y-1">
                 <li className="cursor-pointer">About us</li>
                 <li className="cursor-pointer">Terms of use</li>
@@ -51,7 +48,7 @@ const Footer = () => {
               </ul>
             </div>
             <div>
-              <h3 className="text-sm font-semibold uppercase mb-2">SUPPORT</h3>
+              <h3 className="text-sm font-semibold uppercase mb-2 mr-60">SUPPORT</h3>
               <ul className="text-gray-500 space-y-1">
                 <li className="cursor-pointer">Request Form</li>
                 <li className="cursor-pointer">Contact Support</li>

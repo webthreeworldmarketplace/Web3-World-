@@ -153,14 +153,14 @@ export default function Nav() {
             >
               USD🔽
             </button>
-            <div className="line bg-gray-400 w-1 h-6"></div>{" "}
+            {/* <div className="line bg-gray-400 w-1 h-6"></div>{" "} */}
             {/* Vertical line */}
             <Menu as="div" className="relative inline-block text-left">
-              <div>
+              {/*<div>
                 <Menu.Button className="inline-flex w-full justify-center gap-x-1.5 text-sm font-bold text-black">
                   Get listed
                 </Menu.Button>
-              </div>
+                    </div> */}
               <Transition
                 as={Fragment}
                 show={openDropdown === "getlisted"}
@@ -216,12 +216,6 @@ export default function Nav() {
                 </Menu.Items>
               </Transition>
             </Menu>
-            <button className="bg-white text-blue-600 border border-blue-600 px-3 py-1 rounded hover:bg-blue-50 text-sm">
-              Log In
-            </button>
-            <button className="bg-blue-600 text-white px-3 py-1 rounded-none hover:bg-blue-700 text-sm">
-              Sign Up
-            </button>
           </div>
         </div>
         {/* Divider */}
@@ -235,20 +229,18 @@ export default function Nav() {
                 <img
                   src={Web3world}
                   alt="Web3world"
-                  className="h-16 w-18 cursor-pointer"
+                  className="h-20 w-20 cursor-pointer ml-5"
                 />
               </Link>
-              <Link to="/">
-                <h1 className="cursor-pointer -ml-2"><span style={{ marginLeft: '15px', lineHeight: '2.25'}}>Webthreeworld</span></h1>
-              </Link>
+              <Link to="/"></Link>
             </div>
             <div className="flex space-x-8">
               <Menu as="div" className="relative inline-block text-left w-104">
                 <div
-                  className="my-2 inline-flex w-full justify-center gap-x-1 text-sm font-bold text-black cursor-pointer"
+                  className="my-2 inline-flex w-full justify-center gap-x-1 text-md font-bold text-black cursor-pointer"
                   onMouseEnter={() => handleMouseEnter("cryptocurrencies")}
                 >
-                  CryptoCurrencies
+                  Cryptocurrencies
                 </div>
                 {openDropdown === "cryptocurrencies" && (
                   <Transition
@@ -602,7 +594,7 @@ export default function Nav() {
               </Menu>
               <Menu as="div" className="relative inline-block text-left">
                 <div
-                  className="my-2 inline-flex w-full justify-center gap-x-1 text-sm font-bold text-black cursor-pointer"
+                  className="my-2 inline-flex w-full justify-center gap-x-1 text-md font-bold text-black cursor-pointer"
                   onMouseEnter={() => handleMouseEnter("exchanges")}
                 >
                   Exchanges
@@ -687,7 +679,7 @@ export default function Nav() {
               </Menu>
               <Menu as="div" className="relative inline-block text-left">
                 <div
-                  className="my-2 inline-flex w-full justify-center gap-x-1 text-sm font-bold text-black cursor-pointer"
+                  className="my-2 inline-flex w-full justify-center gap-x-1 text-md font-bold text-black cursor-pointer"
                   onMouseEnter={() => handleMouseEnter("community")}
                 >
                   Community
@@ -849,7 +841,7 @@ export default function Nav() {
               </Menu>
               <Menu as="div" className="relative inline-block text-left">
                 <div
-                  className="my-2 inline-flex w-full justify-center gap-x-1 text-sm font-bold text-black cursor-pointer"
+                  className="my-2 inline-flex w-full justify-center gap-x-1 text-md font-bold text-black cursor-pointer"
                   onMouseEnter={() => handleMouseEnter("products")}
                 >
                   Events
@@ -895,7 +887,7 @@ export default function Nav() {
               </Menu>
               <Link
                 to="/news"
-                className="my-2 inline-flex w-full justify-center gap-x-1 text-sm font-bold text-black cursor-pointer"
+                className="my-2 inline-flex w-full justify-center gap-x-1 text-md font-bold text-black cursor-pointer"
               >
                 News
               </Link>
@@ -903,7 +895,6 @@ export default function Nav() {
           </div>
           {/* Search input on the right */}
           <div className="flex items-center space-x-4">
-            
             <div className="relative">
               <input
                 type="text"
@@ -920,7 +911,7 @@ export default function Nav() {
       </nav>
 
       {/* Currency Modal */}
-      {isCurrencyModalOpen && (
+      {/*{isCurrencyModalOpen && (
         <div className="fixed inset-0 flex items-center justify-center z-50">
           <div
             className="fixed inset-0 bg-black opacity-50"
@@ -1011,7 +1002,7 @@ export default function Nav() {
             </div>
           </div>
         </div>
-      )}
+      )} */}
     </div>
   );
 }
