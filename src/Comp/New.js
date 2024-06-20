@@ -26,7 +26,7 @@ function New() {
   useEffect(() => {
     const fetchTrendingData = async () => {
       try {
-        const response = await axios.get("http://localhost:3001/api/trending");
+        const response = await axios.get("https://webthreeworld/api/trending");
         setTrendingData(response.data.slice(0, 3));
       } catch (error) {
         console.error("Error fetching trending data:", error);
@@ -35,7 +35,7 @@ function New() {
 
     const fetchTweets = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/tweets");
+        const response = await axios.get("https://webthreeworld/tweets");
         setTweets(response.data.data);
       } catch (error) {
         console.error("Error fetching tweets:", error);
@@ -45,10 +45,10 @@ function New() {
     const fetchGainersAndLosers = async () => {
       try {
         const gainersResponse = await axios.get(
-          "http://localhost:3001/api/top-gainers"
+          "https://webthreeworld/api/top-gainers"
         );
         const losersResponse = await axios.get(
-          "http://localhost:3001/api/top-losers"
+          "https://webthreeworld/api/top-losers"
         );
 
         console.log("Gainers:", gainersResponse.data);
@@ -234,7 +234,7 @@ function New() {
         <div className="container mx-auto px-4">
           <div className="flex justify-between items-center">
             <h1 className="text-2xl font-bold">
-              Real-Time Crypto Prices and Market Data
+              Top Cryptocurrency Price & Market Cap
             </h1>
             <div className="flex items-center space-x-4">
               <span className="text-gray-500 font-bold">Highlights</span>
