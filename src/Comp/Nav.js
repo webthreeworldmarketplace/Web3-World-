@@ -11,7 +11,7 @@ import {
   NewspaperIcon,
 } from "@heroicons/react/20/solid";
 import PetrolPumpIcon from "./black-petrol.webp";
-import Web3world from "./CoinMarketCap-logo (1).png";
+import Web3world from "./Web3 World.png";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import News from "../news/news";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -64,7 +64,7 @@ export default function Nav() {
         <div className="container mx-auto px-4 py-2 flex justify-between items-center text-xs text-gray-500">
           <div className="flex space-x-4">
             <span className="font-bold text-xs">
-              Cryptos: <span className="text-blue-600 text-xs">2.4M+</span>
+              Crypto: <span className="text-blue-600 text-xs">2.4M+</span>
             </span>
             <span className="font-bold text-xs">
               Exchanges: <span className="text-blue-600 text-xs">770</span>
@@ -263,6 +263,7 @@ export default function Nav() {
                       onMouseEnter={() => handleMouseEnter("cryptocurrencies")}
                       onMouseLeave={handleMouseLeave}
                     >
+                      <h1 className="text-center font-bold">Coming Soon..</h1>
                       <div className="py-2 px-4">
                         <div className="flex space-x-8">
                           <div className="flex-1 space-y-2">
@@ -521,7 +522,7 @@ export default function Nav() {
                                   <span className="flex items-center">
                                     <span>🗓️</span>
                                     <span className="ml-1">
-                                      Top Marketplace
+                                      Top Marketplaces
                                     </span>
                                   </span>
                                 </a>
@@ -620,6 +621,7 @@ export default function Nav() {
                       onMouseEnter={() => handleMouseEnter("exchanges")}
                       onMouseLeave={handleMouseLeave}
                     >
+                      <h1 className="text-center font-bold">Coming Soon..</h1>
                       <div className="py-2 px-4">
                         <div className="space-y-2">
                           <Menu.Item>
@@ -671,7 +673,7 @@ export default function Nav() {
                               >
                                 <span className="flex items-center">
                                   <span>📅</span>
-                                  <span className="ml-1">Futures Volume</span>
+                                  <span className="ml-1">Future Volume</span>
                                 </span>
                               </a>
                             )}
@@ -708,8 +710,8 @@ export default function Nav() {
                       <div className="py-2 px-4">
                         <div className="space-y-2">
                           <h3 className="font-bold text-gray-600">Social</h3>
-
                           <Menu.Item>
+                            
                             {({ active }) => (
                               <a
                                 href="https://x.com/web3world783761"
@@ -717,7 +719,7 @@ export default function Nav() {
                                 rel="noopener noreferrer"
                                 className="flex items-center"
                               >
-                                <FontAwesomeIcon icon={faXTwitter} size="1x" />
+                                <FontAwesomeIcon icon={faXTwitter} size="2x"   className="ml-1"/>
                                 <span
                                   style={{
                                     marginLeft: "17px",
@@ -751,7 +753,7 @@ export default function Nav() {
                             rel="noopener noreferrer"
                             className="flex items-center"
                           >
-                            <FontAwesomeIcon icon={faTelegram} size="2x" />
+                            <FontAwesomeIcon icon={faTelegram} size="2x"   className="ml-1"/>
                             <span
                               style={{ marginLeft: "17px", lineHeight: "1.x" }}
                             >
@@ -765,7 +767,7 @@ export default function Nav() {
                               rel="noopener noreferrer"
                               className="flex items-center"
                             >
-                              <FontAwesomeIcon icon={faLinkedin} size="1.5x" />
+                              <FontAwesomeIcon icon={faLinkedin} size="2x"  className="ml-1"/>
                               <span
                                 style={{
                                   marginLeft: "20px",
@@ -807,6 +809,7 @@ export default function Nav() {
                     >
                       <div className="py-2 px-4">
                         <div className="space-y-2">
+                          <h1 className="text-center font-bold">Coming Soon..</h1>
                           <Menu.Item>
                             {({ active }) => (
                               <a
@@ -818,7 +821,7 @@ export default function Nav() {
                                   "block px-2 py-1 text-sm"
                                 )}
                               >
-                                📢Future Event
+                                📢Future Events
                               </a>
                             )}
                           </Menu.Item>

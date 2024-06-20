@@ -10,7 +10,7 @@ const SubscribeSection = () => {
           Keep up with Web3. Anytime, anywhere.
           </h2>
           <p className="mt-3 max-w-3xl text-lg text-gray-700 dark:text-gray-300">
-          Stay informed with the latest crypto news, research insights, reward programs, event updates, coin listings, and more from CoinMarketCap. Keep your finger on the pulse of the crypto world.
+          Stay informed with the latest crypto news, research insights, reward programs, event updates, coin listings, and more from Web3 World. Keep your finger on the pulse of the crypto world!
           </p>
           
         </div>

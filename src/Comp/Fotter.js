@@ -11,7 +11,7 @@ import Discord from "./discord.png";
 import Telegram from "./telegram.jpg";
 import Instagram from "./instagram.png";
 import LinkedIn from "./linkein.png";
-import Web3world from "./CoinMarketCap-logo (1).png"
+import Web3world from "./Web3 World.png"
 
 const Footer = () => {
   return (
@@ -61,22 +61,22 @@ const Footer = () => {
               <ul className="text-gray-500 space-y-1">
                 <li className="flex items-center cursor-pointer">
                   <a href="https://x.com/web3world783761" target="_blank" rel="noopener noreferrer" className="flex items-center">
-                    <FontAwesomeIcon icon={faXTwitter} size="2x"/><span style={{ marginLeft: '17px', lineHeight: '2.25'}}>X.com</span>
+                    <FontAwesomeIcon icon={faXTwitter} size="2x" className="ml-1"/><span style={{ marginLeft: '17px', lineHeight: '2.25'}}>X.com</span>
                   </a>
                 </li>
                 <li className="flex items-center cursor-pointer">
                   <a href="https://discord.com/invite/tPmChwnYs9" target="_blank" rel="noopener noreferrer" className="flex items-center">
-                    <FontAwesomeIcon icon={faDiscord} size="2x"  /><span style={{ marginLeft: '10px', lineHeight: '2.25' }}>Discord</span>
+                    <FontAwesomeIcon icon={faDiscord} size="2x" /><span style={{ marginLeft: '10px', lineHeight: '2.25' }}>Discord</span>
                   </a>
                 </li>
                 <li className="flex items-center cursor-pointer">
                   <a href="https://t.me/web3worldmarketplace" target="_blank" rel="noopener noreferrer" className="flex items-center">
-                    <FontAwesomeIcon icon={faTelegram} size="2x"/><span style={{ marginLeft: '17px', lineHeight: '2.25' }}>Telegram</span>
+                    <FontAwesomeIcon icon={faTelegram} size="2x" className="ml-1"/><span style={{ marginLeft: '17px', lineHeight: '2.25' }}>Telegram</span>
                   </a>
                 </li>
                 <li className="flex items-center cursor-pointer">
                   <a href="https://www.linkedin.com/company/web-3-world/?viewAsMember=true" target="_blank" rel="noopener noreferrer" className="flex items-center">
-                    <FontAwesomeIcon icon={faLinkedin } size="2x" /><span style={{ marginLeft: '20px', lineHeight: '2.25' }}>LinkedIn</span>
+                    <FontAwesomeIcon icon={faLinkedin } size="2x" className="ml-1"/><span style={{ marginLeft: '20px', lineHeight: '2.25' }}>LinkedIn</span>
                   </a>
                 </li>
               </ul>

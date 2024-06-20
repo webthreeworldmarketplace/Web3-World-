@@ -21,7 +21,7 @@ function News() {
       <div className="flex justify-between items-center mb-8">
         <div>
           <h1 className="text-2xl font-bold mb-2">News</h1>
-          <p className="text-gray-500">Here you find the latest news of the crypto industry!</p>
+          <p className="text-gray-500">Insights about breakthrough's in crypto industry!</p>
         </div>
         <div className="relative">
           <button

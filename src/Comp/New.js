@@ -90,7 +90,7 @@ function New() {
               {slide.items.map((item, index) => (
                 <li
                   key={index}
-                  className="flex justify-between items-center mb-3 mt-4"
+                  className="flex justify-between items-center mb-2 mt-4"
                 >
                   <span className="flex items-center">
                     <img
@@ -126,63 +126,59 @@ function New() {
           </div>
         </div>
       );
-    } else if (slide.title === "Top Gainer/Loser") {
+    } else if (slide.title === "Top Gainers") {
+      return (
+        <div className="p-4 border border-gray-300 rounded-lg shadow-lg bg-white h-50 flex flex-col justify-between">
+          <div>
+            <h4 className="font-bold text-lg mb-3 mt-2">Top Gainers</h4>
+            <ul>
+              {gainers.map((crypto, index) => (
+                <li
+                  key={crypto.id}
+                  className="flex justify-between items-center mb-4 text-lg"
+                >
+                  <span className="flex items-center text-lg">
+                    <img
+                      src={crypto.logo}
+                      alt={crypto.name}
+                      className="w-6 h-6 mr-2 text-lg"
+                    />
+                    {index + 1}. {crypto.name} ({crypto.symbol})
+                  </span>
+                  <span className="text-green-600 text-lg">
+                    {parseFloat(crypto.changePercent24Hr).toFixed(2)}%
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      );
+    } else if (slide.title === "Top Losers") {
       return (
         <div className="p-4 border border-gray-300 rounded-lg shadow-lg bg-white h-full flex flex-col justify-between">
           <div>
-            <div className="flex justify-between items-center mb-1 -mt-1 h-6">
-              <h3 className="font-bold text-lg mb-3">Top Gainer/Loser</h3>
-
-              <button className="text-blue-600 hover:underline">More</button>
-            </div>
-            <div className="grid grid-cols-2 gap-4 h-40">
-              <div>
-                <h4 className="font-bold text-sm mb-1 -mt-2">Top Gainers</h4>
-                <ul>
-                  {gainers.map((crypto, index) => (
-                    <li
-                      key={crypto.id}
-                      className="flex justify-between items-center mb-4 text-sm"
-                    >
-                      <span className="flex items-center text-sm">
-                        <img
-                          src={crypto.logo}
-                          alt={crypto.name}
-                          className="w-6 h-6 mr-2 tex-sm"
-                        />
-                        {index + 1}. {crypto.name} ({crypto.symbol})
-                      </span>
-                      <span className="text-green-600 text-sm">
-                        {parseFloat(crypto.changePercent24Hr).toFixed(2)}%
-                      </span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-              <div>
-                <h4 className="font-bold text-sm mb-1 -mt-2">Top Losers</h4>
-                <ul>
-                  {losers.map((crypto, index) => (
-                    <li
-                      key={crypto.id}
-                      className="flex justify-between items-center mb-4 text-sm"
-                    >
-                      <span className="flex items-center text-sm">
-                        <img
-                          src={crypto.logo}
-                          alt={crypto.name}
-                          className="w-6 h-6 mr-2 tex-sm"
-                        />
-                        {index + 1}. {crypto.name} ({crypto.symbol})
-                      </span>
-                      <span className="text-red-600 tex-sm">
-                        {parseFloat(crypto.changePercent24Hr).toFixed(2)}%
-                      </span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
+            <h4 className="font-bold text-lg mb-3 mt-2">Top Losers</h4>
+            <ul>
+              {losers.map((crypto, index) => (
+                <li
+                  key={crypto.id}
+                  className="flex justify-between items-center mb-4 text-lg"
+                >
+                  <span className="flex items-center text-lg">
+                    <img
+                      src={crypto.logo}
+                      alt={crypto.name}
+                      className="w-6 h-6 mr-2 text-lg"
+                    />
+                    {index + 1}. {crypto.name} ({crypto.symbol})
+                  </span>
+                  <span className="text-red-600 text-lg">
+                    {parseFloat(crypto.changePercent24Hr).toFixed(2)}%
+                  </span>
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
       );
@@ -270,10 +266,10 @@ function New() {
                   items: trendingData,
                 },
                 {
-                  title: "Top Gainer/Loser",
+                  title: "Top Gainers",
                 },
                 {
-                  title: "Top Gainer/Loser",
+                  title: "Top Losers",
                 },
               ].map((slide, index) => (
                 <div key={index} className="h-full">
@@ -282,10 +278,14 @@ function New() {
               ))}
             </Slider>
           </div>
-          
+
           <div className="w-full md:w-1/3 px-2 mb-4 py-6">
             <Slider {...settings}>
               {[
+                {
+                  title: "Tweet",
+                  content: "1801872262980649193",
+                },
                 {
                   title: "Tweet",
                   content: "1801872262980649193",
