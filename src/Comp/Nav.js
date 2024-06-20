@@ -14,6 +14,11 @@ import PetrolPumpIcon from "./black-petrol.webp";
 import Web3world from "./CoinMarketCap-logo (1).png";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import News from "../news/news";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faXTwitter } from "@fortawesome/free-brands-svg-icons";
+import { faDiscord } from "@fortawesome/free-brands-svg-icons";
+import { faTelegram } from "@fortawesome/free-brands-svg-icons";
+import { faLinkedin } from "@fortawesome/free-brands-svg-icons";
 
 import USDImage from "./usd.png"; // Add the path to the currency images
 import EURImage from "./eur.png";
@@ -702,137 +707,75 @@ export default function Nav() {
                     >
                       <div className="py-2 px-4">
                         <div className="space-y-2">
-                          <h3 className="font-bold text-gray-600">Feeds</h3>
+                          <h3 className="font-bold text-gray-600">Social</h3>
+
                           <Menu.Item>
                             {({ active }) => (
                               <a
-                                href="#"
-                                className={classNames(
-                                  active
-                                    ? "bg-gray-100 text-black"
-                                    : "text-black",
-                                  "block px-2 py-1 text-sm"
-                                )}
+                                href="https://x.com/web3world783761"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="flex items-center"
                               >
-                                <NewspaperIcon className="w-5 h-5 text-blue-600 inline mr-2" />
-                                Feeds
-                              </a>
-                            )}
-                          </Menu.Item>
-                          <Menu.Item>
-                            {({ active }) => (
-                              <a
-                                href="#"
-                                className={classNames(
-                                  active
-                                    ? "bg-gray-100 text-black"
-                                    : "text-black",
-                                  "block px-2 py-1 text-sm"
-                                )}
-                              >
-                                <AcademicCapIcon className="w-5 h-5 text-blue-600 inline mr-2" />
-                                Telegram
+                                <FontAwesomeIcon icon={faXTwitter} size="1x" />
+                                <span
+                                  style={{
+                                    marginLeft: "17px",
+                                    lineHeight: "2.25",
+                                  }}
+                                >
+                                  X.com
+                                </span>
                               </a>
                             )}
                           </Menu.Item>
                         </div>
                         <div className="space-y-1 mt-2">
-                          <Menu.Item>
-                            {({ active }) => (
-                              <a
-                                href="#"
-                                className={classNames(
-                                  active
-                                    ? "bg-gray-100 text-black"
-                                    : "text-black",
-                                  "block px-2 py-1 text-sm"
-                                )}
+                          <a
+                            href="https://discord.com/invite/tPmChwnYs9"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex items-center"
+                          >
+                            <FontAwesomeIcon icon={faDiscord} size="2x" />
+                            <span
+                              style={{ marginLeft: "10px", lineHeight: "2.25" }}
+                            >
+                              Discord
+                            </span>
+                          </a>
+
+                          <a
+                            href="https://t.me/web3worldmarketplace"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex items-center"
+                          >
+                            <FontAwesomeIcon icon={faTelegram} size="2x" />
+                            <span
+                              style={{ marginLeft: "17px", lineHeight: "1.x" }}
+                            >
+                              Telegram
+                            </span>
+                          </a>
+                          <li className="flex items-center cursor-pointer">
+                            <a
+                              href="https://www.linkedin.com/company/web-3-world/?viewAsMember=true"
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="flex items-center"
+                            >
+                              <FontAwesomeIcon icon={faLinkedin} size="1.5x" />
+                              <span
+                                style={{
+                                  marginLeft: "20px",
+                                  lineHeight: "2.25",
+                                }}
                               >
-                                <ChartBarIcon className="w-5 h-5 text-blue-600 inline mr-2" />
-                                Botim
-                              </a>
-                            )}
-                          </Menu.Item>
-                          <Menu.Item>
-                            {({ active }) => (
-                              <a
-                                href="#"
-                                className={classNames(
-                                  active
-                                    ? "bg-gray-100 text-black"
-                                    : "text-black",
-                                  "block px-2 py-1 text-sm"
-                                )}
-                              >
-                                <VideoCameraIcon className="w-5 h-5 text-red-600 inline mr-2" />
-                                Discord
-                              </a>
-                            )}
-                          </Menu.Item>
-                          <Menu.Item>
-                            {({ active }) => (
-                              <a
-                                href="#"
-                                className={classNames(
-                                  active
-                                    ? "bg-gray-100 text-black"
-                                    : "text-black",
-                                  "block px-2 py-1 text-sm"
-                                )}
-                              >
-                                <BookOpenIcon className="w-5 h-5 text-blue-600 inline mr-2" />
-                                Facebook
-                              </a>
-                            )}
-                          </Menu.Item>
-                          <Menu.Item>
-                            {({ active }) => (
-                              <a
-                                href="#"
-                                className={classNames(
-                                  active
-                                    ? "bg-gray-100 text-black"
-                                    : "text-black",
-                                  "block px-2 py-1 text-sm"
-                                )}
-                              >
-                                <BookOpenIcon className="w-5 h-5 text-blue-600 inline mr-2" />
-                                Linkedin
-                              </a>
-                            )}
-                          </Menu.Item>
-                          <Menu.Item>
-                            {({ active }) => (
-                              <a
-                                href="#"
-                                className={classNames(
-                                  active
-                                    ? "bg-gray-100 text-black"
-                                    : "text-black",
-                                  "block px-2 py-1 text-sm"
-                                )}
-                              >
-                                <BookOpenIcon className="w-5 h-5 text-blue-600 inline mr-2" />
-                                Twitter
-                              </a>
-                            )}
-                          </Menu.Item>
-                          <Menu.Item>
-                            {({ active }) => (
-                              <a
-                                href="#"
-                                className={classNames(
-                                  active
-                                    ? "bg-gray-100 text-black"
-                                    : "text-black",
-                                  "block px-2 py-1 text-sm"
-                                )}
-                              >
-                                <BookOpenIcon className="w-5 h-5 text-blue-600 inline mr-2" />
-                                Quora
-                              </a>
-                            )}
-                          </Menu.Item>
+                                LinkedIn
+                              </span>
+                            </a>
+                          </li>
                         </div>
                       </div>
                     </Menu.Items>

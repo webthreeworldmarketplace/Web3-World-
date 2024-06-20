@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from "react";
 import Slider from "react-slick";
-import { Switch } from '@headlessui/react';
+import { Switch } from "@headlessui/react";
 import { FaInfoCircle } from "react-icons/fa";
 import axios from "axios";
 import "../index.css";
 import gauge from "./gauge.png";
-import { Tweet } from 'react-tweet';
-import trade from "./Trade .png";
+import trade from "./Binance Cover.png";
+import kuku from "./Kucoin Cover.png";
+import bybit from "./ByBit Cover.png";
+import { Tweet } from "react-tweet";
 
 const constantData = {
-  title: "Fear & Greed Index",
   infoText: `When the value is closer to 0, the market is in Extreme Fear, and investors have over-sold irrationally.\n\nWhen the value is closer to 100, the market is in Extreme Greed, indicating a likely market correction.\n\nCoinMarketCap uses the price and trading data of the most popular crypto coins, together with our unique user behaviour data to present a more accurate crypto market sentiment.`,
 };
 
@@ -18,6 +19,9 @@ function New() {
   const [showInfo, setShowInfo] = useState(false);
   const [trendingData, setTrendingData] = useState([]);
   const [tweets, setTweets] = useState([]);
+  const [gainers, setGainers] = useState([]);
+  const [losers, setLosers] = useState([]);
+  const [showAdvertisement, setShowAdvertisement] = useState(true);
 
   useEffect(() => {
     const fetchTrendingData = async () => {
@@ -38,8 +42,28 @@ function New() {
       }
     };
 
+    const fetchGainersAndLosers = async () => {
+      try {
+        const gainersResponse = await axios.get(
+          "http://localhost:3001/api/top-gainers"
+        );
+        const losersResponse = await axios.get(
+          "http://localhost:3001/api/top-losers"
+        );
+
+        console.log("Gainers:", gainersResponse.data);
+        console.log("Losers:", losersResponse.data);
+
+        setGainers(gainersResponse.data);
+        setLosers(losersResponse.data);
+      } catch (error) {
+        console.error("Error fetching gainers/losers data:", error);
+      }
+    };
+
     fetchTrendingData();
     fetchTweets();
+    fetchGainersAndLosers();
   }, []);
 
   const settings = {
@@ -56,20 +80,33 @@ function New() {
   const renderSlide = (slide) => {
     if (slide.title === "Trending") {
       return (
-        <div className="p-4 border border-gray-300 rounded-lg shadow-lg bg-white h-45 flex flex-col justify-between">
+        <div className="p-4 border border-gray-300 rounded-lg shadow-lg bg-white h-50 flex flex-col justify-between">
           <div>
-            <div className="flex justify-between items-center mb-4 h-14">
+            <div className="flex justify-between items-center mb-4 h-15">
               <h3 className="font-bold text-lg">🔥 {slide.title}</h3>
               <button className="text-blue-600 hover:underline">More</button>
             </div>
             <ul>
               {slide.items.map((item, index) => (
-                <li key={index} className="flex justify-between items-center mb-4">
+                <li
+                  key={index}
+                  className="flex justify-between items-center mb-3 mt-4"
+                >
                   <span className="flex items-center">
-                    <img src={item.logo} alt={item.name} className="w-6 h-6 mr-2" />
+                    <img
+                      src={item.logo}
+                      alt={item.name}
+                      className="w-7 h-7 mr-2 mt-1"
+                    />
                     {index + 1}. {item.name} ({item.symbol})
                   </span>
-                  <span className={`${item.quote.USD.percent_change_24h > 0 ? 'text-green-600' : 'text-red-600'}`}>
+                  <span
+                    className={`${
+                      item.quote.USD.percent_change_24h > 0
+                        ? "text-green-600"
+                        : "text-red-600"
+                    }`}
+                  >
                     {item.quote.USD.percent_change_24h.toFixed(2)}%
                   </span>
                 </li>
@@ -80,21 +117,114 @@ function New() {
       );
     } else if (slide.title === "Tweet") {
       return (
-        <div className="p-5 -my-20 -border border-gray-500 rounded-lg shadow-lg bg-white flex flex-col justify-center mx-auto max-w-full py-1" style={{ height: "250px" }}>
+        <div
+          className="p-5 -my-20 -border border-gray-500 rounded-lg shadow-lg bg-white flex flex-col justify-center mx-auto max-w-full py-1"
+          style={{ height: "250px" }}
+        >
           <div className="flex justify-center items-center h-max -mt-8 transform translate-y-8 -my-40">
             <Tweet id={slide.content} />
           </div>
         </div>
       );
+    } else if (slide.title === "Top Gainer/Loser") {
+      return (
+        <div className="p-4 border border-gray-300 rounded-lg shadow-lg bg-white h-full flex flex-col justify-between">
+          <div>
+            <div className="flex justify-between items-center mb-1 -mt-1 h-6">
+              <h3 className="font-bold text-lg mb-3">Top Gainer/Loser</h3>
+
+              <button className="text-blue-600 hover:underline">More</button>
+            </div>
+            <div className="grid grid-cols-2 gap-4 h-40">
+              <div>
+                <h4 className="font-bold text-sm mb-1 -mt-2">Top Gainers</h4>
+                <ul>
+                  {gainers.map((crypto, index) => (
+                    <li
+                      key={crypto.id}
+                      className="flex justify-between items-center mb-4 text-sm"
+                    >
+                      <span className="flex items-center text-sm">
+                        <img
+                          src={crypto.logo}
+                          alt={crypto.name}
+                          className="w-6 h-6 mr-2 tex-sm"
+                        />
+                        {index + 1}. {crypto.name} ({crypto.symbol})
+                      </span>
+                      <span className="text-green-600 text-sm">
+                        {parseFloat(crypto.changePercent24Hr).toFixed(2)}%
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div>
+                <h4 className="font-bold text-sm mb-1 -mt-2">Top Losers</h4>
+                <ul>
+                  {losers.map((crypto, index) => (
+                    <li
+                      key={crypto.id}
+                      className="flex justify-between items-center mb-4 text-sm"
+                    >
+                      <span className="flex items-center text-sm">
+                        <img
+                          src={crypto.logo}
+                          alt={crypto.name}
+                          className="w-6 h-6 mr-2 tex-sm"
+                        />
+                        {index + 1}. {crypto.name} ({crypto.symbol})
+                      </span>
+                      <span className="text-red-600 tex-sm">
+                        {parseFloat(crypto.changePercent24Hr).toFixed(2)}%
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      );
     } else if (slide.title === "Advertisement") {
       return (
-        <div className="p-3 border border-gray-300 rounded-lg shadow-lg bg-white h-full flex flex-col justify-center mx-auto">
+        <div>
           <div className="text-center">
-            <h3 className="font-bold text-md -mt-2 mb-1">Advertisement</h3>
-            <a href="https://accounts.binance.com/en/register?ref=928388057&gad_source=1&gclid=Cj0KCQjwvb-zBhCmARIsAAfUI2sG1TgNkq3B7o1n_2rvUF0PfPXJ5SPnxXGnN3eZcGT6Y8nXeHo-fuEaAp77EALw_wcB" target="_blank" rel="noopener noreferrer">
-              <img className="-my-1 cursor-pointer" src={trade} alt="Advertisement" />
+            <a
+              href="https://accounts.binance.com/en/register?ref=928388057&gad_source=1&gclid=Cj0KCQjwvb-zBhCmARIsAAfUI2sG1TgNkq3B7o1n_2rvUF0PfPXJ5SPnxXGnN3eZcGT6Y8nXeHo-fuEaAp77EALw_wcB"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <img className="mt-3 relative cursor-pointer border-gray-300 rounded-lg shadow-lg bg-white h-full flex flex-col justify-center mx-auto" src={trade} alt="Advertisement" />
             </a>
-            {/* You can add any HTML content for your advertisement here */}
+          </div>
+        </div>
+      );
+    } else if (slide.title === "Kucoin") {
+      return (
+        <div>
+          <div className="text-center">
+            <a
+              href="https://www.kucoin.com/ucenter/signup"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <img className="mt-3 relative cursor-pointer border-gray-300 rounded-lg shadow-lg bg-white h-full flex flex-col justify-center mx-auto" src={kuku} alt="Advertisement" />
+            </a>
+          </div>
+        </div>
+      );
+    } else if (slide.title === "ByBit") {
+      return (
+        <div>
+          <div className="text-center">
+            <a
+              href="https://www.bybit.com/en/register"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <img className="mt-3 relative cursor-pointer border-gray-300 rounded-lg shadow-lg bg-white h-full flex flex-col justify-center mx-auto" src={bybit} alt="Advertisement" />
+            </a>
           </div>
         </div>
       );
@@ -107,19 +237,23 @@ function New() {
       <header className="bg-white border-b border-gray-200 py-6">
         <div className="container mx-auto px-4">
           <div className="flex justify-between items-center">
-            <h1 className="text-2xl font-bold">Real-Time Crypto Prices and Market Data</h1>
+            <h1 className="text-2xl font-bold">
+              Real-Time Crypto Prices and Market Data
+            </h1>
             <div className="flex items-center space-x-4">
               <span className="text-gray-500 font-bold">Highlights</span>
               <Switch
                 checked={enabled}
                 onChange={setEnabled}
-                className={`${enabled ? 'bg-blue-600' : 'bg-gray-200'
-                  } relative inline-flex h-6 w-11 items-center rounded-full`}
+                className={`${
+                  enabled ? "bg-blue-600" : "bg-gray-200"
+                } relative inline-flex h-6 w-11 items-center rounded-full`}
               >
                 <span className="sr-only">Enable carousel</span>
                 <span
-                  className={`${enabled ? 'translate-x-6' : 'translate-x-1'
-                    } inline-block h-4 w-4 transform bg-white rounded-full transition`}
+                  className={`${
+                    enabled ? "translate-x-6" : "translate-x-1"
+                  } inline-block h-4 w-4 transform bg-white rounded-full transition`}
                 />
               </Switch>
             </div>
@@ -133,11 +267,14 @@ function New() {
               {[
                 {
                   title: "Trending",
-                  items: trendingData
+                  items: trendingData,
                 },
                 {
-                  title: "Advertisement"
-                }
+                  title: "Top Gainer/Loser",
+                },
+                {
+                  title: "Top Gainer/Loser",
+                },
               ].map((slide, index) => (
                 <div key={index} className="h-full">
                   {renderSlide(slide)}
@@ -145,17 +282,18 @@ function New() {
               ))}
             </Slider>
           </div>
+          
           <div className="w-full md:w-1/3 px-2 mb-4 py-6">
             <Slider {...settings}>
               {[
                 {
                   title: "Tweet",
-                  content: "1801872262980649193"
+                  content: "1801872262980649193",
                 },
                 {
                   title: "Tweet",
-                  content: "1801872262980649193"
-                }
+                  content: "1801872262980649193",
+                },
               ].map((slide, index) => (
                 <div key={index} className="h-full">
                   {renderSlide(slide)}
@@ -164,28 +302,23 @@ function New() {
             </Slider>
           </div>
           <div className="w-full md:w-1/3 px-2 mb-4 h-full">
-            <div className="p-4 border border-gray-300 rounded-lg shadow-lg bg-white h-56 flex flex-col justify-between relative">
-              <div>
-                <div className="flex justify-between items-center mb-4">
-                  <div className="flex items-center mt-1">
-                    <h3 className="font-bold text-lg mr-2">{constantData.title}</h3>
-                    <FaInfoCircle
-                      className="text-gray-500 cursor-pointer"
-                      onClick={() => setShowInfo(!showInfo)}
-                    />
-                  </div>
-                  <button className="text-blue-600 hover:underline">More</button>
+            <Slider {...settings}>
+              {[
+                {
+                  title: "Advertisement",
+                },
+                {
+                  title: "Kucoin",
+                },
+                {
+                  title: "ByBit",
+                },
+              ].map((slide, index) => (
+                <div key={index} className="h-full">
+                  {renderSlide(slide)}
                 </div>
-                <div className="flex items-center justify-center ">
-                  <img src={gauge} alt="Fear & Greed Index" className="w-80 h-50 mt-4" />
-                </div>
-                {showInfo && (
-                  <div className="absolute top-full mt-2 left-0 w-full bg-white border border-gray-300 p-4 rounded-lg shadow-lg z-10">
-                    <p className="text-sm text-gray-700 whitespace-pre-line">{constantData.infoText}</p>
-                  </div>
-                )}
-              </div>
-            </div>
+              ))}
+            </Slider>
           </div>
         </div>
       )}

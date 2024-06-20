@@ -11,7 +11,7 @@ import CryptoDetail from "./Comp/CryptoDetail"; // Ensure the correct import pat
 function Home() {
   return (
     <>
-      <New/>
+      <New />
       <CryptoTable />
       <Left />
       <Foot />

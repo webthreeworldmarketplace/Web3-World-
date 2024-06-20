@@ -23,7 +23,7 @@ const Footer = () => {
             <img
               src={Web3world}
               alt="Web3world"
-              className="h-20 w-20 cursor-pointer ml-5"
+              className="h-40 w-40 cursor-pointer ml-5"
             />
             
           </div>
@@ -41,9 +41,9 @@ const Footer = () => {
                 <li className="cursor-pointer">Methodology</li>
                 <li className="flex items-center cursor-pointer">
                   Careers{" "}
-                  <span className="ml-2 bg-blue-600 text-white px-2 py-1 rounded-full cursor-pointer">
+                  {/* <span className="ml-2 bg-blue-600 text-white px-2 py-1 rounded-full cursor-pointer">
                     We're hiring!
-                  </span>
+                  </span> */}
                 </li>
               </ul>
             </div>
@@ -83,8 +83,8 @@ const Footer = () => {
             </div>
           </div>
         </div>
-        <div className="mt-8 flex flex-col md:flex-row justify-between items-center">
-          <p className="text-gray-500 text-sm mb-4 md:mb-0">
+        <div className="relative left-5 mt-8 ml-60">
+          <p className="text-gray-500 text-md mb-4 md:mb-0 ml-60">
             &copy; 2024 webthreeworld. All rights reserved
           </p>
         </div>

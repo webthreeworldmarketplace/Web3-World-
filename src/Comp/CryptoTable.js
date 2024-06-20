@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom"; // Import useNavigate
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/20/solid";
 import icon1 from "./gr1.png";
 import icon2 from "./gr2.png";
@@ -72,6 +73,8 @@ const CryptoTable = () => {
     industry: null,
   });
 
+  const navigate = useNavigate(); // Initialize navigate
+
   const fetchData = async (page = 1) => {
     try {
       const response = await axios.get(
@@ -102,8 +105,8 @@ const CryptoTable = () => {
     setActiveButton(buttonName);
   };
 
-  const handleRowClick = (index) => {
-    console.log(`Row ${index} clicked`);
+  const handleRowClick = (id) => {
+    navigate(`/detail/${id}`); // Navigate to detail page with the crypto id
   };
 
   const handlePageClick = (pageNumber) => {
@@ -362,11 +365,11 @@ const CryptoTable = () => {
           <tbody className="bg-white divide-y divide-gray-200">
             {cryptocurrencies
               .slice((currentPage - 1) * rowsToShow, currentPage * rowsToShow)
-              .map((crypto, index) => (
+              .map((crypto) => (
                 <tr
                   key={crypto.id}
                   className="cursor-pointer hover:bg-gray-50"
-                  onClick={() => handleRowClick(index)}
+                  onClick={() => handleRowClick(crypto.id)}
                 >
                   <td className="px-4 py-2 whitespace-nowrap text-sm">
                     {crypto.cmc_rank}
