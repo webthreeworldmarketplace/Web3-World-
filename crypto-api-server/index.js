@@ -11,7 +11,7 @@ app.use(cors());
 app.get("/api/cryptocurrencies", async (req, res) => {
   try {
     const response = await axios.get(
-      "https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest",
+      "http://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest",
       {
         headers: {
           "X-CMC_PRO_API_KEY": "2778db1d-7cc9-4e1c-a6c6-ec94b0af1573",

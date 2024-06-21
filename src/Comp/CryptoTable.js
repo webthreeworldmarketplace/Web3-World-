@@ -78,7 +78,7 @@ const CryptoTable = () => {
   const fetchData = async (page = 1) => {
     try {
       const response = await axios.get(
-        `https://webthreeworld/api/cryptocurrencies?page=${page}&limit=${rowsToShow}`
+        `http://localhost:3001/api/cryptocurrencies?page=${page}&limit=${rowsToShow}`
       );
       setCryptocurrencies(
         response.data.data.map((crypto, index) => ({

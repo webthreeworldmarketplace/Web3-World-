@@ -26,7 +26,7 @@ function New() {
   useEffect(() => {
     const fetchTrendingData = async () => {
       try {
-        const response = await axios.get("https://webthreeworld/api/trending");
+        const response = await axios.get("http://localhost:3001/api/trending");
         setTrendingData(response.data.slice(0, 3));
       } catch (error) {
         console.error("Error fetching trending data:", error);
@@ -35,7 +35,7 @@ function New() {
 
     const fetchTweets = async () => {
       try {
-        const response = await axios.get("https://webthreeworld/tweets");
+        const response = await axios.get("http://localhost:5000/tweets");
         setTweets(response.data.data);
       } catch (error) {
         console.error("Error fetching tweets:", error);
@@ -45,10 +45,10 @@ function New() {
     const fetchGainersAndLosers = async () => {
       try {
         const gainersResponse = await axios.get(
-          "https://webthreeworld/api/top-gainers"
+          "http://localhost:3001/api/top-gainers"
         );
         const losersResponse = await axios.get(
-          "https://webthreeworld/api/top-losers"
+          "http://localhost:3001/api/top-losers"
         );
 
         console.log("Gainers:", gainersResponse.data);
