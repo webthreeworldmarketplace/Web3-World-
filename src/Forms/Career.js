@@ -54,7 +54,7 @@ export default function CareerForm() {
     <form className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
       <div className="space-y-8">
         <div className="pb-8 border-b border-gray-200">
-          <h2 className="text-xl font-semibold text-gray-900 mb-1 mt-4">Career Form</h2>
+          <h2 className="text-3xl font-bold text-center text-gray-900 mb-4 mt-4">Career Form</h2>
           <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6">
             <div className="sm:col-span-1 lg:col-span-3">
               <label htmlFor="first-name" className="block text-sm font-medium mb-2 text-gray-900">

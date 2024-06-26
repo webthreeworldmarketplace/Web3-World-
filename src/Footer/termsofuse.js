@@ -4,7 +4,7 @@ const TermsOfUse = () => {
   return (
     <div className="terms-of-use bg-white text-gray-800 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
-        <h1 className="text-3xl sm:text-4xl font-bold mb-8">WebThreeWorld.com Terms of Use</h1>
+        <h1 className="text-5xl font-bold text-center text-gray-900 mb-4 -mt-2">Terms of Use</h1>
 
         <section className="mb-8">
           <h2 className="text-2xl sm:text-3xl font-bold mb-4">Last updated: 21 Jun 2024</h2>

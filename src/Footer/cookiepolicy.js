@@ -3,7 +3,7 @@ import React from 'react';
 const CookiePolicy = () => {
   return (
     <div className="cookie-policy max-w-7xl mx-auto p-4">
-      <h1 className="text-3xl md:text-4xl font-bold mb-8">Cookie Policy</h1>
+      <h1 className="text-5xl font-bold text-center text-gray-900 mb-4">Cookie Policy</h1>
 
       <section className="mb-8">
         <h2 className="text-xl md:text-2xl font-bold mb-4">What are cookies?</h2>

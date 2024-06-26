@@ -87,7 +87,7 @@ const FAQPage = () => {
   return (
     <div className="bg-white py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
-        <h1 className="text-3xl font-bold mb-8">FAQ</h1>
+        <h1 className="text-5xl font-bold text-center text-gray-900 mb-4">FAQ</h1>
 
         {/* FAQ Accordions */}
         <div className="divide-y divide-gray-200">

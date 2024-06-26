@@ -4,8 +4,8 @@ const PrivacyPolicy = () => {
   return (
     <div className="bg-gray-100 min-h-screen py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
-        <h1 className="text-3xl font-bold mb-4">Privacy Policy</h1>
-        <p className="text-gray-600 mb-8">Effective Date: June 13, 2024</p>
+        <h1 className="text-5xl font-bold text-center text-gray-900 mb-4 -mt-2">Privacy Policy</h1>
+        <p className="text-gray-600 mb-8 text-center">Effective Date: June 13, 2024</p>
 
         <div className="bg-white rounded-lg shadow-sm overflow-hidden mb-8">
           <div className="p-6">

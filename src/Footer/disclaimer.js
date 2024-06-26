@@ -4,7 +4,7 @@ const Disclaimer = () => {
   return (
       <div className="bg-gray-100 min-h-screen py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
-        <h1 className="text-3xl md:text-4xl font-bold mb-8">Disclaimer</h1>
+        <h1 className="text-5xl font-bold text-center text-gray-900 mb-4 -mt-2">Disclaimer</h1>
         {/* Non-Endorsement and Investment Disclaimer */}
         <div className="bg-white rounded-lg shadow-sm overflow-hidden mb-8">
           <div className="p-6">
