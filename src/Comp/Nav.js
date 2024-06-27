@@ -74,9 +74,9 @@ export default function Nav() {
       <style>{`
         html, body {
           overflow-x: hidden;
-  width: 100%;
-  margin: 0;
-  padding: 0;
+          width: 100%;
+          margin: 0;
+          padding: 0;
         }
         .container {
           width: 100%;
@@ -88,8 +88,8 @@ export default function Nav() {
           height: 100%;
         }
       `}</style>
-      <header className={`sticky top-0 transition-transform duration-300 ${isHeaderVisible ? 'translate-y-0' : '-translate-y-full'}`}>
-        <nav className="bg-white border-b border-gray-200 z-50 w-full ">
+      <header className={`sticky top-0 z-10 transition-transform duration-300 ${isHeaderVisible ? 'translate-y-0' : '-translate-y-full'}`}>
+        <nav className="bg-white border-b border-gray-200 z-100 w-full ">
           {/* Top section with market stats */}
           <div className="container mx-auto px-4 py-2 flex justify-between items-center text-xs text-gray-500 w-full">
             <div className="flex space-x-4">
@@ -197,8 +197,8 @@ export default function Nav() {
           <div className="border-t border-gray-200"></div>
           {/* Bottom section with navigation links */}
           <div className="container mx-auto px-4 py-2 flex justify-between items-center w-full">
-            <div className="flex items-center space-x-4">
-              <div className="flex items-center space-x-2 font-semibold text-lg">
+            <div className="flex items-center space-x-8">
+              <div className="flex items-center space-x-2 mx-4 font-semibold text-lg">
                 <Link to="/">
                   <img
                     src={Web3world}
