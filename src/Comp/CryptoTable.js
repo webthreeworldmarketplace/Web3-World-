@@ -12,6 +12,7 @@ import ai from "./Images/ai.png";
 import blockchain from "./Images/blockchain.png";
 import metaverse from "./Images/metaverse.png";
 
+
 const generateRandomHistoricalData = () => {
   const data = [];
   let baseValue = 100;

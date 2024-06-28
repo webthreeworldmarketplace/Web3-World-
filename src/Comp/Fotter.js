@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXTwitter, faDiscord, faTelegram, faLinkedin } from "@fortawesome/free-brands-svg-icons";
 import Web3world from "./Images/Web3 World.png";
+import { NavLink } from 'react-router-dom';
 
 
 
@@ -24,22 +25,42 @@ const Footer = () => {
                 <h3 className="text-sm font-semibold uppercase mb-2 mr-40">COMPANY</h3>
                 <ul className="text-gray-500 space-y-1">
                   <li>
-                    <Link to="/aboutus" className="cursor-pointer">About us</Link>
+                    <NavLink
+                        to="/aboutus"
+                        className="cursor-pointer"
+                        onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+                        activeClassName="active"
+                        exact>About us</NavLink>
                   </li>
                   <li>
-                    <Link to="/termsofuse" className="cursor-pointer">Terms of use</Link>
+                    <NavLink to="/termsofuse" className="cursor-pointer"
+                    onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+                    activeClassName="active"
+                    exact>Terms of use</NavLink>
                   </li>
                   <li>
-                    <Link to="/privacypolicy" className="cursor-pointer">Privacy Policy</Link>
+                    <NavLink to="/privacypolicy" className="cursor-pointer"
+                    onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+                    activeClassName="active"
+                    exact>Privacy Policy</NavLink>
                   </li>
                   <li>
-                    <Link to="/cookiepolicy" className="cursor-pointer">Cookie Policy</Link>
+                    <NavLink to="/cookiepolicy" className="cursor-pointer"
+                    onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+                    activeClassName="active"
+                    exact>Cookie Policy</NavLink>
                   </li>
                   <li>
-                    <Link to="/disclaimer" className="cursor-pointer">Disclaimer</Link>
+                    <NavLink to="/disclaimer" className="cursor-pointer"
+                    onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+                    activeClassName="active"
+                    exact>Disclaimer</NavLink>
                   </li>
                   <li className="cursor-pointer">
-                    <Link to="/Career" className="cursor-pointer">Careers</Link>
+                    <NavLink to="/Career" className="cursor-pointer"
+                    onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+                    activeClassName="active"
+                    exact>Careers</NavLink>
                   </li>
                   
                 </ul>
@@ -97,14 +118,26 @@ const Footer = () => {
             <div className="w-1/2 md:w-auto order-3 md:order-none pl-30 md:pl-0">
               <h3 className="text-sm font-semibold uppercase mb-2 mr-40">SUPPORT</h3>
               <ul className="text-gray-500 space-y-1">
-                <li className="cursor-pointer "><Link to="/HireBlockchainDeveloper" className="cursor-pointer">Hire Blockchain Developer</Link>
+                <li className="cursor-pointer "><NavLink to="/HireBlockchainDeveloper" className="cursor-pointer"
+                    onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+                    activeClassName="active"
+                    exact>Hire Blockchain Developer</NavLink>
                 </li>
-                <li className="cursor-pointer "><Link to="/Consulting" className="cursor-pointer">Blockchain Consulting</Link>
+                <li className="cursor-pointer "><NavLink to="/Consulting" className="cursor-pointer"
+                    onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+                    activeClassName="active"
+                    exact>Blockchain Consulting</NavLink>
                 </li>
-                <li className="cursor-pointer "><Link to="/ContactSupport" className="cursor-pointer">Contact Support</Link>
+                <li className="cursor-pointer "><NavLink to="/ContactSupport" className="cursor-pointer"
+                    onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+                    activeClassName="active"
+                    exact>Contact Support</NavLink>
                 </li>
                 <li>
-                  <Link to="/faq" className="cursor-pointer">FAQ</Link>
+                  <NavLink to="/faq" className="cursor-pointer"
+                    onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+                    activeClassName="active"
+                    exact>FAQ</NavLink>
                 </li>
               </ul>
             </div>
