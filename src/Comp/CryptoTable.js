@@ -78,7 +78,7 @@ const CryptoTable = () => {
   const fetchData = async (page = 1) => {
     try {
       const response = await axios.get(
-        `https://weblive-1.onrender.com/api/cryptocurrencies?page=${page}&limit=${rowsToShow}`
+        `https://newcrpto-4.onrender.com/api/cryptocurrencies?page=${page}&limit=${rowsToShow}`
       );
       setCryptocurrencies(
         response.data.data.map((crypto, index) => ({

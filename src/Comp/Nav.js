@@ -74,9 +74,9 @@ export default function Nav() {
       <style>{`
         html, body {
           overflow-x: hidden;
-  width: 100%;
-  margin: 0;
-  padding: 0;
+          width: 100%;
+          margin: 0;
+          padding: 0;
         }
         .container {
           width: 100%;
@@ -88,8 +88,8 @@ export default function Nav() {
           height: 100%;
         }
       `}</style>
-      <header className={`sticky top-0 transition-transform duration-300 ${isHeaderVisible ? 'translate-y-0' : '-translate-y-full'}`}>
-        <nav className="bg-white border-b border-gray-200 z-50 w-full ">
+      <header className={`sticky top-0 z-10 transition-transform duration-300 ${isHeaderVisible ? 'translate-y-0' : '-translate-y-full'}`}>
+        <nav className="bg-white border-b border-gray-200 z-100 w-full ">
           {/* Top section with market stats */}
           <div className="container mx-auto px-4 py-2 flex justify-between items-center text-xs text-gray-500 w-full">
             <div className="flex space-x-4">
@@ -197,8 +197,8 @@ export default function Nav() {
           <div className="border-t border-gray-200"></div>
           {/* Bottom section with navigation links */}
           <div className="container mx-auto px-4 py-2 flex justify-between items-center w-full">
-            <div className="flex items-center space-x-4">
-              <div className="flex items-center space-x-2 font-semibold text-lg">
+            <div className="flex items-center space-x-8">
+              <div className="flex items-center space-x-2 mx-4 font-semibold text-lg">
                 <Link to="/">
                   <img
                     src={Web3world}
@@ -209,360 +209,13 @@ export default function Nav() {
               </div>
               <div className="hidden md:flex space-x-8">
                 <Menu as="div" className="relative inline-block text-left">
-                  <div
-                    className="my-2 inline-flex w-full justify-center gap-x-1 text-md font-bold text-black cursor-pointer"
-                    onMouseEnter={() => handleMouseEnter("cryptocurrencies")}
-                  >
-                    Cryptocurrencies
-                  </div>
-                  {openDropdown === "cryptocurrencies" && (
-                    <Transition
-                      as={Fragment}
-                      show={true}
-                      enter="transition ease-out duration-100"
-                      enterFrom="transform opacity-0 scale-95"
-                      enterTo="transform opacity-100 scale-100"
-                      leave="transition ease-in duration-75"
-                      leaveFrom="transform opacity-100 scale-100"
-                      leaveTo="transform opacity-0 scale-95"
-                    >
-                      <Menu.Items
-                        className="absolute left-0 z-10 mt-2 w-96 origin-top-left bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
-                        onMouseEnter={() => handleMouseEnter("cryptocurrencies")}
-                        onMouseLeave={handleMouseLeave}
-                      >
-                        <h1 className="text-center font-bold">Coming Soon..</h1>
-                        <div className="py-2 px-4">
-                          <div className="flex space-x-8">
-                            <div className="flex-1 space-y-2">
-                              <h3 className="font-bold text-gray-600">
-                                Cryptocurrencies
-                              </h3>
-                              <Menu.Item>
-                                {({ active }) => (
-                                  <a
-                                    href="#"
-                                    className={classNames(
-                                      active
-                                        ? "bg-gray-100 text-black"
-                                        : "text-black",
-                                      "block px-2 py-1 text-sm"
-                                    )}
-                                  >
-                                    <span className="flex items-center">
-                                      <span>📊</span>
-                                      <span className="ml-1">Ranking</span>
-                                    </span>
-                                  </a>
-                                )}
-                              </Menu.Item>
-                              <Menu.Item>
-                                {({ active }) => (
-                                  <a
-                                    href="#"
-                                    className={classNames(
-                                      active
-                                        ? "bg-gray-100 text-black"
-                                        : "text-black",
-                                      "block px-2 py-1 text-sm"
-                                    )}
-                                  >
-                                    <span className="flex items-center">
-                                      <span>🔍</span>
-                                      <span className="ml-1">Categories</span>
-                                    </span>
-                                  </a>
-                                )}
-                              </Menu.Item>
-                              <Menu.Item>
-                                {({ active }) => (
-                                  <a
-                                    href="#"
-                                    className={classNames(
-                                      active
-                                        ? "bg-gray-100 text-black"
-                                        : "text-black",
-                                      "block px-2 py-1 text-sm"
-                                    )}
-                                  >
-                                    <span className="flex items-center">
-                                      <span>🌐</span>
-                                      <span className="ml-1">Global Charts</span>
-                                    </span>
-                                  </a>
-                                )}
-                              </Menu.Item>
-                              <Menu.Item>
-                                {({ active }) => (
-                                  <a
-                                    href="#"
-                                    className={classNames(
-                                      active
-                                        ? "bg-gray-100 text-black"
-                                        : "text-black",
-                                      "block px-2 py-1 text-sm"
-                                    )}
-                                  >
-                                    <span className="flex items-center">
-                                      <span>📅</span>
-                                      <span className="ml-1">
-                                        Historical Snapshots
-                                      </span>
-                                    </span>
-                                  </a>
-                                )}
-                              </Menu.Item>
-                              <Menu.Item>
-                                {({ active }) => (
-                                  <a
-                                    href="#"
-                                    className={classNames(
-                                      active
-                                        ? "bg-gray-100 text-black"
-                                        : "text-black",
-                                      "block px-2 py-1 text-sm"
-                                    )}
-                                  >
-                                    <span className="flex items-center">
-                                      <span>📈</span>
-                                      <span className="ml-1">Bitcoin ETFs</span>
-                                    </span>
-                                  </a>
-                                )}
-                              </Menu.Item>
-                            </div>
-                            <div className="bg-gray-300 w-px mx-2"></div>{" "}
-                            {/* Vertical line */}
-                            <div className="flex-1 space-y-2">
-                              <h3 className="font-bold text-gray-600">
-                                Leaderboards
-                              </h3>
-                              <Menu.Item>
-                                {({ active }) => (
-                                  <a
-                                    href="#"
-                                    className={classNames(
-                                      active
-                                        ? "bg-gray-100 text-black"
-                                        : "text-black",
-                                      "block px-2 py-1 text-sm"
-                                    )}
-                                  >
-                                    <span className="flex items-center">
-                                      <span>🔥</span>
-                                      <span className="ml-1">Trending</span>
-                                    </span>
-                                  </a>
-                                )}
-                              </Menu.Item>
-                              <Menu.Item>
-                                {({ active }) => (
-                                  <a
-                                    href="#"
-                                    className={classNames(
-                                      active
-                                        ? "bg-gray-100 text-black"
-                                        : "text-black",
-                                      "block px-2 py-1 text-sm"
-                                    )}
-                                  >
-                                    <span className="flex items-center">
-                                      <span>🆕</span>
-                                      <span className="ml-1">Trading Volume</span>
-                                    </span>
-                                  </a>
-                                )}
-                              </Menu.Item>
-                              <Menu.Item>
-                                {({ active }) => (
-                                  <a
-                                    href="#"
-                                    className={classNames(
-                                      active
-                                        ? "bg-gray-100 text-black"
-                                        : "text-black",
-                                      "block px-2 py-1 text-sm"
-                                    )}
-                                  >
-                                    <span className="flex items-center">
-                                      <span>🆕</span>
-                                      <span className="ml-1">Recently Added</span>
-                                    </span>
-                                  </a>
-                                )}
-                              </Menu.Item>
-                              <Menu.Item>
-                                {({ active }) => (
-                                  <a
-                                    href="#"
-                                    className={classNames(
-                                      active
-                                        ? "bg-gray-100 text-black"
-                                        : "text-black",
-                                      "block px-2 py-1 text-sm"
-                                    )}
-                                  >
-                                    <span className="flex items-center">
-                                      <span>📉</span>
-                                      <span className="ml-1">
-                                        Gainers & Losers
-                                      </span>
-                                    </span>
-                                  </a>
-                                )}
-                              </Menu.Item>
-                              <Menu.Item>
-                                {({ active }) => (
-                                  <a
-                                    href="#"
-                                    className={classNames(
-                                      active
-                                        ? "bg-gray-100 text-black"
-                                        : "text-black",
-                                      "block px-2 py-1 text-sm"
-                                    )}
-                                  >
-                                    <span className="flex items-center">
-                                      <span>👀</span>
-                                      <span className="ml-1">Most Visited</span>
-                                    </span>
-                                  </a>
-                                )}
-                              </Menu.Item>
-                            </div>
-                          </div>
-                          <div className="border-t border-gray-300 mt-4"></div>{" "}
-                          {/* Horizontal line */}
-                          <div className="flex space-x-8 mt-4">
-                            <div className="flex-1 space-y-2">
-                              <h3 className="font-bold text-gray-600">NFT</h3>
-                              <Menu.Item>
-                                {({ active }) => (
-                                  <a
-                                    href="#"
-                                    className={classNames(
-                                      active
-                                        ? "bg-gray-100 text-black"
-                                        : "text-black",
-                                      "block px-2 py-1 text-sm"
-                                    )}
-                                  >
-                                    <span className="flex items-center">
-                                      <span>🎨</span>
-                                      <span className="ml-1">
-                                        ALL NFT Market Cap
-                                      </span>
-                                    </span>
-                                  </a>
-                                )}
-                              </Menu.Item>
-                              <Menu.Item>
-                                {({ active }) => (
-                                  <a
-                                    href="#"
-                                    className={classNames(
-                                      active
-                                        ? "bg-gray-100 text-black"
-                                        : "text-black",
-                                      "block px-2 py-1 text-sm"
-                                    )}
-                                  >
-                                    <span className="flex items-center">
-                                      <span>🗓️</span>
-                                      <span className="ml-1">Top Collections</span>
-                                    </span>
-                                  </a>
-                                )}
-                              </Menu.Item>
-                              <Menu.Item>
-                                {({ active }) => (
-                                  <a
-                                    href="#"
-                                    className={classNames(
-                                      active
-                                        ? "bg-gray-100 text-black"
-                                        : "text-black",
-                                      "block px-2 py-1 text-sm"
-                                    )}
-                                  >
-                                    <span className="flex items-center">
-                                      <span>🗓️</span>
-                                      <span className="ml-1">
-                                        Top Marketplaces
-                                      </span>
-                                    </span>
-                                  </a>
-                                )}
-                              </Menu.Item>
-                            </div>
-                            <div className="bg-gray-300 w-px mx-2"></div>{" "}
-                            {/* Vertical line */}
-                            <div className="flex-1 space-y-2">
-                              <h3 className="font-bold text-gray-600">
-                                All Chain Network
-                              </h3>
-                              <Menu.Item>
-                                {({ active }) => (
-                                  <a
-                                    href="#"
-                                    className={classNames(
-                                      active
-                                        ? "bg-gray-100 text-black"
-                                        : "text-black",
-                                      "block px-2 py-1 text-sm"
-                                    )}
-                                  >
-                                    <span className="flex items-center">
-                                      <span>🔗</span>
-                                      <span className="ml-1">
-                                        All Chains Market Cap
-                                      </span>
-                                    </span>
-                                  </a>
-                                )}
-                              </Menu.Item>
-                              <Menu.Item>
-                                {({ active }) => (
-                                  <a
-                                    href="#"
-                                    className={classNames(
-                                      active
-                                        ? "bg-gray-100 text-black"
-                                        : "text-black",
-                                      "block px-2 py-1 text-sm"
-                                    )}
-                                  >
-                                    <span className="flex items-center">
-                                      <span>📊</span>
-                                      <span className="ml-1">Top Chains</span>
-                                    </span>
-                                  </a>
-                                )}
-                              </Menu.Item>
-                              <Menu.Item>
-                                {({ active }) => (
-                                  <a
-                                    href="#"
-                                    className={classNames(
-                                      active
-                                        ? "bg-gray-100 text-black"
-                                        : "text-black",
-                                      "block px-2 py-1 text-sm"
-                                    )}
-                                  >
-                                    <span className="flex items-center">
-                                      <span>🔥</span>
-                                      <span className="ml-1">Recently Added</span>
-                                    </span>
-                                  </a>
-                                )}
-                              </Menu.Item>
-                            </div>
-                          </div>
-                        </div>
-                      </Menu.Items>
-                    </Transition>
-                  )}
+                <div
+                     className="my-2 inline-flex w-full justify-center gap-x-1 text-md font-bold text-black cursor-pointer"
+                     onMouseEnter={() => handleMouseEnter("cryptocurrencies")}
+                   >
+                     Cryptocurrencies
+                   </div>
+                {/* TempDeleted file will be pasted here */}
                 </Menu>
                 <Menu as="div" className="relative inline-block text-left">
                   <div
@@ -571,7 +224,7 @@ export default function Nav() {
                   >
                     Exchanges
                   </div>
-                  {openDropdown === "exchanges" && (
+                  {/* {openDropdown === "exchanges" && (
                     <Transition
                       as={Fragment}
                       show={true}
@@ -648,7 +301,7 @@ export default function Nav() {
                         </div>
                       </Menu.Items>
                     </Transition>
-                  )}
+                  )} */}
                 </Menu>
                 <Menu as="div" className="relative inline-block text-left">
                   <div

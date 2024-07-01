@@ -26,9 +26,7 @@ function New() {
   useEffect(() => {
     const fetchTrendingData = async () => {
       try {
-        const response = await axios.get(
-          "https://weblive-1.onrender.com/api/trending"
-        );
+        const response = await axios.get("https://newcrpto-4.onrender.com/api/trending");
         setTrendingData(response.data.slice(0, 3));
       } catch (error) {
         console.error("Error fetching trending data:", error);
@@ -47,10 +45,10 @@ function New() {
     const fetchGainersAndLosers = async () => {
       try {
         const gainersResponse = await axios.get(
-          "https://weblive-1.onrender.com/api/top-gainers"
+          "https://newcrpto-4.onrender.com/api/top-gainers"
         );
         const losersResponse = await axios.get(
-          "https://weblive-1.onrender.com/api/top-losers"
+          "https://newcrpto-4.onrender.com/api/top-losers"
         );
 
         console.log("Gainers:", gainersResponse.data);
