@@ -4,12 +4,19 @@ const axios = require("axios");
 const cors = require("cors");
 const crypto = require("crypto");
 
+console.log(typeof crypto);
+console.log(Object.keys(crypto));
+
 const app = express();
 const port = process.env.PORT || 3001;
 const API_VERSION = "1.0.0";
 const CMC_API_KEY = process.env.CMC_API_KEY;
 
 const getTimestamp = () => new Date().getTime();
+
+function generateEtag(data) {
+  return Buffer.from(JSON.stringify(data)).toString('base64');
+}
 
 app.use(cors());
 
@@ -41,10 +48,7 @@ app.get("/api/cryptocurrencies", async (req, res) => {
     });
 
     const data = response.data;
-    const etag = crypto
-      .createHash("md5")
-      .update(JSON.stringify(data))
-      .digest("hex");
+    const etag = generateEtag(data);
 
     if (req.headers["if-none-match"] === etag) {
       return res.status(304).send(); // Not Modified
@@ -93,10 +97,7 @@ app.get("/api/trending", async (req, res) => {
 
     const topTrending = trendingData.slice(0, 10);
 
-    const etag = crypto
-      .createHash("md5")
-      .update(JSON.stringify(topTrending))
-      .digest("hex");
+    const etag = generateEtag(topTrending);
 
     if (req.headers["if-none-match"] === etag) {
       return res.status(304).send(); // Not Modified
@@ -148,10 +149,7 @@ app.get("/api/top-gainers", async (req, res) => {
       changePercent24Hr: crypto.quote.USD.percent_change_24h,
     }));
 
-    const etag = crypto
-      .createHash("md5")
-      .update(JSON.stringify(topGainers))
-      .digest("hex");
+    const etag = generateEtag(topGainers);
 
     if (req.headers["if-none-match"] === etag) {
       return res.status(304).send(); // Not Modified
@@ -200,10 +198,7 @@ app.get("/api/top-losers", async (req, res) => {
       changePercent24Hr: crypto.quote.USD.percent_change_24h,
     }));
 
-    const etag = crypto
-      .createHash("md5")
-      .update(JSON.stringify(topLosers))
-      .digest("hex");
+    const etag = generateEtag(topLosers);
 
     if (req.headers["if-none-match"] === etag) {
       return res.status(304).send(); // Not Modified
@@ -248,10 +243,7 @@ app.get("/api/cryptocurrencies/:id", async (req, res) => {
     if (crypto) {
       crypto.logo = `https://s2.coinmarketcap.com/static/img/coins/64x64/${cryptoId}.png`;
 
-      const etag = crypto
-        .createHash("md5")
-        .update(JSON.stringify(crypto))
-        .digest("hex");
+      const etag = generateEtag(crypto);
 
       if (req.headers["if-none-match"] === etag) {
         return res.status(304).send(); // Not Modified
@@ -309,10 +301,7 @@ app.get("/api/price-performance/:id", async (req, res) => {
       };
       console.log("Price Performance Data:", pricePerformance);
 
-      const etag = crypto
-        .createHash("md5")
-        .update(JSON.stringify(pricePerformance))
-        .digest("hex");
+      const etag = generateEtag(pricePerformance);
 
       if (req.headers["if-none-match"] === etag) {
         return res.status(304).send(); // Not Modified
