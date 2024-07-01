@@ -1,13 +1,23 @@
 require("dotenv").config();
-
 const express = require("express");
 const axios = require("axios");
 const cors = require("cors");
+const crypto = require("crypto");
 
 const app = express();
 const port = process.env.PORT || 3001;
+const API_VERSION = "1.0.0";
+const CMC_API_KEY = process.env.CMC_API_KEY;
+
+const getTimestamp = () => new Date().getTime();
 
 app.use(cors());
+
+// Add cache control headers to all responses
+app.use((req, res, next) => {
+  res.set("Cache-Control", "no-store, no-cache, must-revalidate, private");
+  next();
+});
 
 // Fetch latest cryptocurrency data
 app.get("/api/cryptocurrencies", async (req, res) => {
@@ -16,7 +26,7 @@ app.get("/api/cryptocurrencies", async (req, res) => {
       "https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest",
       {
         headers: {
-          "X-CMC_PRO_API_KEY": process.env.CMC_API_KEY,
+          "X-CMC_PRO_API_KEY": CMC_API_KEY,
         },
         params: {
           start: 1,
@@ -30,10 +40,29 @@ app.get("/api/cryptocurrencies", async (req, res) => {
       crypto.logo = `https://s2.coinmarketcap.com/static/img/coins/64x64/${crypto.id}.png`;
     });
 
-    res.json(response.data);
+    const data = response.data;
+    const etag = crypto
+      .createHash("md5")
+      .update(JSON.stringify(data))
+      .digest("hex");
+
+    if (req.headers["if-none-match"] === etag) {
+      return res.status(304).send(); // Not Modified
+    }
+
+    res.set("ETag", etag);
+    res.json({
+      version: API_VERSION,
+      timestamp: getTimestamp(),
+      data: data,
+    });
   } catch (error) {
     console.error("Error fetching data from CoinMarketCap API:", error.message);
-    res.status(500).json({ error: "Failed to fetch data" });
+    res.status(500).json({
+      error: "Failed to fetch data",
+      message: error.message,
+      timestamp: getTimestamp(),
+    });
   }
 });
 
@@ -44,7 +73,7 @@ app.get("/api/trending", async (req, res) => {
       "https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest",
       {
         headers: {
-          "X-CMC_PRO_API_KEY": "2778db1d-7cc9-4e1c-a6c6-ec94b0af1573",
+          "X-CMC_PRO_API_KEY": CMC_API_KEY,
         },
         params: {
           start: 1,
@@ -64,13 +93,31 @@ app.get("/api/trending", async (req, res) => {
 
     const topTrending = trendingData.slice(0, 10);
 
-    res.json(topTrending);
+    const etag = crypto
+      .createHash("md5")
+      .update(JSON.stringify(topTrending))
+      .digest("hex");
+
+    if (req.headers["if-none-match"] === etag) {
+      return res.status(304).send(); // Not Modified
+    }
+
+    res.set("ETag", etag);
+    res.json({
+      version: API_VERSION,
+      timestamp: getTimestamp(),
+      data: topTrending,
+    });
   } catch (error) {
     console.error(
       "Error fetching trending data from CoinMarketCap API:",
       error.message
     );
-    res.status(500).json({ error: "Failed to fetch trending data" });
+    res.status(500).json({
+      error: "Failed to fetch trending data",
+      message: error.message,
+      timestamp: getTimestamp(),
+    });
   }
 });
 
@@ -81,7 +128,7 @@ app.get("/api/top-gainers", async (req, res) => {
       "https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest",
       {
         headers: {
-          "X-CMC_PRO_API_KEY": "2778db1d-7cc9-4e1c-a6c6-ec94b0af1573",
+          "X-CMC_PRO_API_KEY": CMC_API_KEY,
         },
         params: {
           start: 1,
@@ -101,10 +148,28 @@ app.get("/api/top-gainers", async (req, res) => {
       changePercent24Hr: crypto.quote.USD.percent_change_24h,
     }));
 
-    res.json(topGainers);
+    const etag = crypto
+      .createHash("md5")
+      .update(JSON.stringify(topGainers))
+      .digest("hex");
+
+    if (req.headers["if-none-match"] === etag) {
+      return res.status(304).send(); // Not Modified
+    }
+
+    res.set("ETag", etag);
+    res.json({
+      version: API_VERSION,
+      timestamp: getTimestamp(),
+      data: topGainers,
+    });
   } catch (error) {
     console.error("Error fetching top gainers:", error.message);
-    res.status(500).json({ error: "Failed to fetch top gainers" });
+    res.status(500).json({
+      error: "Failed to fetch top gainers",
+      message: error.message,
+      timestamp: getTimestamp(),
+    });
   }
 });
 
@@ -115,7 +180,7 @@ app.get("/api/top-losers", async (req, res) => {
       "https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest",
       {
         headers: {
-          "X-CMC_PRO_API_KEY": "2778db1d-7cc9-4e1c-a6c6-ec94b0af1573",
+          "X-CMC_PRO_API_KEY": CMC_API_KEY,
         },
         params: {
           start: 1,
@@ -135,10 +200,28 @@ app.get("/api/top-losers", async (req, res) => {
       changePercent24Hr: crypto.quote.USD.percent_change_24h,
     }));
 
-    res.json(topLosers);
+    const etag = crypto
+      .createHash("md5")
+      .update(JSON.stringify(topLosers))
+      .digest("hex");
+
+    if (req.headers["if-none-match"] === etag) {
+      return res.status(304).send(); // Not Modified
+    }
+
+    res.set("ETag", etag);
+    res.json({
+      version: API_VERSION,
+      timestamp: getTimestamp(),
+      data: topLosers,
+    });
   } catch (error) {
     console.error("Error fetching top losers:", error.message);
-    res.status(500).json({ error: "Failed to fetch top losers" });
+    res.status(500).json({
+      error: "Failed to fetch top losers",
+      message: error.message,
+      timestamp: getTimestamp(),
+    });
   }
 });
 
@@ -150,7 +233,7 @@ app.get("/api/cryptocurrencies/:id", async (req, res) => {
       "https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest",
       {
         headers: {
-          "X-CMC_PRO_API_KEY": "2778db1d-7cc9-4e1c-a6c6-ec94b0af1573",
+          "X-CMC_PRO_API_KEY": CMC_API_KEY,
         },
         params: {
           start: 1,
@@ -164,20 +247,44 @@ app.get("/api/cryptocurrencies/:id", async (req, res) => {
 
     if (crypto) {
       crypto.logo = `https://s2.coinmarketcap.com/static/img/coins/64x64/${cryptoId}.png`;
-      res.json(crypto);
+
+      const etag = crypto
+        .createHash("md5")
+        .update(JSON.stringify(crypto))
+        .digest("hex");
+
+      if (req.headers["if-none-match"] === etag) {
+        return res.status(304).send(); // Not Modified
+      }
+
+      res.set("ETag", etag);
+      res.json({
+        version: API_VERSION,
+        timestamp: getTimestamp(),
+        data: crypto,
+      });
     } else {
-      res.status(404).json({ error: "Cryptocurrency not found" });
+      res
+        .status(404)
+        .json({ error: "Cryptocurrency not found", timestamp: getTimestamp() });
     }
   } catch (error) {
     console.error("Error fetching cryptocurrency details:", error.message);
-    res.status(500).json({ error: "Failed to fetch cryptocurrency details" });
+    res.status(500).json({
+      error: "Failed to fetch cryptocurrency details",
+      message: error.message,
+      timestamp: getTimestamp(),
+    });
   }
 });
+
 app.get("/api/price-performance/:id", async (req, res) => {
   const cryptoId = req.params.id.toLowerCase();
 
   if (!cryptoId) {
-    return res.status(400).json({ error: "Invalid cryptocurrency ID" });
+    return res
+      .status(400)
+      .json({ error: "Invalid cryptocurrency ID", timestamp: getTimestamp() });
   }
 
   try {
@@ -201,9 +308,26 @@ app.get("/api/price-performance/:id", async (req, res) => {
           : "N/A",
       };
       console.log("Price Performance Data:", pricePerformance);
-      res.json(pricePerformance);
+
+      const etag = crypto
+        .createHash("md5")
+        .update(JSON.stringify(pricePerformance))
+        .digest("hex");
+
+      if (req.headers["if-none-match"] === etag) {
+        return res.status(304).send(); // Not Modified
+      }
+
+      res.set("ETag", etag);
+      res.json({
+        version: API_VERSION,
+        timestamp: getTimestamp(),
+        data: pricePerformance,
+      });
     } else {
-      res.status(404).json({ error: "Cryptocurrency not found" });
+      res
+        .status(404)
+        .json({ error: "Cryptocurrency not found", timestamp: getTimestamp() });
     }
   } catch (error) {
     console.error("Error fetching price performance data:", error.message);
@@ -216,11 +340,34 @@ app.get("/api/price-performance/:id", async (req, res) => {
     } else {
       console.error("Error details:", error.message);
     }
-    res.status(500).json({ error: "Failed to fetch price performance data" });
+    res.status(500).json({
+      error: "Failed to fetch price performance data",
+      message: error.message,
+      timestamp: getTimestamp(),
+    });
   }
+});
+
+// Add a simple endpoint to check API freshness
+app.get("/api/fresh", (req, res) => {
+  res.json({
+    version: API_VERSION,
+    timestamp: getTimestamp(),
+    message: "If you see this message, you're getting fresh data!",
+  });
+});
+
+// Error handling middleware
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).json({
+    error: "An error occurred",
+    message: err.message,
+    timestamp: getTimestamp(),
+    path: req.path,
+  });
 });
 
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
 });
-("lk");
