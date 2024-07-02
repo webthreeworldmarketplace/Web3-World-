@@ -12,20 +12,20 @@ const CMC_API_KEY = process.env.CMC_API_KEY;
 const getTimestamp = () => new Date().getTime();
 
 // Increase payload size limit
-app.use(express.json({ limit: '2mb' }));
-app.use(express.urlencoded({ extended: true, limit: '2mb' }));
+app.use(express.json({ limit: "2mb" }));
+app.use(express.urlencoded({ extended: true, limit: "2mb" }));
 
 // CORS configuration
 const corsOptions = {
-  origin: ['https://webthreeworld.com', 'http://localhost:3000'],
-  optionsSuccessStatus: 200
+  origin: ["https://webthreeworld.com", "http://localhost:3000"],
+  optionsSuccessStatus: 200,
 };
 app.use(cors(corsOptions));
 
 // Rate limiting
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 100 // limit each IP to 100 requests per windowMs
+  max: 100, // limit each IP to 100 requests per windowMs
 });
 app.use(limiter);
 
@@ -38,13 +38,19 @@ app.use((req, res, next) => {
 // Helper function for CoinMarketCap API calls
 async function fetchFromCMC(endpoint, params = {}) {
   try {
-    const response = await axios.get(`https://pro-api.coinmarketcap.com/v1/${endpoint}`, {
-      headers: { "X-CMC_PRO_API_KEY": CMC_API_KEY },
-      params: { ...params, convert: "USD" }
-    });
+    const response = await axios.get(
+      `https://pro-api.coinmarketcap.com/v1/${endpoint}`,
+      {
+        headers: { "X-CMC_PRO_API_KEY": CMC_API_KEY },
+        params: { ...params, convert: "USD" },
+      }
+    );
     return response.data;
   } catch (error) {
-    console.error(`Error fetching data from CoinMarketCap API (${endpoint}):`, error);
+    console.error(
+      `Error fetching data from CoinMarketCap API (${endpoint}):`,
+      error
+    );
     throw error;
   }
 }
@@ -55,7 +61,7 @@ app.get("/api/cryptocurrencies", async (req, res) => {
       "http://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest",
       {
         headers: {
-          "X-CMC_PRO_API_KEY": "2778db1d-7cc9-4e1c-a6c6-ec94b0af1573",
+          "X-CMC_PRO_API_KEY": CMC_API_KEY,
         },
         params: {
           start: 1,
@@ -83,7 +89,7 @@ app.get("/api/trending", async (req, res) => {
       "https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest",
       {
         headers: {
-          "X-CMC_PRO_API_KEY": "2778db1d-7cc9-4e1c-a6c6-ec94b0af1573",
+          "X-CMC_PRO_API_KEY": CMC_API_KEY,
         },
         params: {
           start: 1,
@@ -120,7 +126,7 @@ app.get("/api/top-gainers", async (req, res) => {
       "https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest",
       {
         headers: {
-          "X-CMC_PRO_API_KEY": "2778db1d-7cc9-4e1c-a6c6-ec94b0af1573",
+          "X-CMC_PRO_API_KEY": CMC_API_KEY,
         },
         params: {
           start: 1,
@@ -154,7 +160,7 @@ app.get("/api/top-losers", async (req, res) => {
       "https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest",
       {
         headers: {
-          "X-CMC_PRO_API_KEY": "2778db1d-7cc9-4e1c-a6c6-ec94b0af1573",
+          "X-CMC_PRO_API_KEY": CMC_API_KEY,
         },
         params: {
           start: 1,
@@ -185,14 +191,23 @@ app.get("/api/top-losers", async (req, res) => {
 app.get("/api/cryptocurrencies/:id", async (req, res) => {
   const cryptoId = req.params.id;
   try {
-    const data = await fetchFromCMC("cryptocurrency/listings/latest", { start: 1, limit: 100 });
-    const crypto = data.data.find(c => c.id == cryptoId);
-    
+    const data = await fetchFromCMC("cryptocurrency/listings/latest", {
+      start: 1,
+      limit: 100,
+    });
+    const crypto = data.data.find((c) => c.id == cryptoId);
+
     if (crypto) {
       crypto.logo = `https://s2.coinmarketcap.com/static/img/coins/64x64/${cryptoId}.png`;
-      res.json({ version: API_VERSION, timestamp: getTimestamp(), data: crypto });
+      res.json({
+        version: API_VERSION,
+        timestamp: getTimestamp(),
+        data: crypto,
+      });
     } else {
-      res.status(404).json({ error: "Cryptocurrency not found", timestamp: getTimestamp() });
+      res
+        .status(404)
+        .json({ error: "Cryptocurrency not found", timestamp: getTimestamp() });
     }
   } catch (error) {
     res.status(500).json({
