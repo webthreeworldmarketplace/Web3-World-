@@ -17,7 +17,7 @@ app.use(express.urlencoded({ extended: true, limit: '2mb' }));
 
 // CORS configuration
 const corsOptions = {
-  origin: process.env.FRONTEND_URL || 'http://localhost:3000',
+  origin: ['https://webthreeworld.com', 'http://localhost:3000'],
   optionsSuccessStatus: 200
 };
 app.use(cors(corsOptions));
@@ -52,12 +52,23 @@ async function fetchFromCMC(endpoint, params = {}) {
 // Fetch latest cryptocurrency data
 app.get("/api/cryptocurrencies", async (req, res) => {
   try {
-    const data = await fetchFromCMC("cryptocurrency/listings/latest", { start: 1, limit: 100 });
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 100;
+    const start = (page - 1) * limit + 1;
+
+    const data = await fetchFromCMC("cryptocurrency/listings/latest", { start, limit });
     data.data.forEach(crypto => {
       crypto.logo = `https://s2.coinmarketcap.com/static/img/coins/64x64/${crypto.id}.png`;
     });
     
-    res.json({ version: API_VERSION, timestamp: getTimestamp(), data });
+    res.json({
+      version: API_VERSION,
+      timestamp: getTimestamp(),
+      data: data.data,
+      page,
+      limit,
+      total: data.status.total_count
+    });
   } catch (error) {
     res.status(500).json({
       error: "Failed to fetch data",
