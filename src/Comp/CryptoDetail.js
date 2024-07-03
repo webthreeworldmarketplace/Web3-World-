@@ -26,14 +26,15 @@ const CryptoDetail = () => {
     const fetchCryptoDetail = async () => {
       try {
         const response = await axios.get(
-          `https://newcrpto-2.onrender.com/api/cryptocurrencies/${id}`
+          `http://localhost:3001/api/cryptocurrencies/${id}`
         );
         setCryptoDetail(response.data);
         setUsdAmount(response.data.quote.USD.price); // Initialize the USD amount
         console.log("CryptoDetail data:", response.data);
 
         // Fetch price performance data using the slug or name
-        const slugOrName = response.data.slug || response.data.name.toLowerCase();
+        const slugOrName =
+          response.data.slug || response.data.name.toLowerCase();
         fetchPricePerformance(slugOrName);
       } catch (error) {
         setError(error.response ? error.response.data : "An error occurred");
@@ -46,7 +47,7 @@ const CryptoDetail = () => {
   const fetchPricePerformance = async (slugOrName) => {
     try {
       const response = await axios.get(
-        `https://newcrpto-2.onrender.com/api/price-performance/${slugOrName}`
+        `http://localhost:3001/api/price-performance/${slugOrName}`
       );
       setPricePerformance(response.data);
     } catch (error) {
@@ -69,7 +70,10 @@ const CryptoDetail = () => {
       for (let section of sections) {
         if (section.ref.current) {
           const { offsetTop, offsetHeight } = section.ref.current;
-          if (offsetTop <= scrollPosition && offsetTop + offsetHeight > scrollPosition) {
+          if (
+            offsetTop <= scrollPosition &&
+            offsetTop + offsetHeight > scrollPosition
+          ) {
             setActiveSection(section.name);
             break;
           }
@@ -112,14 +116,18 @@ const CryptoDetail = () => {
     setShowAllTags((prevShowAllTags) => !prevShowAllTags);
   };
 
-  const displayedTags = cryptoDetail.tags ? (showAllTags ? cryptoDetail.tags : cryptoDetail.tags.slice(0, 3)) : [];
+  const displayedTags = cryptoDetail.tags
+    ? showAllTags
+      ? cryptoDetail.tags
+      : cryptoDetail.tags.slice(0, 3)
+    : [];
 
   const chainExplorers = cryptoDetail.chain_explorers || [
     "https://blockchain.info",
     "https://live.blockcypher.com",
     "https://blockchair.com",
     "https://explorer.viabtc.com",
-    "https://www.okx.com"
+    "https://www.okx.com",
   ];
 
   const toggleDropdown = () => {
@@ -154,7 +162,11 @@ const CryptoDetail = () => {
             ${USD.price ? USD.price.toFixed(2) : "N/A"}
             <span className="text-lg text-green-500">
               {" "}
-              ({USD.percent_change_24h ? USD.percent_change_24h.toFixed(2) : "N/A"}%)
+              (
+              {USD.percent_change_24h
+                ? USD.percent_change_24h.toFixed(2)
+                : "N/A"}
+              %)
             </span>
           </div>
           <div className="text-sm text-gray-600">
@@ -167,31 +179,59 @@ const CryptoDetail = () => {
         <div className="mt-6 space-y-4">
           <div className="flex justify-between text-gray-800">
             <span>Market Cap:</span>
-            <span>${USD.market_cap ? USD.market_cap.toLocaleString() : "N/A"}</span>
+            <span>
+              ${USD.market_cap ? USD.market_cap.toLocaleString() : "N/A"}
+            </span>
           </div>
           <div className="flex justify-between text-gray-800">
             <span>Volume (24h):</span>
-            <span>${USD.volume_24h ? USD.volume_24h.toLocaleString() : "N/A"}</span>
+            <span>
+              ${USD.volume_24h ? USD.volume_24h.toLocaleString() : "N/A"}
+            </span>
           </div>
           <div className="flex justify-between text-gray-800">
             <span>Volume/Market Cap (24h):</span>
-            <span>{USD.volume_24h && USD.market_cap ? (USD.volume_24h / USD.market_cap).toFixed(2) : "N/A"}</span>
+            <span>
+              {USD.volume_24h && USD.market_cap
+                ? (USD.volume_24h / USD.market_cap).toFixed(2)
+                : "N/A"}
+            </span>
           </div>
           <div className="flex justify-between text-gray-800">
             <span>Circulating Supply:</span>
-            <span>{cryptoDetail.circulating_supply ? cryptoDetail.circulating_supply.toLocaleString() : "N/A"} {cryptoDetail.symbol}</span>
+            <span>
+              {cryptoDetail.circulating_supply
+                ? cryptoDetail.circulating_supply.toLocaleString()
+                : "N/A"}{" "}
+              {cryptoDetail.symbol}
+            </span>
           </div>
           <div className="flex justify-between text-gray-800">
             <span>Total Supply:</span>
-            <span>{cryptoDetail.total_supply ? cryptoDetail.total_supply.toLocaleString() : "N/A"} {cryptoDetail.symbol}</span>
+            <span>
+              {cryptoDetail.total_supply
+                ? cryptoDetail.total_supply.toLocaleString()
+                : "N/A"}{" "}
+              {cryptoDetail.symbol}
+            </span>
           </div>
           <div className="flex justify-between text-gray-800">
             <span>Max Supply:</span>
-            <span>{cryptoDetail.max_supply ? cryptoDetail.max_supply.toLocaleString() : "N/A"} {cryptoDetail.symbol}</span>
+            <span>
+              {cryptoDetail.max_supply
+                ? cryptoDetail.max_supply.toLocaleString()
+                : "N/A"}{" "}
+              {cryptoDetail.symbol}
+            </span>
           </div>
           <div className="flex justify-between text-gray-800">
             <span>Fully Diluted Market Cap:</span>
-            <span>${USD.price && cryptoDetail.max_supply ? (USD.price * cryptoDetail.max_supply).toLocaleString() : "N/A"}</span>
+            <span>
+              $
+              {USD.price && cryptoDetail.max_supply
+                ? (USD.price * cryptoDetail.max_supply).toLocaleString()
+                : "N/A"}
+            </span>
           </div>
         </div>
         <div className="mt-6">
@@ -203,11 +243,16 @@ const CryptoDetail = () => {
             >
               1
             </span>
-            <span className="px-3 py-2 bg-gray-200 text-gray-800 rounded-md cursor-pointer" onClick={() => copyToClipboard("1")}>
+            <span
+              className="px-3 py-2 bg-gray-200 text-gray-800 rounded-md cursor-pointer"
+              onClick={() => copyToClipboard("1")}
+            >
               📋
             </span>
           </div>
-          {copyMessage && <div className="text-green-500 mt-2">{copyMessage}</div>}
+          {copyMessage && (
+            <div className="text-green-500 mt-2">{copyMessage}</div>
+          )}
         </div>
         <div className="mt-8">
           <h4 className="text-lg font-semibold">Tags</h4>
@@ -215,7 +260,12 @@ const CryptoDetail = () => {
             {cryptoDetail.tags ? (
               <>
                 {displayedTags.map((tag, index) => (
-                  <span key={index} className="px-3 py-1 bg-blue-200 text-blue-800 rounded-md">{tag}</span>
+                  <span
+                    key={index}
+                    className="px-3 py-1 bg-blue-200 text-blue-800 rounded-md"
+                  >
+                    {tag}
+                  </span>
                 ))}
                 {cryptoDetail.tags.length > 3 && (
                   <button
@@ -288,7 +338,9 @@ const CryptoDetail = () => {
           </div>
         </div>
         <div className="mt-8">
-          <h4 className="text-lg font-semibold">{cryptoDetail.name} to USD Converter</h4>
+          <h4 className="text-lg font-semibold">
+            {cryptoDetail.name} to USD Converter
+          </h4>
           <div className="flex items-center mt-2">
             <input
               type="number"
@@ -303,7 +355,7 @@ const CryptoDetail = () => {
             ${usdAmount ? usdAmount.toFixed(2) : "N/A"} USD
           </div>
         </div>
-        <br/>
+        <br />
         <h1 className="font-bold">Price Performance</h1>
         {pricePerformance && (
           <div className="mt-4 space-y-4">
@@ -325,11 +377,15 @@ const CryptoDetail = () => {
             </div>
             <div className="flex justify-between text-gray-800">
               <span>Supply:</span>
-              <span>{pricePerformance.supply} {cryptoDetail.symbol}</span>
+              <span>
+                {pricePerformance.supply} {cryptoDetail.symbol}
+              </span>
             </div>
             <div className="flex justify-between text-gray-800">
               <span>Max Supply:</span>
-              <span>{pricePerformance.maxSupply} {cryptoDetail.symbol}</span>
+              <span>
+                {pricePerformance.maxSupply} {cryptoDetail.symbol}
+              </span>
             </div>
           </div>
         )}
@@ -338,9 +394,36 @@ const CryptoDetail = () => {
         <nav className="bg-white shadow-md mb-6 sticky top-0 z-10">
           <div className="container mx-auto px-4">
             <div className="flex space-x-8">
-              <a href="#chart" className={`py-4 px-2 ${activeSection === "chart" ? "border-b-2 border-blue-500 text-blue-500" : ""}`}>Chart</a>
-              <a href="#news" className={`py-4 px-2 ${activeSection === "news" ? "border-b-2 border-blue-500 text-blue-500" : ""}`}>News</a>
-              <a href="#about" className={`py-4 px-2 ${activeSection === "about" ? "border-b-2 border-blue-500 text-blue-500" : ""}`}>About</a>
+              <a
+                href="#chart"
+                className={`py-4 px-2 ${
+                  activeSection === "chart"
+                    ? "border-b-2 border-blue-500 text-blue-500"
+                    : ""
+                }`}
+              >
+                Chart
+              </a>
+              <a
+                href="#news"
+                className={`py-4 px-2 ${
+                  activeSection === "news"
+                    ? "border-b-2 border-blue-500 text-blue-500"
+                    : ""
+                }`}
+              >
+                News
+              </a>
+              <a
+                href="#about"
+                className={`py-4 px-2 ${
+                  activeSection === "about"
+                    ? "border-b-2 border-blue-500 text-blue-500"
+                    : ""
+                }`}
+              >
+                About
+              </a>
             </div>
           </div>
         </nav>
@@ -351,7 +434,9 @@ const CryptoDetail = () => {
           {/* News Component */}
         </div>
         <div id="about" ref={aboutRef} className="pt-12">
-          <CryptoAbout selectedCrypto={cryptoDetail.coingecko_id || cryptoDetail.slug} />
+          <CryptoAbout
+            selectedCrypto={cryptoDetail.coingecko_id || cryptoDetail.slug}
+          />
         </div>
         <div id="analytics" ref={analyticsRef} className="pt-12">
           {/* Analytics Component */}

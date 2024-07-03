@@ -26,8 +26,12 @@ function New() {
   useEffect(() => {
     const fetchTrendingData = async () => {
       try {
-        const response = await axios.get("https://newcrpto-4.onrender.com/api/trending");
-        setTrendingData(response.data.slice(0, 3));
+        const response = await axios.get("http://localhost:3001/api/trending");
+        if (response.data && Array.isArray(response.data.data)) {
+          setTrendingData(response.data.data.slice(0, 3));
+        } else {
+          console.error("Invalid data format returned from API");
+        }
       } catch (error) {
         console.error("Error fetching trending data:", error);
       }
@@ -45,17 +49,17 @@ function New() {
     const fetchGainersAndLosers = async () => {
       try {
         const gainersResponse = await axios.get(
-          "https://newcrpto-4.onrender.com/api/top-gainers"
+          "http://localhost:3001/api/top-gainers"
         );
         const losersResponse = await axios.get(
-          "https://newcrpto-4.onrender.com/api/top-losers"
+          "http://localhost:3001/api/top-losers"
         );
 
-        console.log("Gainers:", gainersResponse.data);
-        console.log("Losers:", losersResponse.data);
+        console.log("Gainers:", gainersResponse.data.data);
+        console.log("Losers:", losersResponse.data.data);
 
-        setGainers(gainersResponse.data);
-        setLosers(losersResponse.data);
+        setGainers(gainersResponse.data.data);
+        setLosers(losersResponse.data.data);
       } catch (error) {
         console.error("Error fetching gainers/losers data:", error);
       }
@@ -127,30 +131,35 @@ function New() {
         </div>
       );
     } else if (slide.title === "Top Gainers") {
+      // Render top gainers
       return (
         <div className="p-4 border border-gray-300 rounded-lg shadow-lg bg-white h-full flex flex-col justify-between">
           <div>
             <h4 className="font-bold text-lg mb-3 mt-2">Top Gainers</h4>
-            <ul>
-              {gainers.map((crypto, index) => (
-                <li
-                  key={crypto.id}
-                  className="flex justify-between items-center mb-4 text-sm"
-                >
-                  <span className="flex items-center text-sm">
-                    <img
-                      src={crypto.logo}
-                      alt={crypto.name}
-                      className="w-6 h-6 mr-2 text-sm"
-                    />
-                    {index + 1}. {crypto.name} ({crypto.symbol})
-                  </span>
-                  <span className="text-green-600 text-sm">
-                    {parseFloat(crypto.changePercent24Hr).toFixed(2)}%
-                  </span>
-                </li>
-              ))}
-            </ul>
+            {Array.isArray(losers) && gainers.length > 0 ? (
+              <ul>
+                {gainers.map((crypto, index) => (
+                  <li
+                    key={crypto.id}
+                    className="flex justify-between items-center mb-4 text-lg"
+                  >
+                    <span className="flex items-center text-lg">
+                      <img
+                        src={crypto.logo}
+                        alt={crypto.name}
+                        className="w-6 h-6 mr-2 text-lg"
+                      />
+                      {index + 1}. {crypto.name} ({crypto.symbol})
+                    </span>
+                    <span className="text-green-600 text-lg">
+                      {parseFloat(crypto.changePercent24Hr).toFixed(2)}%
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <p>Loading gainers data...</p>
+            )}
           </div>
         </div>
       );
@@ -159,26 +168,30 @@ function New() {
         <div className="p-4 border border-gray-300 rounded-lg shadow-lg bg-white h-full flex flex-col justify-between">
           <div>
             <h4 className="font-bold text-lg mb-3 mt-2">Top Losers</h4>
-            <ul>
-              {losers.map((crypto, index) => (
-                <li
-                  key={crypto.id}
-                  className="flex justify-between items-center mb-4 text-lg"
-                >
-                  <span className="flex items-center text-lg">
-                    <img
-                      src={crypto.logo}
-                      alt={crypto.name}
-                      className="w-6 h-6 mr-2 text-lg"
-                    />
-                    {index + 1}. {crypto.name} ({crypto.symbol})
-                  </span>
-                  <span className="text-red-600 text-lg">
-                    {parseFloat(crypto.changePercent24Hr).toFixed(2)}%
-                  </span>
-                </li>
-              ))}
-            </ul>
+            {Array.isArray(losers) && losers.length > 0 ? (
+              <ul>
+                {losers.map((crypto, index) => (
+                  <li
+                    key={crypto.id}
+                    className="flex justify-between items-center mb-4 text-lg"
+                  >
+                    <span className="flex items-center text-lg">
+                      <img
+                        src={crypto.logo}
+                        alt={crypto.name}
+                        className="w-6 h-6 mr-2 text-lg"
+                      />
+                      {index + 1}. {crypto.name} ({crypto.symbol})
+                    </span>
+                    <span className="text-red-600 text-lg">
+                      {parseFloat(crypto.changePercent24Hr).toFixed(2)}%
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <p>Loading losers data...</p>
+            )}
           </div>
         </div>
       );

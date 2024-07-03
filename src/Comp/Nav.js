@@ -1,10 +1,19 @@
 import React, { Fragment, useState, useEffect } from "react";
 import { Menu, Transition } from "@headlessui/react";
-import { ChevronDownIcon, MagnifyingGlassIcon, Bars3Icon } from "@heroicons/react/20/solid";
+import {
+  ChevronDownIcon,
+  MagnifyingGlassIcon,
+  Bars3Icon,
+} from "@heroicons/react/20/solid";
 import Web3world from "./Images/Web3 World.png";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faXTwitter, faDiscord, faTelegram, faLinkedin } from "@fortawesome/free-brands-svg-icons";
+import {
+  faXTwitter,
+  faDiscord,
+  faTelegram,
+  faLinkedin,
+} from "@fortawesome/free-brands-svg-icons";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -50,8 +59,8 @@ export default function Nav() {
       lastScrollY = currentScrollY;
     };
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   const openCurrencyModal = () => setCurrencyModalOpen(true);
@@ -88,7 +97,11 @@ export default function Nav() {
           height: 100%;
         }
       `}</style>
-      <header className={`sticky top-0 z-10 transition-transform duration-300 ${isHeaderVisible ? 'translate-y-0' : '-translate-y-full'}`}>
+      <header
+        className={`sticky top-0 z-10 transition-transform duration-300 ${
+          isHeaderVisible ? "translate-y-0" : "-translate-y-full"
+        }`}
+      >
         <nav className="bg-white border-b border-gray-200 z-100 w-full ">
           {/* Top section with market stats */}
           <div className="container mx-auto px-4 py-2 flex justify-between items-center text-xs text-gray-500 w-full">
@@ -111,7 +124,9 @@ export default function Nav() {
                     {stat.label}:{" "}
                     <span className="text-blue-600 text-xs">{stat.value}</span>{" "}
                     {stat.change && (
-                      <span className="text-red-600 text-xs">{stat.change}</span>
+                      <span className="text-red-600 text-xs">
+                        {stat.change}
+                      </span>
                     )}
                   </span>
                 ))
@@ -209,13 +224,13 @@ export default function Nav() {
               </div>
               <div className="hidden md:flex space-x-8">
                 <Menu as="div" className="relative inline-block text-left">
-                <div
-                     className="my-2 inline-flex w-full justify-center gap-x-1 text-md font-bold text-black cursor-pointer"
-                     onMouseEnter={() => handleMouseEnter("cryptocurrencies")}
-                   >
-                     Cryptocurrencies
-                   </div>
-                {/* TempDeleted file will be pasted here */}
+                  <div
+                    className="my-2 inline-flex w-full justify-center gap-x-1 text-md font-bold text-black cursor-pointer"
+                    onMouseEnter={() => handleMouseEnter("cryptocurrencies")}
+                  >
+                    Cryptocurrencies
+                  </div>
+                  {/* TempDeleted file will be pasted here */}
                 </Menu>
                 <Menu as="div" className="relative inline-block text-left">
                   <div
@@ -328,7 +343,9 @@ export default function Nav() {
                       >
                         <div className="py-2 px-4">
                           <div className="space-y-2">
-                            <h3 className="font-bold text-gray-600 hidden md:block">Social</h3>
+                            <h3 className="font-bold text-gray-600 hidden md:block">
+                              Social
+                            </h3>
                             <Menu.Item>
                               {({ active }) => (
                                 <a
@@ -337,7 +354,11 @@ export default function Nav() {
                                   rel="noopener noreferrer"
                                   className="flex items-center hidden md:flex"
                                 >
-                                  <FontAwesomeIcon icon={faXTwitter} size="2x" className="ml-1" />
+                                  <FontAwesomeIcon
+                                    icon={faXTwitter}
+                                    size="2x"
+                                    className="ml-1"
+                                  />
                                   <span
                                     style={{
                                       marginLeft: "17px",
@@ -358,7 +379,12 @@ export default function Nav() {
                               className="flex items-center"
                             >
                               <FontAwesomeIcon icon={faDiscord} size="2x" />
-                              <span style={{ marginLeft: "10px", lineHeight: "2.25" }}>
+                              <span
+                                style={{
+                                  marginLeft: "10px",
+                                  lineHeight: "2.25",
+                                }}
+                              >
                                 Discord
                               </span>
                             </a>
@@ -369,8 +395,17 @@ export default function Nav() {
                               rel="noopener noreferrer"
                               className="flex items-center"
                             >
-                              <FontAwesomeIcon icon={faTelegram} size="2x" className="ml-1" />
-                              <span style={{ marginLeft: "17px", lineHeight: "1.x" }}>
+                              <FontAwesomeIcon
+                                icon={faTelegram}
+                                size="2x"
+                                className="ml-1"
+                              />
+                              <span
+                                style={{
+                                  marginLeft: "17px",
+                                  lineHeight: "1.x",
+                                }}
+                              >
                                 Telegram
                               </span>
                             </a>
@@ -381,7 +416,11 @@ export default function Nav() {
                                 rel="noopener noreferrer"
                                 className="flex items-center"
                               >
-                                <FontAwesomeIcon icon={faLinkedin} size="2x" className="ml-1" />
+                                <FontAwesomeIcon
+                                  icon={faLinkedin}
+                                  size="2x"
+                                  className="ml-1"
+                                />
                                 <span
                                   style={{
                                     marginLeft: "20px",
@@ -423,7 +462,9 @@ export default function Nav() {
                       >
                         <div className="py-2 px-4">
                           <div className="space-y-2">
-                            <h1 className="text-center font-bold">Coming Soon..</h1>
+                            <h1 className="text-center font-bold">
+                              Coming Soon..
+                            </h1>
                             <Menu.Item>
                               {({ active }) => (
                                 <a
@@ -516,9 +557,7 @@ export default function Nav() {
                           <a
                             href="#"
                             className={classNames(
-                              active
-                                ? "bg-gray-100 text-black"
-                                : "text-black",
+                              active ? "bg-gray-100 text-black" : "text-black",
                               "block px-3 py-2 text-base font-medium"
                             )}
                           >
@@ -531,9 +570,7 @@ export default function Nav() {
                           <a
                             href="#"
                             className={classNames(
-                              active
-                                ? "bg-gray-100 text-black"
-                                : "text-black",
+                              active ? "bg-gray-100 text-black" : "text-black",
                               "block px-3 py-2 text-base font-medium"
                             )}
                           >
@@ -546,9 +583,7 @@ export default function Nav() {
                           <a
                             href="#"
                             className={classNames(
-                              active
-                                ? "bg-gray-100 text-black"
-                                : "text-black",
+                              active ? "bg-gray-100 text-black" : "text-black",
                               "block px-3 py-2 text-base font-medium"
                             )}
                           >
@@ -561,9 +596,7 @@ export default function Nav() {
                           <a
                             href="#"
                             className={classNames(
-                              active
-                                ? "bg-gray-100 text-black"
-                                : "text-black",
+                              active ? "bg-gray-100 text-black" : "text-black",
                               "block px-3 py-2 text-base font-medium"
                             )}
                           >
@@ -576,9 +609,7 @@ export default function Nav() {
                           <a
                             href="#"
                             className={classNames(
-                              active
-                                ? "bg-gray-100 text-black"
-                                : "text-black",
+                              active ? "bg-gray-100 text-black" : "text-black",
                               "block px-3 py-2 text-base font-medium"
                             )}
                           >
@@ -587,17 +618,13 @@ export default function Nav() {
                         )}
                       </Menu.Item>
                       <div className="border-t border-gray-300 my-2 w-full"></div>
-                      <h3 className="font-bold text-gray-600">
-                                NFT
-                              </h3>
+                      <h3 className="font-bold text-gray-600">NFT</h3>
                       <Menu.Item>
                         {({ active }) => (
                           <a
                             href="#"
                             className={classNames(
-                              active
-                                ? "bg-gray-100 text-black"
-                                : "text-black",
+                              active ? "bg-gray-100 text-black" : "text-black",
                               "block px-3 py-2 text-base font-medium"
                             )}
                           >
@@ -610,9 +637,7 @@ export default function Nav() {
                           <a
                             href="#"
                             className={classNames(
-                              active
-                                ? "bg-gray-100 text-black"
-                                : "text-black",
+                              active ? "bg-gray-100 text-black" : "text-black",
                               "block px-3 py-2 text-base font-medium"
                             )}
                           >
@@ -625,9 +650,7 @@ export default function Nav() {
                           <a
                             href="#"
                             className={classNames(
-                              active
-                                ? "bg-gray-100 text-black"
-                                : "text-black",
+                              active ? "bg-gray-100 text-black" : "text-black",
                               "block px-3 py-2 text-base font-medium"
                             )}
                           >
@@ -636,17 +659,13 @@ export default function Nav() {
                         )}
                       </Menu.Item>
                       <div className="border-t border-gray-300 my-2 w-full"></div>
-                      <h3 className="font-bold text-gray-600">
-                                Leaderboards
-                              </h3>
+                      <h3 className="font-bold text-gray-600">Leaderboards</h3>
                       <Menu.Item>
                         {({ active }) => (
                           <a
                             href="#"
                             className={classNames(
-                              active
-                                ? "bg-gray-100 text-black"
-                                : "text-black",
+                              active ? "bg-gray-100 text-black" : "text-black",
                               "block px-3 py-2 text-base font-medium"
                             )}
                           >
@@ -659,9 +678,7 @@ export default function Nav() {
                           <a
                             href="#"
                             className={classNames(
-                              active
-                                ? "bg-gray-100 text-black"
-                                : "text-black",
+                              active ? "bg-gray-100 text-black" : "text-black",
                               "block px-3 py-2 text-base font-medium"
                             )}
                           >
@@ -674,9 +691,7 @@ export default function Nav() {
                           <a
                             href="#"
                             className={classNames(
-                              active
-                                ? "bg-gray-100 text-black"
-                                : "text-black",
+                              active ? "bg-gray-100 text-black" : "text-black",
                               "block px-3 py-2 text-base font-medium"
                             )}
                           >
@@ -689,9 +704,7 @@ export default function Nav() {
                           <a
                             href="#"
                             className={classNames(
-                              active
-                                ? "bg-gray-100 text-black"
-                                : "text-black",
+                              active ? "bg-gray-100 text-black" : "text-black",
                               "block px-3 py-2 text-base font-medium"
                             )}
                           >
@@ -704,9 +717,7 @@ export default function Nav() {
                           <a
                             href="#"
                             className={classNames(
-                              active
-                                ? "bg-gray-100 text-black"
-                                : "text-black",
+                              active ? "bg-gray-100 text-black" : "text-black",
                               "block px-3 py-2 text-base font-medium"
                             )}
                           >
@@ -716,16 +727,14 @@ export default function Nav() {
                       </Menu.Item>
                       <div className="border-t border-gray-300 my-2 w-full"></div>
                       <h3 className="font-bold text-gray-600">
-                                All chain Network
-                              </h3>
+                        All chain Network
+                      </h3>
                       <Menu.Item>
                         {({ active }) => (
                           <a
                             href="#"
                             className={classNames(
-                              active
-                                ? "bg-gray-100 text-black"
-                                : "text-black",
+                              active ? "bg-gray-100 text-black" : "text-black",
                               "block px-3 py-2 text-base font-medium"
                             )}
                           >
@@ -738,9 +747,7 @@ export default function Nav() {
                           <a
                             href="#"
                             className={classNames(
-                              active
-                                ? "bg-gray-100 text-black"
-                                : "text-black",
+                              active ? "bg-gray-100 text-black" : "text-black",
                               "block px-3 py-2 text-base font-medium"
                             )}
                           >
@@ -753,9 +760,7 @@ export default function Nav() {
                           <a
                             href="#"
                             className={classNames(
-                              active
-                                ? "bg-gray-100 text-black"
-                                : "text-black",
+                              active ? "bg-gray-100 text-black" : "text-black",
                               "block px-3 py-2 text-base font-medium"
                             )}
                           >
@@ -790,15 +795,13 @@ export default function Nav() {
                     leaveTo="transform opacity-0 scale-95"
                   >
                     <Menu.Items className="pl-4 w-full">
-                    <h1 className="text-center font-bold">Coming Soon..</h1>
+                      <h1 className="text-center font-bold">Coming Soon..</h1>
                       <Menu.Item>
                         {({ active }) => (
                           <a
                             href="#"
                             className={classNames(
-                              active
-                                ? "bg-gray-100 text-black"
-                                : "text-black",
+                              active ? "bg-gray-100 text-black" : "text-black",
                               "block px-3 py-2 text-base font-medium"
                             )}
                           >
@@ -811,9 +814,7 @@ export default function Nav() {
                           <a
                             href="#"
                             className={classNames(
-                              active
-                                ? "bg-gray-100 text-black"
-                                : "text-black",
+                              active ? "bg-gray-100 text-black" : "text-black",
                               "block px-3 py-2 text-base font-medium"
                             )}
                           >
@@ -826,9 +827,7 @@ export default function Nav() {
                           <a
                             href="#"
                             className={classNames(
-                              active
-                                ? "bg-gray-100 text-black"
-                                : "text-black",
+                              active ? "bg-gray-100 text-black" : "text-black",
                               "block px-3 py-2 text-base font-medium"
                             )}
                           >
@@ -870,13 +869,15 @@ export default function Nav() {
                             target="_blank"
                             rel="noopener noreferrer"
                             className={classNames(
-                              active
-                                ? "bg-gray-100 text-black"
-                                : "text-black",
+                              active ? "bg-gray-100 text-black" : "text-black",
                               "block px-3 py-2 text-base font-medium hidden"
                             )}
                           >
-                          <FontAwesomeIcon icon={faXTwitter} size="2x" className="ml-1" />
+                            <FontAwesomeIcon
+                              icon={faXTwitter}
+                              size="2x"
+                              className="ml-1"
+                            />
                             X.com
                           </a>
                         )}
@@ -888,13 +889,15 @@ export default function Nav() {
                             target="_blank"
                             rel="noopener noreferrer"
                             className={classNames(
-                              active
-                                ? "bg-gray-100 text-black"
-                                : "text-black",
+                              active ? "bg-gray-100 text-black" : "text-black",
                               "block px-3 py-2 text-base font-medium"
                             )}
                           >
-                            <FontAwesomeIcon icon={faDiscord} size="2x" className="ml-1" />
+                            <FontAwesomeIcon
+                              icon={faDiscord}
+                              size="2x"
+                              className="ml-1"
+                            />
                             Discord
                           </a>
                         )}
@@ -906,13 +909,15 @@ export default function Nav() {
                             target="_blank"
                             rel="noopener noreferrer"
                             className={classNames(
-                              active
-                                ? "bg-gray-100 text-black"
-                                : "text-black",
+                              active ? "bg-gray-100 text-black" : "text-black",
                               "block px-3 py-2 text-base font-medium"
                             )}
                           >
-                           <FontAwesomeIcon icon={faTelegram} size="2x" className="ml-1" />
+                            <FontAwesomeIcon
+                              icon={faTelegram}
+                              size="2x"
+                              className="ml-1"
+                            />
                             Telegram
                           </a>
                         )}
@@ -924,13 +929,15 @@ export default function Nav() {
                             target="_blank"
                             rel="noopener noreferrer"
                             className={classNames(
-                              active
-                                ? "bg-gray-100 text-black"
-                                : "text-black",
+                              active ? "bg-gray-100 text-black" : "text-black",
                               "block px-3 py-2 text-base font-medium"
                             )}
                           >
-                            <FontAwesomeIcon icon={faLinkedin} size="2x" className="ml-1" />
+                            <FontAwesomeIcon
+                              icon={faLinkedin}
+                              size="2x"
+                              className="ml-1"
+                            />
                             LinkedIn
                           </a>
                         )}
@@ -962,15 +969,13 @@ export default function Nav() {
                     leaveTo="transform opacity-0 scale-95"
                   >
                     <Menu.Items className="pl-4 w-full">
-                    <h1 className="text-center font-bold">Coming Soon..</h1>
+                      <h1 className="text-center font-bold">Coming Soon..</h1>
                       <Menu.Item>
                         {({ active }) => (
                           <a
                             href="#"
                             className={classNames(
-                              active
-                                ? "bg-gray-100 text-black"
-                                : "text-black",
+                              active ? "bg-gray-100 text-black" : "text-black",
                               "block px-3 py-2 text-base font-medium"
                             )}
                           >

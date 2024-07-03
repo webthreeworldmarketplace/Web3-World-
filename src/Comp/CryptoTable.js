@@ -26,10 +26,17 @@ const generateRandomHistoricalData = () => {
 const images = [icon1, icon2, icon3];
 
 const filterOptions = {
-  category: ["Platform", "Store Of Value", "Atomic Swaps", "Centralized Exchange (CEX) Token", "Collectibles & NFTs", "Decentralized Exchange (DEX) Token"],
+  category: [
+    "Platform",
+    "Store Of Value",
+    "Atomic Swaps",
+    "Centralized Exchange (CEX) Token",
+    "Collectibles & NFTs",
+    "Decentralized Exchange (DEX) Token",
+  ],
   algorithm: ["SHA-256", "Scrypt", "Ethash", "X11"],
   platform: ["Ethereum", "Binance Smart Chain", "Solana", "Polygon"],
-  industry: ["Finance", "Gaming", "Art", "Technology"]
+  industry: ["Finance", "Gaming", "Art", "Technology"],
 };
 
 const FilterDropdown = ({ options, onSelect }) => {
@@ -78,7 +85,7 @@ const CryptoTable = () => {
   const fetchData = async (page = 1) => {
     try {
       const response = await axios.get(
-        `https://newcrpto-4.onrender.com/api/cryptocurrencies?page=${page}&limit=${rowsToShow}`
+        `http://localhost:3001/api/cryptocurrencies?page=${page}&limit=${rowsToShow}`
       );
       setCryptocurrencies(
         response.data.data.map((crypto, index) => ({
@@ -147,7 +154,7 @@ const CryptoTable = () => {
               }`}
               onClick={() => handleButtonClick("Cryptocurrencies")}
             >
-              <span className="inline-block mr-1">⚙️</span>
+              <span className="inline-block mr-1">⚙</span>
               Cryptocurrencies
             </button>
           </div>
@@ -229,7 +236,9 @@ const CryptoTable = () => {
               <img className="h-6" src={blockchain} alt="Blockchain icon" />
               <button
                 className={`text-gray-500 text-sm px-2 py-2 rounded-full font-bold ${
-                  activeButton === "Blockchain" ? "bg-gray-100 text-blue-500" : ""
+                  activeButton === "Blockchain"
+                    ? "bg-gray-100 text-blue-500"
+                    : ""
                 }`}
                 onClick={() => handleButtonClick("Blockchain")}
               >
@@ -240,7 +249,9 @@ const CryptoTable = () => {
               <img className="h-6" src={metaverse} alt="Metaverse icon" />
               <button
                 className={`text-gray-500 text-sm px-2 py-2 rounded-full font-bold ${
-                  activeButton === "Metaverse" ? "bg-gray-100 text-blue-500" : ""
+                  activeButton === "Metaverse"
+                    ? "bg-gray-100 text-blue-500"
+                    : ""
                 }`}
                 onClick={() => handleButtonClick("Metaverse")}
               >
@@ -493,7 +504,8 @@ const CryptoTable = () => {
             </select>
           </div>
         </div>
-        <div className="w-full h-px bg-gray-200 mt-4"></div> {/* This is the gray line */}
+        <div className="w-full h-px bg-gray-200 mt-4"></div>{" "}
+        {/* This is the gray line */}
       </div>
     </div>
   );
