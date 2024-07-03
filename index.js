@@ -1,3 +1,5 @@
+//new
+
 require("dotenv").config();
 const express = require("express");
 const axios = require("axios");
@@ -55,6 +57,7 @@ async function fetchFromCMC(endpoint, params = {}) {
   }
 }
 
+// Fetch latest cryptocurrency data
 app.get("/api/cryptocurrencies", async (req, res) => {
   try {
     const response = await axios.get(
@@ -82,63 +85,48 @@ app.get("/api/cryptocurrencies", async (req, res) => {
   }
 });
 
-// Fetch trending cryptocurrency data based on 24-hour percentage change
+// Fetch trending cryptocurrency data
 app.get("/api/trending", async (req, res) => {
   try {
-    const response = await axios.get(
-      "https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest",
-      {
-        headers: {
-          "X-CMC_PRO_API_KEY": CMC_API_KEY,
-        },
-        params: {
-          start: 1,
-          limit: 100,
-          convert: "USD",
-        },
-      }
-    );
-
-    const trendingData = response.data.data.sort(
-      (a, b) => b.quote.USD.percent_change_24h - a.quote.USD.percent_change_24h
-    );
-
-    trendingData.forEach((crypto) => {
-      crypto.logo = `https://s2.coinmarketcap.com/static/img/coins/64x64/${crypto.id}.png`;
+    const data = await fetchFromCMC("cryptocurrency/listings/latest", {
+      start: 1,
+      limit: 100,
     });
+    const trendingData = data.data
+      .sort(
+        (a, b) =>
+          b.quote.USD.percent_change_24h - a.quote.USD.percent_change_24h
+      )
+      .slice(0, 10)
+      .map((crypto) => ({
+        ...crypto,
+        logo: `https://s2.coinmarketcap.com/static/img/coins/64x64/${crypto.id}.png`,
+      }));
 
-    const topTrending = trendingData.slice(0, 10);
-
-    res.json(topTrending);
+    res.json({
+      version: API_VERSION,
+      timestamp: getTimestamp(),
+      data: trendingData,
+    });
   } catch (error) {
-    console.error(
-      "Error fetching trending data from CoinMarketCap API:",
-      error.message
-    );
-    res.status(500).json({ error: "Failed to fetch trending data" });
+    res.status(500).json({
+      error: "Failed to fetch trending data",
+      message: error.message,
+      timestamp: getTimestamp(),
+    });
   }
 });
 
 // Fetch top gainers
 app.get("/api/top-gainers", async (req, res) => {
   try {
-    const response = await axios.get(
-      "https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest",
-      {
-        headers: {
-          "X-CMC_PRO_API_KEY": CMC_API_KEY,
-        },
-        params: {
-          start: 1,
-          limit: 3,
-          convert: "USD",
-          sort: "percent_change_24h",
-          sort_dir: "desc",
-        },
-      }
-    );
-
-    const topGainers = response.data.data.map((crypto) => ({
+    const data = await fetchFromCMC("cryptocurrency/listings/latest", {
+      start: 1,
+      limit: 3,
+      sort: "percent_change_24h",
+      sort_dir: "desc",
+    });
+    const topGainers = data.data.map((crypto) => ({
       id: crypto.id,
       name: crypto.name,
       symbol: crypto.symbol,
@@ -146,33 +134,30 @@ app.get("/api/top-gainers", async (req, res) => {
       changePercent24Hr: crypto.quote.USD.percent_change_24h,
     }));
 
-    res.json(topGainers);
+    res.json({
+      version: API_VERSION,
+      timestamp: getTimestamp(),
+      data: topGainers,
+    });
   } catch (error) {
-    console.error("Error fetching top gainers:", error.message);
-    res.status(500).json({ error: "Failed to fetch top gainers" });
+    res.status(500).json({
+      error: "Failed to fetch top gainers",
+      message: error.message,
+      timestamp: getTimestamp(),
+    });
   }
 });
 
 // Fetch top losers
 app.get("/api/top-losers", async (req, res) => {
   try {
-    const response = await axios.get(
-      "https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest",
-      {
-        headers: {
-          "X-CMC_PRO_API_KEY": CMC_API_KEY,
-        },
-        params: {
-          start: 1,
-          limit: 3,
-          convert: "USD",
-          sort: "percent_change_24h",
-          sort_dir: "asc",
-        },
-      }
-    );
-
-    const topLosers = response.data.data.map((crypto) => ({
+    const data = await fetchFromCMC("cryptocurrency/listings/latest", {
+      start: 1,
+      limit: 3,
+      sort: "percent_change_24h",
+      sort_dir: "asc",
+    });
+    const topLosers = data.data.map((crypto) => ({
       id: crypto.id,
       name: crypto.name,
       symbol: crypto.symbol,
@@ -180,10 +165,17 @@ app.get("/api/top-losers", async (req, res) => {
       changePercent24Hr: crypto.quote.USD.percent_change_24h,
     }));
 
-    res.json(topLosers);
+    res.json({
+      version: API_VERSION,
+      timestamp: getTimestamp(),
+      data: topLosers,
+    });
   } catch (error) {
-    console.error("Error fetching top losers:", error.message);
-    res.status(500).json({ error: "Failed to fetch top losers" });
+    res.status(500).json({
+      error: "Failed to fetch top losers",
+      message: error.message,
+      timestamp: getTimestamp(),
+    });
   }
 });
 
