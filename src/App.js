@@ -17,6 +17,7 @@ import ContactSupport from "./Forms/ContactSupport";
 import HireBlockchainDeveloper from "./Forms/HireBlockchainDeveloper";
 import Consulting from "./Forms/Consulting";
 import CryptoDetail from "./Comp/CryptoDetail"; // Ensure the correct import path for the CryptoDetail component
+import Exchange from "./Comp/ExchangeInfo";
 
 function Home() {
   return (
@@ -36,6 +37,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/news" element={<News />} />
+          <Route path="/Exchange" element={<Exchange />} />
           <Route path="/cookiepolicy" element={<CookiePolicy />} />
           <Route path="/termsofuse" element={<Termsofuse />} />
           <Route path="/aboutus" element={<AboutUs />} />

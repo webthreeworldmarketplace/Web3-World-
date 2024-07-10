@@ -10,9 +10,7 @@ const CryptoAbout = ({ selectedCrypto }) => {
     const fetchAboutData = async () => {
       setIsLoading(true);
       try {
-        const response = await axios.get(
-          `https://api.coingecko.com/api/v3/coins/${selectedCrypto}`
-        );
+        const response = await axios.get(`https://api.coingecko.com/api/v3/coins/${selectedCrypto}`);
         setAboutData(response.data);
         setError(null);
       } catch (error) {

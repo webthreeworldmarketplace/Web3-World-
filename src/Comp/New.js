@@ -11,7 +11,7 @@ import bybit from "./Images/ByBit Cover.png";
 import { Tweet } from "react-tweet";
 
 const constantData = {
-  infoText: `When the value is closer to 0, the market is in Extreme Fear, and investors have over-sold irrationally.\n\nWhen the value is closer to 100, the market is in Extreme Greed, indicating a likely market correction.\n\nCoinMarketCap uses the price and trading data of the most popular crypto coins, together with our unique user behaviour data to present a more accurate crypto market sentiment.`,
+  infoText: "When the value is closer to 0, the market is in Extreme Fear, and investors have over-sold irrationally.\n\nWhen the value is closer to 100, the market is in Extreme Greed, indicating a likely market correction.\n\nCoinMarketCap uses the price and trading data of the most popular crypto coins, together with our unique user behaviour data to present a more accurate crypto market sentiment.",
 };
 
 function New() {
@@ -26,7 +26,7 @@ function New() {
   useEffect(() => {
     const fetchTrendingData = async () => {
       try {
-        const response = await axios.get("http://localhost:3001/api/trending");
+        const response = await axios.get("https://new-backend-s2dn.onrender.com/api/trending");
         if (response.data && Array.isArray(response.data.data)) {
           setTrendingData(response.data.data.slice(0, 3));
         } else {
@@ -37,22 +37,13 @@ function New() {
       }
     };
 
-    const fetchTweets = async () => {
-      try {
-        const response = await axios.get("https://webthreeworld/tweets");
-        setTweets(response.data.data);
-      } catch (error) {
-        console.error("Error fetching tweets:", error);
-      }
-    };
-
     const fetchGainersAndLosers = async () => {
       try {
         const gainersResponse = await axios.get(
-          "http://localhost:3001/api/top-gainers"
+          "https://new-backend-s2dn.onrender.com/api/top-gainers"
         );
         const losersResponse = await axios.get(
-          "http://localhost:3001/api/top-losers"
+          "https://new-backend-s2dn.onrender.com/api/top-losers"
         );
 
         console.log("Gainers:", gainersResponse.data.data);
@@ -66,7 +57,6 @@ function New() {
     };
 
     fetchTrendingData();
-    fetchTweets();
     fetchGainersAndLosers();
   }, []);
 
@@ -84,7 +74,7 @@ function New() {
   const renderSlide = (slide) => {
     if (slide.title === "Trending") {
       return (
-        <div className="p-4 border border-gray-300 rounded-lg shadow-lg bg-white h-50 flex flex-col justify-between">
+        <div className="p-4 border border-gray-300 rounded-lg shadow-md bg-white h-full flex flex-col justify-between">
           <div>
             <div className="flex justify-between items-center mb-4 h-15">
               <h3 className="font-bold text-lg">🔥 {slide.title}</h3>
@@ -119,21 +109,10 @@ function New() {
           </div>
         </div>
       );
-    } else if (slide.title === "Tweet") {
-      return (
-        <div
-          className="p-5 -my-20 -border border-gray-500 rounded-lg shadow-lg bg-white flex flex-col justify-center mx-auto max-w-full py-1"
-          style={{ height: "250px" }}
-        >
-          <div className="flex justify-center items-center h-max -mt-8 transform translate-y-8 -my-40">
-            <Tweet id={slide.content} />
-          </div>
-        </div>
-      );
     } else if (slide.title === "Top Gainers") {
       // Render top gainers
       return (
-        <div className="p-4 border border-gray-300 rounded-lg shadow-lg bg-white h-full flex flex-col justify-between">
+        <div className="p-4 border border-gray-300 rounded-lg shadow-md bg-white h-full flex flex-col justify-between">
           <div>
             <h4 className="font-bold text-lg mb-3 mt-2">Top Gainers</h4>
             {Array.isArray(losers) && gainers.length > 0 ? (
@@ -165,7 +144,7 @@ function New() {
       );
     } else if (slide.title === "Top Losers") {
       return (
-        <div className="p-4 border border-gray-300 rounded-lg shadow-lg bg-white h-full flex flex-col justify-between">
+        <div className="p-4 border border-gray-300 rounded-lg shadow-md bg-white h-full flex flex-col justify-between">
           <div>
             <h4 className="font-bold text-lg mb-3 mt-2">Top Losers</h4>
             {Array.isArray(losers) && losers.length > 0 ? (
@@ -205,7 +184,7 @@ function New() {
               rel="noopener noreferrer"
             >
               <img
-                className="mt-3 relative cursor-pointer border-gray-300 rounded-lg shadow-lg bg-white h-full flex flex-col justify-center mx-auto"
+                className=" relative cursor-pointer border-gray-300 rounded-lg shadow-md bg-white w-full flex flex-col justify-center mx-auto"
                 src={trade}
                 alt="Advertisement"
               />
@@ -223,7 +202,7 @@ function New() {
               rel="noopener noreferrer"
             >
               <img
-                className="mt-3 relative cursor-pointer border-gray-300 rounded-lg shadow-lg bg-white h-full flex flex-col justify-center mx-auto"
+                className="relative cursor-pointer border-gray-300 rounded-lg shadow-md bg-white w-full flex flex-col justify-center mx-auto"
                 src={kuku}
                 alt="Advertisement"
               />
@@ -241,7 +220,7 @@ function New() {
               rel="noopener noreferrer"
             >
               <img
-                className="mt-3 relative cursor-pointer border-gray-300 rounded-lg shadow-lg bg-white h-full flex flex-col justify-center mx-auto"
+                className=" relative cursor-pointer border-gray-300 rounded-lg shadow-md bg-white w-full flex flex-col justify-center mx-auto"
                 src={bybit}
                 alt="Advertisement"
               />
@@ -303,28 +282,18 @@ function New() {
               ))}
             </Slider>
           </div>
-
-          <div className="w-full md:w-1/3 px-2 mb-4 py-6 hidden md:block">
-            <Slider {...settings}>
-              {[
-                {
-                  title: "Tweet",
-                  content: "1801872262980649193",
-                },
-                {
-                  title: "Tweet",
-                  content: "1801872262980649193",
-                },
-                {
-                  title: "Tweet",
-                  content: "1801872262980649193",
-                },
-              ].map((slide, index) => (
-                <div key={index} className="h-full">
-                  {renderSlide(slide)}
+          <div className="h-50 md:w-1/3 px-2 hidden md:block mb-4">
+            <div className="border h-full max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl">
+              <div className="md:flex h-50">
+                <div className="flex items-center w-full justify-center">
+                  <img
+                    className="h-48 w-3/4 object-cover mt-3"
+                    src="https://alternative.me/crypto/fear-and-greed-index.png"
+                    alt="Latest Crypto Fear & Greed Index"
+                  />
                 </div>
-              ))}
-            </Slider>
+              </div>
+            </div>
           </div>
           <div className="w-full md:w-1/3 px-2 mb-4 h-full hidden md:block">
             <Slider {...settings}>

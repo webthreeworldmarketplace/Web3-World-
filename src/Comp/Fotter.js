@@ -101,17 +101,7 @@ const Footer = () => {
                       <span className="ml-2">Telegram</span>
                     </a>
                   </li>
-                  <li className="flex items-center">
-                    <a
-                      href="https://www.linkedin.com/company/web-3-world/?viewAsMember=true"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center"
-                    >
-                      <FontAwesomeIcon icon={faLinkedin} size="lg" className="ml-1" />
-                      <span className="ml-2">LinkedIn</span>
-                    </a>
-                  </li>
+                  
                 </ul>
               </div>
             </div>

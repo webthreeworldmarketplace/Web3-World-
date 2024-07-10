@@ -7,33 +7,59 @@ const FAQPage = () => {
   // FAQ data as an array of objects
   const faqs = [
     {
-      question: 'What is CoinMarketCap Events?',
-      answer: 'CoinMarketCap Events is a platform for hosting and promoting crypto-related events globally. It allows event organizers to reach a wide audience interested in cryptocurrency and blockchain technology.',
+      question: 'What is Bitcoin?',
+      answer: 'Bitcoin (BTC) is a decentralized digital currency that enables fast, secure, and transparent peer-to-peer transactions without the need for intermediaries. It was invented in 2009 and has since become a popular medium for cross-border payments and a sought-after investment asset, providing significant returns to investors. Bitcoin is often considered a commodity and has been recognized as a store of value by various institutions. Recently, hedge funds in countries like the USA and Australia have approved Bitcoin ETFs (Exchange-Traded Funds), further legitimizing its status as a viable investment option.',
     },
     {
-      question: 'How can I advertise my event on CoinMarketCap Events?',
-      answer: 'You can advertise your event on CoinMarketCap Events by creating a listing and choosing from various promotional options such as featured listings, banner ads, and sponsored content. Visit our Advertise page for more details.',
+      question: 'What is blockchain?',
+      answer: "Blockchain is a decentralized digital ledger that records transactions securely and transparently, using advanced cryptography to ensure integrity, trust, and immutability. It enables peer-to-peer transactions without intermediaries, making it a robust and reliable way to store and transfer value, with applications beyond cryptocurrencies."
     },
     {
-      question: 'What are the benefits of advertising on CoinMarketCap Events?',
-      answer: 'Advertising on CoinMarketCap Events gives your event visibility to a targeted audience interested in cryptocurrencies and blockchain technology. It helps you reach potential attendees, sponsors, and partners worldwide.',
+      question: 'What is Ethereum (ETH)?',
+      answer: "Ethereum is a decentralized blockchain platform that enables the creation of smart contracts, decentralized applications (dApps), and its own cryptocurrency, Ether (ETH). It supports various use cases, including DeFi, NFTs, and ERC-20 tokens, making it a versatile and widely-used platform in the cryptocurrency and blockchain space."
     },
     {
-      question: 'How do I get started with advertising on CoinMarketCap Events?',
-      answer: 'To get started, visit our Advertise page and explore the available advertising options. Choose the package that best suits your needs and follow the instructions to create your event listing.',
+      question: 'What Is DiFi?',
+      answer: "DeFi (Decentralized Finance) is a blockchain-based financial system that operates without intermediaries, offering decentralized exchanges, lending platforms, stablecoins, asset management, prediction markets, and more. DeFi provides open, transparent, and accessible financial services to anyone with an internet connection, revolutionizing the way we interact with financial systems.",
     },
     {
-      question: 'Can I promote my event on CoinMarketCap Events if it\'s not related to cryptocurrency?',
-      answer: 'CoinMarketCap Events focuses on cryptocurrency and blockchain-related events. While we primarily cater to this audience, you can contact us to discuss your event details, and we may consider it for promotion if it aligns with our audience\'s interests.',
+      question: 'What is NFT?',
+      answer: 'NFT (Non-Fungible Token) is a unique digital asset representing ownership of a specific item, stored on a blockchain. It ensures scarcity, authenticity, and ownership, and can be bought, sold, and traded on online marketplaces, with its value fluctuating based on demand.',
     },
     {
-      question: 'Is there a fee for listing my event on CoinMarketCap Events?',
-      answer: 'There may be fees associated with listing and advertising your event on CoinMarketCap Events, depending on the promotional options you choose. Visit our Advertise page for detailed pricing information.',
+      question: 'What is Meme coins?',
+      answer: "Meme coins are digital currencies inspired by internet memes. They often feature humorous or relatable themes and can offer unique features like staking rewards, play-to-earn games, and AI integration. Examples include Pepe Unchained, WienerAI, and Doge2014. Meme coins are typically used for entertainment and community building.",
     },
     {
-      question: 'How can I contact CoinMarketCap Events for more information?',
-      answer: 'For more information or inquiries regarding advertising and event listings on CoinMarketCap Events, please contact our support team at events@coinmarketcap.com.',
+      question: 'What is Dapp?',
+      answer: 'A Dapp (Decentralized Application) is a blockchain-based application that operates decentralized, meaning no single entity controls it. Dapps provide various services like gaming, finance, and social media, built on smart contracts for security and transparency, allowing users to interact with the blockchain directly.',
     },
+    {
+      question: 'Which Cryptocurrency is Popular?',
+      answer: 'Bitcoin (BTC), Ethereum (ETH), Tether (USDT), Binance Coin (BNB), Solana (SOL), US Dollar Coin (USDC), XRP, Toncoin (TON), Dogecoin (DOGE), and Cardano (ADA) are the most popular cryptocurrencies, offering unique features and uses, such as decentralized finance, smart contracts, and digital payments.',
+    },
+    {
+      question: 'Why Web3 World?',
+      answer: 'Explore the Web3 world! Check real-time data for all cryptocurrencies, read latest news, stake and earn rewards, and connect to centralized exchanges. Enjoy decentralized finance, gaming, social media, and more, all in one place. Take control of your digital assets and experience the future of the internet!',
+    },
+    {
+      question: 'Where i can trade my cryptocurrency?',
+      answer: "You can trade cryptocurrency on popular centralized exchanges like Binance, Gemini, Coinbase, Kraken, and Huobi, or decentralized exchanges like Uniswap, SushiSwap, and Curve. These platforms offer various features, fees, and security measures, allowing you to buy, sell, and swap digital assets. Always research and choose a reputable exchange.",
+    },
+    {
+      question: 'How Do I create my own crypto project?',
+      answer: "The Web3 world offers resources to help you develop your project! join communities, consult experts, and utilize development platforms like Polygon, Moralis, and Alchemy. The supportive Web3 community is ready to help you build and succeed!",
+    },
+    
+    {
+      question: 'Can I get One to One Blockchain Consulting?',
+      answer: "Yes Web3World offers personalized one-on-one blockchain consulting services! Get expert guidance on Web3 development, token creation, smart contracts, and more. Our experienced consultants will help you navigate the complex world of blockchain and Web3, ensuring your project's success. Schedule your consultation today and take your project to the next level!",
+    },
+    {
+      question: 'Can I get help in the crypto project marketing from Web3 World?',
+      answer: "Web3 World offers comprehensive marketing services for your crypto project! Their experts provide social media management, community building, influencer partnerships, content creation, and more. Get a customized marketing strategy to boost your project's visibility, engagement, and adoption. Let them help you shine in the Web3 space!",
+    },
+    
   ];
 
   // State to track which FAQ item is currently expanded
@@ -51,7 +77,7 @@ const FAQPage = () => {
   return (
     <div className="bg-white py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
-        <h1 className="text-3xl font-bold mb-8">FAQ</h1>
+        <h1 className="text-5xl font-bold text-center text-gray-900 mb-4">FAQ</h1>
 
         {/* FAQ Accordions */}
         <div className="divide-y divide-gray-200">

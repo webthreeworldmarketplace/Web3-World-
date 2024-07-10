@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/20/solid";
 import icon1 from "./Images/gr1.png";
 import icon2 from "./Images/gr2.png";
@@ -22,6 +23,8 @@ const generateRandomHistoricalData = () => {
   }
   return data;
 };
+// Initialize navigate
+
 
 const images = [icon1, icon2, icon3];
 
@@ -38,6 +41,8 @@ const filterOptions = {
   platform: ["Ethereum", "Binance Smart Chain", "Solana", "Polygon"],
   industry: ["Finance", "Gaming", "Art", "Technology"],
 };
+
+//const navigate = useNavigate(); 
 
 const FilterDropdown = ({ options, onSelect }) => {
   return (
@@ -85,7 +90,7 @@ const CryptoTable = () => {
   const fetchData = async (page = 1) => {
     try {
       const response = await axios.get(
-        `http://localhost:3001/api/cryptocurrencies?page=${page}&limit=${rowsToShow}`
+        `https://new-backend-s2dn.onrender.com/api/cryptocurrencies?page=${page}&limit=${rowsToShow}`
       );
       setCryptocurrencies(
         response.data.data.map((crypto, index) => ({
@@ -113,8 +118,14 @@ const CryptoTable = () => {
   };
 
   const handleRowClick = (id) => {
+    console.log("Row clicked, navigating to:", `/detail/${id}`);
     navigate(`/detail/${id}`); // Navigate to detail page with the crypto id
   };
+  {cryptocurrencies.map((crypto) => (
+    <tr key={crypto.id} onClick={() => handleRowClick(crypto.id)} className="cursor-pointer">
+      {/* Render your table columns here */}
+    </tr>
+  ))}
 
   const handlePageClick = (pageNumber) => {
     setCurrentPage(pageNumber);

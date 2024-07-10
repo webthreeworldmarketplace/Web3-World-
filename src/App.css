@@ -1,38 +1,25 @@
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+/* Mobile devices (max-width: 768px) */
+@media (max-width: 768px) {
+  .exchange-table td:first-child {
+    padding-left: 23px; /* Add spacing to the # column */
   }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+  .exchange-table td:nth-child(2) {
+    padding-left: 23px; /* Add spacing to the Exchange column */
   }
-  to {
-    transform: rotate(360deg);
+  .exchange-table th:first-child {
+    padding-left: 20px; /* Add spacing to the # column in the header */
   }
+  .exchange-table th:nth-child(2) {
+    padding-left: 20px; /* Add spacing to the Exchange column in the header */
+  }
+  .exchange-table td:nth-child(3) {
+    padding-left: 40px; /* Add spacing to the Trading Volume (24h) column */
+  }
+ .exchange-table th:nth-child(3) {
+    padding-left: 40px; /* Add spacing to the Trading Volume (24h) column in the header */
+  }
+  
+  
+
+  
 }
