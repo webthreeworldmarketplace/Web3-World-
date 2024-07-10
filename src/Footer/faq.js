@@ -1,4 +1,5 @@
 // FAQPage.jsx
+//new
 
 import React, { useState } from 'react';
 import { FaAngleDown, FaAngleUp } from 'react-icons/fa'; // Import icons from react-icons library
