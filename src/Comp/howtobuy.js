@@ -28,8 +28,8 @@ const HowToBuy = () => {
         />
 
         <StepCard
-          title="Get some BNB"
-          description="Have BNB in your wallet to switch to $W3W. If you don't have any BNB, you can buy directly on MetaMask, transfer from another wallet, or buy on another exchange and send it to your wallet."
+          title="Get some USDT"
+          description="Have USDT in your wallet to switch to $W3W. If you don't have any USDT, you can buy directly on MetaMask, transfer from another wallet, or buy on another exchange and send it to your wallet."
           icon="💎"
           darkMode={darkMode}
         />
@@ -48,9 +48,9 @@ const HowToBuy = () => {
                 https://pancakeswap.finance/
               </a>{" "}
               in Google Chrome or on the browser inside your MetaMask app.
-              Connect your wallet. Paste the $W3W token address into PancakeSwap,
-              select W3W, and confirm. When MetaMask prompts you for a wallet
-              signature, sign.
+              Connect your wallet. Paste the $W3W token address into
+              PancakeSwap, select W3W, and confirm. When MetaMask prompts you
+              for a wallet signature, sign.
             </>
           }
           icon="🥞"
@@ -58,8 +58,8 @@ const HowToBuy = () => {
         />
 
         <SwitchBNBCard
-          title="Switch BNB for W3W"
-          description="Switch BNB for $W3W. We have minimum taxes as per the market so you don't need to worry about buying with a specific slippage, although you may need to use slippage during times of market volatility."
+          title="Switch USDT for W3W"
+          description="Switch USDT for $W3W. We have minimum taxes as per the market so you don't need to worry about buying with a specific slippage, although you may need to use slippage during times of market volatility."
           darkMode={darkMode}
           image={Web3world}
         />
