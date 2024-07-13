@@ -3,7 +3,7 @@ import Nav from "./Comp/Nav";
 import CryptoTable from "./Comp/CryptoTable";
 import Left from "./Comp/Leftover";
 import Foot from "./Comp/Fotter";
-import News from "./news/news"; // Ensure the correct import path for the News component
+import News from "./Comp/News"; // Ensure the correct import path for the News component
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import New from "./Comp/New";
 import CookiePolicy from './Footer/cookiepolicy';
@@ -18,6 +18,7 @@ import HireBlockchainDeveloper from "./Forms/HireBlockchainDeveloper";
 import Consulting from "./Forms/Consulting";
 import CryptoDetail from "./Comp/CryptoDetail"; // Ensure the correct import path for the CryptoDetail component
 import Exchange from "./Comp/ExchangeInfo";
+import HowToBuy from "./Comp/howtobuy";
 
 function Home() {
   return (
@@ -37,6 +38,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/news" element={<News />} />
+          <Route path="/howtobuy" element={<HowToBuy/>} />
           <Route path="/Exchange" element={<Exchange />} />
           <Route path="/cookiepolicy" element={<CookiePolicy />} />
           <Route path="/termsofuse" element={<Termsofuse />} />

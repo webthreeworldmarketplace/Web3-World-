@@ -1,4 +1,137 @@
-/* Mobile devices (max-width: 768px) */
+@media (max-width: 768px) {
+  .chart-container {
+    width: 150%; /* Adjust as needed */
+    overflow-x: hidden; /* Hide x-axis overflow */
+    overflow-y: visible; /* Ensure y-axis overflow is visible */
+  }
+
+.setmargin{
+  margin-right: 200px;
+  margin-top: -30px;
+}
+
+.margintwo{
+  margin-top:-120px;
+}
+
+
+  chart-buttons {
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: 10px; /* Add some space at the bottom */
+  }
+  .chart-container .recharts-responsive-container {
+    width: 200% !important; /* Make the chart wider */
+    max-width: none !important;
+    transform: translateX(-25%); /* Move the chart to the left */
+  }
+
+  .chart-container .recharts-wrapper {
+    transform: scale(1);
+    transform-origin: left center;
+  }
+
+  .move-down {
+    margin-top: 40px; /* Adjust the top margin as needed to move content down */
+  }
+
+  .move-about {
+    margin-top: 30px;
+  }
+
+  
+  
+
+  .chart {
+    width: calc(100% + 24px); /* Increase width */
+    margin-left: -12px; /* Move the chart slightly to the left */
+  }
+
+  .hide {
+    display: none;
+  }
+
+  .nothide{
+    display: block ;
+  }
+
+
+
+
+  .scroll-down {
+    background-color: #3490dc; /* Change background color when scrolled */
+    top: 0; /* Stick to the top when scrolled down */
+    transition: background-color 0.3s ease, top 0.3s ease; /* Smooth transition for background color and top position */
+  }
+
+  .mobile-nav-wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 999;
+  }
+
+  .mobile-nav .container {
+    display: inline-block;
+    min-width: 100%;
+  }
+
+  .mobile-nav {
+    position: fixed;
+    top: 90px; /* Initially fixed at 90px from the top */
+    left: 0;
+    width: 100%;
+    right: 0;
+    background-color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    z-index: 999; /* Ensure it is below the first navbar */
+    transition: top 0.3s ease; /* Smooth transition for top property changes */
+    overflow-x: auto;
+    white-space: nowrap;
+    -webkit-overflow-bo: touch;
+  }
+
+  .mobile-nav .container {
+    display: inline-block;
+    min-width: 100%;
+  }
+
+  .mobile-nav a, .mobile-nav a:active, .mobile-nav a:focus {
+    border-bottom: none !important;
+    color: inherit !important;
+  }
+
+  .mobile-nav .flex {
+    display: inline-flex;
+  }
+
+  .mobile-nav.sticky {
+    top: 0 !important; /* Sticks to the top when scrolled */
+    width: 100%;
+    z-index: 1000;
+  }
+
+  .mobile-nav.hidden {
+    top: -60px !important; /* Moves up to hide when scrolled down */
+  }
+
+  .w-2\/3 {
+    width: 100%;
+    padding-top: 60px; /* Adjust based on your navbar height */
+  }
+
+  .mobile-only {
+    display: block;
+  }
+}
+
+@media (min-width: 769px) {
+  .mobile-only {
+    display: none;
+  }
+}
+
 @media (max-width: 768px) {
   .exchange-table td:first-child {
     padding-left: 23px; /* Add spacing to the # column */
@@ -15,11 +148,22 @@
   .exchange-table td:nth-child(3) {
     padding-left: 40px; /* Add spacing to the Trading Volume (24h) column */
   }
- .exchange-table th:nth-child(3) {
+  .exchange-table th:nth-child(3) {
     padding-left: 40px; /* Add spacing to the Trading Volume (24h) column in the header */
   }
-  
-  
+}
 
-  
+@media (min-width: 769px) {
+  .hide-on-desktop {
+    display: none;
+  }
+
+  .show-on-desktop {
+    display: block;
+  }
+
+  .wide-element {
+    width: 80%; /* Adjust the width as needed for desktop */
+    margin: 0 auto; /* Center the element */
+  }
 }

@@ -5,7 +5,7 @@ const PrivacyPolicy = () => {
     <div className="bg-gray-100 min-h-screen py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
         <h1 className="text-3xl font-bold mb-4">Privacy Policy</h1>
-        <p className="text-gray-600 mb-8">Effective Date: July 09, 2024</p>
+        
 
         <div className="bg-white rounded-lg shadow-sm overflow-hidden mb-8">
           <div className="p-6">
@@ -88,7 +88,7 @@ efforts, and during mergers, acquisitions, or asset sales.
           <div className="p-6">
             <h2 className="text-xl font-bold mb-4">Events</h2>
             <p className="text-gray-700 leading-7">
-            When you attend events hosted or sponsored by [Company Name], we may collect personal
+            When you attend events hosted or sponsored by Webthreeworld, we may collect personal
 information such as your name, contact details, and any other information you provide during
 registration or participation. This data is used to manage event logistics, communicate with you
 about event details, and improve future events. We may also share this information with event

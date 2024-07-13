@@ -4,6 +4,7 @@ import axios from "axios";
 import Chart from "./Chart";
 import MarketTable from "./MarketTable";
 import CryptoAbout from "./CryptoAbout";
+import "../App.css";
 
 const CryptoDetail = () => {
   const { id } = useParams();
@@ -15,7 +16,7 @@ const CryptoDetail = () => {
   const [showAllTags, setShowAllTags] = useState(false);
   const [activeSection, setActiveSection] = useState("chart");
   const [pricePerformance, setPricePerformance] = useState(null);
-  
+
   const [isLoading, setIsLoading] = useState(true);
   const chartRef = useRef(null);
   const marketsRef = useRef(null);
@@ -29,12 +30,16 @@ const CryptoDetail = () => {
       setIsLoading(true);
       setError(null);
       try {
-        const response = await axios.get(`https://new-backend-s2dn.onrender.com/api/cryptocurrencies/${id}`);
+        const response = await axios.get(
+          `https://new-backend-s2dn.onrender.com/api/cryptocurrencies/${id}`
+        );
         setCryptoDetail(response.data);
-        
+
         if (response.data && response.data.data && response.data.data.slug) {
           const slug = response.data.data.slug;
-          const performanceResponse = await axios.get(`https://new-backend-s2dn.onrender.com/api/price-performance/${slug}`);
+          const performanceResponse = await axios.get(
+            `https://new-backend-s2dn.onrender.com/api/price-performance/${slug}`
+          );
           setPricePerformance(performanceResponse.data);
         }
       } catch (error) {
@@ -66,36 +71,29 @@ const CryptoDetail = () => {
       }
       console.log("Current pricePerformance state:", pricePerformance);
     };
-    
+
     if (cryptoDetail && cryptoDetail.data && cryptoDetail.data.name) {
       fetchPricePerformance();
     }
   }, [id]);
 
   useEffect(() => {
+    let lastScrollTop = 0;
+
     const handleScroll = () => {
-      const sections = [
-        { ref: chartRef, name: "chart" },
-        { ref: marketsRef, name: "markets" },
-        { ref: newsRef, name: "news" },
-        { ref: aboutRef, name: "about" },
-        { ref: analyticsRef, name: "analytics" },
-        { ref: similarCoinsRef, name: "similar-coins" },
-      ];
+      const scrollPosition = window.scrollY;
+      const mobileNav = document.querySelector(".mobile-nav");
 
-      const scrollPosition = window.scrollY + window.innerHeight / 2;
-
-      for (let section of sections) {
-        if (section.ref.current) {
-          const { offsetTop, offsetHeight } = section.ref.current;
-          if (
-            offsetTop <= scrollPosition &&
-            offsetTop + offsetHeight > scrollPosition
-          ) {
-            setActiveSection(section.name);
-            break;
-          }
+      if (mobileNav) {
+        if (scrollPosition > 90) {
+          mobileNav.classList.add("sticky");
+          mobileNav.classList.add("scroll-down");
+        } else {
+          mobileNav.classList.remove("sticky");
+          mobileNav.classList.add("scroll-down");
         }
+
+        lastScrollTop = scrollPosition <= 0 ? 0 : scrollPosition;
       }
     };
 
@@ -106,6 +104,13 @@ const CryptoDetail = () => {
   if (error) {
     return <div>Error: {JSON.stringify(error)}</div>;
   }
+
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
 
   console.log("Crypto Detail Data:", cryptoDetail);
 
@@ -196,9 +201,9 @@ const CryptoDetail = () => {
     : [];
 
   return (
-    <div className="container mx-auto px-4 py-6 flex ">
+    <div className="container mx-auto px-4 py-6 flex flex-col md:flex-row move-down">
       {/* Sidebar for Crypto Details */}
-      <div className="w-1/3  bg-white shadow-lg rounded-lg p-6 mr-6">
+      <div className="w-full md:w-1/3 bg-white shadow-lg rounded-lg p-6 md:mr-6 mb-6 md:mb-0">
         <div className="flex items-center mb-2">
           <img
             src={cryptoDetail.data.logo}
@@ -212,7 +217,7 @@ const CryptoDetail = () => {
             <p className="text-gray-600">{cryptoDetail.data.slug}</p>
           </div>
         </div>
-        <div className="mt-4">
+        <div className="mt-4 ">
           <div className="text-4xl font-bold">
             ${cryptoDetail.data.quote?.USD?.price?.toFixed(2) ?? "N/A"}
             <span className="text-lg text-green-500">
@@ -231,7 +236,7 @@ const CryptoDetail = () => {
               : "N/A"}
           </div>
         </div>
-        <div className="mt-6 space-y-4">
+        <div className="mt-6 space-y-4 hide">
           <div className="flex justify-between text-gray-800">
             <span>Market Cap:</span>
             <span>
@@ -247,11 +252,10 @@ const CryptoDetail = () => {
           <div className="flex justify-between text-gray-800">
             <span>Volume/Market Cap (24h):</span>
             <span>
-              
               {USD.volume_24h && USD.market_cap
                 ? (USD.volume_24h / USD.market_cap).toFixed(2)
                 : "N/A"}
-                %
+              %
             </span>
           </div>
           <div className="flex justify-between text-gray-800">
@@ -294,7 +298,7 @@ const CryptoDetail = () => {
             </span>
           </div>
         </div>
-        <div className="mt-6">
+        <div className="mt-6 hide">
           <h4 className="text-xl font-semibold">UCID</h4>
           <div className="flex items-center mt-2">
             <span
@@ -314,7 +318,7 @@ const CryptoDetail = () => {
             <div className="text-green-500 mt-2">{copyMessage}</div>
           )}
         </div>
-        <div className="mt-8">
+        <div className="mt-8 hide">
           <h4 className="text-xl font-semibold">Tags</h4>
           <div className="flex flex-wrap gap-2 mt-2 cursor-pointer">
             {cryptoDetail.data.tags ? (
@@ -342,74 +346,101 @@ const CryptoDetail = () => {
           </div>
 
           <div>
-  <div className="mt-4 ">
-  <br/>
-  <h2 className="font-medium text-xl mb-2">Price Performance</h2>
-  <br />
-  <ul className="space-y-2 mb-4">
-    <li className="flex justify-between ">
-      <span>Price:</span>
-      <span className="text-right">
-        $
-        {pricePerformance && pricePerformance.data && pricePerformance.data.price
-          ? pricePerformance.data.price
-          : "N/A"}
-      </span>
-    </li>
-    <li className="flex justify-between">
-      <span>Change 24h:</span>
-      <span className="text-right">
-        $
-        {pricePerformance && pricePerformance.data && pricePerformance.data.change_24h
-          ? pricePerformance.data.change_24h
-          : "N/A"}
-      </span>
-    </li>
-    <li className="flex justify-between">
-      <span>Market Cap:</span>
-      <span className="text-right">
-        $
-        {pricePerformance && pricePerformance.data && pricePerformance.data.market_cap
-          ? pricePerformance.data.market_cap
-          : "N/A"}
-      </span>
-    </li>
-    <li className="flex justify-between">
-      <span>Volume 24h:</span>
-      <span className="text-right">
-        $
-        {pricePerformance && pricePerformance.data && pricePerformance.data.volume_24h
-          ? pricePerformance.data.volume_24h
-          : "N/A"}
-      </span>
-    </li>
-    <li className="flex justify-between">
-      <span>Supply:</span>
-      <span className="text-right">
-        $
-        {pricePerformance && pricePerformance.data && pricePerformance.data.supply
-          ? pricePerformance.data.supply
-          : "N/A"}
-      </span>
-    </li>
-    <li className="flex justify-between">
-      <span>Max Supply:</span>
-      <span className="text-right">
-        $
-        {pricePerformance && pricePerformance.data && pricePerformance.data.maxSupply
-          ? pricePerformance.data.maxSupply
-          : "N/A"}
-      </span>
-    </li>
-  </ul>
-  </div>
-</div>
+            <div className="mt-4 ">
+              <br />
+              <h2 className="font-medium text-xl mb-2">Price Performance</h2>
+              <br />
+              <ul className="space-y-2 mb-4">
+                <li className="flex justify-between ">
+                  <span>Price:</span>
+                  <span className="text-right">
+                    $
+                    {pricePerformance &&
+                    pricePerformance.data &&
+                    pricePerformance.data.price
+                      ? pricePerformance.data.price
+                      : "N/A"}
+                  </span>
+                </li>
+                <li className="flex justify-between">
+                  <span>Change 24h:</span>
+                  <span className="text-right">
+                    $
+                    {pricePerformance &&
+                    pricePerformance.data &&
+                    pricePerformance.data.change_24h
+                      ? pricePerformance.data.change_24h
+                      : "N/A"}
+                  </span>
+                </li>
+                <li className="flex justify-between">
+                  <span>Market Cap:</span>
+                  <span className="text-right">
+                    $
+                    {pricePerformance &&
+                    pricePerformance.data &&
+                    pricePerformance.data.market_cap
+                      ? pricePerformance.data.market_cap
+                      : "N/A"}
+                  </span>
+                </li>
+                <li className="flex justify-between">
+                  <span>Volume 24h:</span>
+                  <span className="text-right">
+                    $
+                    {pricePerformance &&
+                    pricePerformance.data &&
+                    pricePerformance.data.volume_24h
+                      ? pricePerformance.data.volume_24h
+                      : "N/A"}
+                  </span>
+                </li>
+                <li className="flex justify-between">
+                  <span>Supply:</span>
+                  <span className="text-right">
+                    $
+                    {pricePerformance &&
+                    pricePerformance.data &&
+                    pricePerformance.data.supply
+                      ? pricePerformance.data.supply
+                      : "N/A"}
+                  </span>
+                </li>
+                <li className="flex justify-between">
+                  <span>Max Supply:</span>
+                  <span className="text-right">
+                    $
+                    {pricePerformance &&
+                    pricePerformance.data &&
+                    pricePerformance.data.maxSupply
+                      ? pricePerformance.data.maxSupply
+                      : "N/A"}
+                  </span>
+                </li>
+              </ul>
+            </div>
+          </div>
         </div>
       </div>
-      <div className="w-2/3">
-        <nav className="bg-white shadow-md mb-6 sticky top-0 z-10">
+      <div className="w-2/3 ">
+        <nav className="bg-white shadow-md mb-6 z-10 mobile-nav sticky ">
           <div className="container mx-auto px-4">
             <div className="flex space-x-8">
+              <a
+                href="#overview"
+                onClick={(e) => {
+                  e.preventDefault();
+                  scrollToTop();
+                  setActiveSection("overview");
+                }}
+                className={`mobile-only overview py-4 px-2 ${
+                  activeSection === "overview"
+                    ? "border-b-2 border-blue-500 text-blue-500"
+                    : ""
+                }`}
+              >
+                Overview
+              </a>
               <a
                 href="#chart"
                 className={`py-4 px-2 ${
@@ -443,17 +474,123 @@ const CryptoDetail = () => {
             </div>
           </div>
         </nav>
-        <div id="chart" ref={chartRef} className="pt-12">
+
+        <div
+          id="chart"
+          ref={chartRef}
+          className="pt-12 margintwo chart-container"
+        >
           <Chart
             coingeckoId={
               cryptoDetail.data.coingecko_id || cryptoDetail.data.slug
             }
           />
         </div>
-        <div id="news" ref={newsRef} className="pt-12">
-          {/* News Component */}
+        <div className="mt-8 hide nothide hide-on-desktop">
+          <h4 className="text-xl font-semibold">Tags</h4>
+          <div className="flex flex-wrap gap-2 mt-2 cursor-pointer">
+            {cryptoDetail.data.tags ? (
+              <>
+                {displayedTags.map((tag, index) => (
+                  <span
+                    key={index}
+                    className="px-3 py-1 bg-blue-200 text-blue-800 rounded-md"
+                  >
+                    {tag}
+                  </span>
+                ))}
+                {cryptoDetail.data.tags.length > 3 && (
+                  <button
+                    onClick={toggleShowAllTags}
+                    className="px-3 py-1 bg-blue-200 text-blue-800 rounded-md"
+                  >
+                    {showAllTags ? "Show Less" : "Show All"}
+                  </button>
+                )}
+              </>
+            ) : (
+              <span className="text-gray-800">No tags available</span>
+            )}
+          </div>
+
+          <div>
+            <div className="mt-5 ">
+              <br />
+              <h2 className="font-medium text-xl mb-2">Price Performance</h2>
+              <br />
+              <ul className="space-y-2 mb-4">
+                <li className="flex justify-between ">
+                  <span>Price:</span>
+                  <span className="text-right">
+                    $
+                    {pricePerformance &&
+                    pricePerformance.data &&
+                    pricePerformance.data.price
+                      ? pricePerformance.data.price
+                      : "N/A"}
+                  </span>
+                </li>
+                <li className="flex justify-between">
+                  <span>Change 24h:</span>
+                  <span className="text-right">
+                    $
+                    {pricePerformance &&
+                    pricePerformance.data &&
+                    pricePerformance.data.change_24h
+                      ? pricePerformance.data.change_24h
+                      : "N/A"}
+                  </span>
+                </li>
+                <li className="flex justify-between">
+                  <span>Market Cap:</span>
+                  <span className="text-right">
+                    $
+                    {pricePerformance &&
+                    pricePerformance.data &&
+                    pricePerformance.data.market_cap
+                      ? pricePerformance.data.market_cap
+                      : "N/A"}
+                  </span>
+                </li>
+                <li className="flex justify-between">
+                  <span>Volume 24h:</span>
+                  <span className="text-right">
+                    $
+                    {pricePerformance &&
+                    pricePerformance.data &&
+                    pricePerformance.data.volume_24h
+                      ? pricePerformance.data.volume_24h
+                      : "N/A"}
+                  </span>
+                </li>
+                <li className="flex justify-between">
+                  <span>Supply:</span>
+                  <span className="text-right">
+                    $
+                    {pricePerformance &&
+                    pricePerformance.data &&
+                    pricePerformance.data.supply
+                      ? pricePerformance.data.supply
+                      : "N/A"}
+                  </span>
+                </li>
+                <li className="flex justify-between">
+                  <span>Max Supply:</span>
+                  <span className="text-right">
+                    $
+                    {pricePerformance &&
+                    pricePerformance.data &&
+                    pricePerformance.data.maxSupply
+                      ? pricePerformance.data.maxSupply
+                      : "N/A"}
+                  </span>
+                </li>
+              </ul>
+            </div>
+          </div>
         </div>
-        <div id="about" ref={aboutRef} className="pt-12">
+
+        <div id="about" ref={aboutRef} className="pt-12 move-about">
           <CryptoAbout
             selectedCrypto={
               cryptoDetail.data.coingecko_id || cryptoDetail.data.slug

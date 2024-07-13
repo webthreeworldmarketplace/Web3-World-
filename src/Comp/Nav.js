@@ -120,6 +120,9 @@ export default function Nav() {
           width: 100%;
           height: 100%;
         }
+        .nav-item {
+          white-space: nowrap;
+        }
       `}</style>
       <header
         className={`sticky top-0 z-10 transition-transform duration-300 ${
@@ -251,16 +254,19 @@ export default function Nav() {
                 <div className="hidden md:flex space-x-8">
                   <Menu as="div" className="relative inline-block text-left">
                     <div
-                      className="my-2 inline-flex w-full justify-center gap-x-1 text-md font-bold text-black cursor-pointer"
+                      className="nav-item my-2 inline-flex w-full justify-center gap-x-1 text-md font-bold text-black cursor-pointer"
                       onMouseEnter={() => handleMouseEnter("cryptocurrencies")}
                     >
+                      <Link to="/">
                       Cryptocurrencies
+                      </Link>
+                      
                     </div>
                     {/* TempDeleted file will be pasted here */}
                   </Menu>
                   <Menu as="div" className="relative inline-block text-left">
                     <div
-                      className="my-2 inline-flex w-full justify-center gap-x-1 text-md font-bold text-black cursor-pointer"
+                      className="nav-item my-2 inline-flex w-full justify-center gap-x-1 text-md font-bold text-black cursor-pointer"
                       onMouseEnter={() => handleMouseEnter("exchanges")}
                     >
                       <Link
@@ -270,88 +276,10 @@ export default function Nav() {
                         Exchange
                       </Link>
                     </div>
-                    {/* {openDropdown === "exchanges" && (
-                    <Transition
-                      as={Fragment}
-                      show={true}
-                      enter="transition ease-out duration-100"
-                      enterFrom="transform opacity-0 scale-95"
-                      enterTo="transform opacity-100 scale-100"
-                      leave="transition ease-in duration-75"
-                      leaveFrom="transform opacity-100 scale-100"
-                      leaveTo="transform opacity-0 scale-95"
-                    >
-                      <Menu.Items
-                        className="absolute left-0 z-10 mt-2 w-80 origin-top-left bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
-                        onMouseEnter={() => handleMouseEnter("exchanges")}
-                        onMouseLeave={handleMouseLeave}
-                      >
-                        <h1 className="text-center font-bold">Coming Soon..</h1>
-                        <div className="py-2 px-4">
-                          <div className="space-y-2">
-                            <Menu.Item>
-                              {({ active }) => (
-                                <a
-                                  href="#"
-                                  className={classNames(
-                                    active
-                                      ? "bg-gray-100 text-black"
-                                      : "text-black",
-                                    "block px-2 py-1"
-                                  )}
-                                >
-                                  <span className="flex items-center">
-                                    <span>🏦</span>
-                                    <span className="ml-1">Spot</span>
-                                  </span>
-                                </a>
-                              )}
-                            </Menu.Item>
-                            <Menu.Item>
-                              {({ active }) => (
-                                <a
-                                  href="#"
-                                  className={classNames(
-                                    active
-                                      ? "bg-gray-100 text-black"
-                                      : "text-black",
-                                    "block px-2 py-1"
-                                  )}
-                                >
-                                  <span className="flex items-center">
-                                    <span>📊</span>
-                                    <span className="ml-1">Open Interest</span>
-                                  </span>
-                                </a>
-                              )}
-                            </Menu.Item>
-                            <Menu.Item>
-                              {({ active }) => (
-                                <a
-                                  href="#"
-                                  className={classNames(
-                                    active
-                                      ? "bg-gray-100 text-black"
-                                      : "text-black",
-                                    "block px-2 py-1"
-                                  )}
-                                >
-                                  <span className="flex items-center">
-                                    <span>📅</span>
-                                    <span className="ml-1">Future Volume</span>
-                                  </span>
-                                </a>
-                              )}
-                            </Menu.Item>
-                          </div>
-                        </div>
-                      </Menu.Items>
-                    </Transition>
-                  )} */}
                   </Menu>
                   <Menu as="div" className="relative inline-block text-left">
                     <div
-                      className="my-2 inline-flex w-full justify-center gap-x-1 text-md font-bold text-black cursor-pointer"
+                      className="nav-item my-2 inline-flex w-full justify-center gap-x-1 text-md font-bold text-black cursor-pointer"
                       onMouseEnter={() => handleMouseEnter("community")}
                     >
                       Community
@@ -389,6 +317,7 @@ export default function Nav() {
                                       icon={faXTwitter}
                                       size="2x"
                                       className="ml-1"
+                                      
                                     />
                                     <span
                                       style={{
@@ -409,11 +338,12 @@ export default function Nav() {
                                 rel="noopener noreferrer"
                                 className="flex items-center"
                               >
-                                <FontAwesomeIcon icon={faDiscord} size="2x" />
+                                <FontAwesomeIcon icon={faDiscord} size="2x" style={{ color: "#5555dd" }}  />
                                 <span
                                   style={{
                                     marginLeft: "10px",
                                     lineHeight: "2.25",
+                                    
                                   }}
                                 >
                                   Discord
@@ -430,6 +360,7 @@ export default function Nav() {
                                   icon={faTelegram}
                                   size="2x"
                                   className="ml-1"
+                                  style={{ color: "#1DA1F2" }} 
                                 />
                                 <span
                                   style={{
@@ -440,7 +371,6 @@ export default function Nav() {
                                   Telegram
                                 </span>
                               </a>
-
                             </div>
                           </div>
                         </Menu.Items>
@@ -449,37 +379,20 @@ export default function Nav() {
                   </Menu>
                   <Menu as="div" className="relative inline-block text-left">
                     <div
-                      className="my-2 inline-flex w-full justify-center gap-x-1 text-md font-bold text-black cursor-pointer"
+                      className="nav-item my-2 inline-flex w-full justify-center gap-x-2 text-md font-bold text-black cursor-pointer"
                       onMouseEnter={() => handleMouseEnter("products")}
                     >
-                      Events
-                    </div>
-                    {openDropdown === "products" && (
-                      <Transition
-                        as={Fragment}
-                        show={true}
-                        enter="transition ease-out duration-100"
-                        enterFrom="transform opacity-0 scale-95"
-                        enterTo="transform opacity-100 scale-100"
-                        leave="transition ease-in duration-75"
-                        leaveFrom="transform opacity-100 scale-100"
-                        leaveTo="transform opacity-0 scale-95"
+                      <Link
+                        to="/howtobuy"
+                        className="text-md font-bold text-black"
                       >
-                        <Menu.Items
-                          className="absolute left-0 z-10 mt-2 w-80 origin-top-left bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
-                          onMouseEnter={() => handleMouseEnter("products")}
-                          onMouseLeave={handleMouseLeave}
-                        >
-                          <div className="py-2 px-4">
-                            <div className="space-y-2"></div>
-                          </div>
-                        </Menu.Items>
-                      </Transition>
-                    )}
+                        How To Buy
+                      </Link>
+                    </div>
                   </Menu>
                   <Link
-                    to="/news"
-                    className="my-2 inline-flex w-full justify-center gap-x-1 text-md font-bold text-black cursor-pointer"
+                    
+                    className="nav-item my-2 inline-flex w-full justify-center gap-x-1 text-md font-bold text-black cursor-pointer"
                   >
                     News
                   </Link>
@@ -533,15 +446,17 @@ export default function Nav() {
               <div className="px-2 pt-2 pb-3 space-y-1 w-full">
                 <Menu>
                   <Menu.Button className="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50">
-                    Cryptocurrencies
+                  <Link to="/">
+                      Cryptocurrencies
+                      </Link>
                   </Menu.Button>
                 </Menu>
                 <Menu>
                   <Menu.Button
-                     as={Link}
-                     to="/exchange"
-                     className="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50"
-                     onClick={() => toggleMobileDropdown("exchanges")}
+                    as={Link}
+                    to="/exchange"
+                    className="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50"
+                    onClick={() => toggleMobileDropdown("exchanges")}
                   >
                     Exchanges
                   </Menu.Button>
@@ -578,7 +493,7 @@ export default function Nav() {
                             rel="noopener noreferrer"
                             className={classNames(
                               active ? "bg-gray-100 text-black" : "text-black",
-                              "block px-3 py-2 text-base font-medium hidden"
+                              "block px-3 py-2 text-base font-medium "
                             )}
                           >
                             <FontAwesomeIcon
@@ -605,6 +520,7 @@ export default function Nav() {
                               icon={faDiscord}
                               size="2x"
                               className="ml-1"
+                              style={{ color: "#5555dd" }}
                             />
                             Discord
                           </a>
@@ -625,29 +541,40 @@ export default function Nav() {
                               icon={faTelegram}
                               size="2x"
                               className="ml-1"
+                              style={{ color: "#1DA1F2" }} 
                             />
                             Telegram
                           </a>
                         )}
                       </Menu.Item>
-
                     </Menu.Items>
                   </Transition>
                 </Menu>
                 <Menu>
                   <Menu.Button
-                    className="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50"
+                    className="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50 hidden"
                     onClick={() => toggleMobileDropdown("events")}
                   >
                     Events
                   </Menu.Button>
                 </Menu>
                 <Link
-                  to="/news"
+                  
                   className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50 w-full"
                 >
                   News
                 </Link>
+                <div
+                      className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50 w-full"
+                      onMouseEnter={() => handleMouseEnter("products")}
+                    >
+                      <Link
+                        to="/howtobuy"
+                        
+                      >
+                        How To Buy
+                      </Link>
+                    </div>
               </div>
             </div>
           )}

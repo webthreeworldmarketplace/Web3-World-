@@ -59,8 +59,9 @@ const ExchangeInfo = () => {
         </h1>
         <p className="mt-4 text-gray-600">
           Join our centralized trading platform and stay informed! Sign up now
-          to receive 1000 W3W tokens free! Start trading like a pro!
+          to receive 1000 W3W tokens free!
         </p>
+        <p className="font-bold">Start trading like a pro!</p>
       </div>
       <br />
       <div className="flex space-x-2 button-group">
@@ -78,7 +79,7 @@ const ExchangeInfo = () => {
           </button>
         </div>
       </div>
-      <br />
+      
       {exchanges.length > 0 ? (
         <div className="overflow-x-auto">
           <table className="min-w-full divide-y divide-gray-200 exchange-table ">
@@ -112,11 +113,11 @@ const ExchangeInfo = () => {
                     {exchange.name}
                   </td>
                   <td className="pr-60  py-2 trading-wider">
-                    $
+                    
                     {exchange.trade_volume_24h_btc.toLocaleString(undefined, {
                       minimumFractionDigits: 2,
                       maximumFractionDigits: 2,
-                    })}
+                    })} BTC
                   </td>
                 </tr>
               ))}
