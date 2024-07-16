@@ -1,36 +1,31 @@
 import React, { Fragment, useState, useEffect, useRef } from "react";
 import { Menu, Transition } from "@headlessui/react";
-import {
-  ChevronDownIcon,
-  MagnifyingGlassIcon,
-  Bars3Icon,
-} from "@heroicons/react/20/solid";
+import { ChevronDownIcon, MagnifyingGlassIcon, Bars3Icon } from "@heroicons/react/20/solid";
 import Web3world from "./Images/Web3 World.png";
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Link, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faXTwitter,
-  faDiscord,
-  faTelegram,
-  faLinkedin,
-} from "@fortawesome/free-brands-svg-icons";
+import { faXTwitter, faDiscord, faTelegram, faLinkedin } from "@fortawesome/free-brands-svg-icons";
 import Cryptotable from "./CryptoTable";
-//import { XIcon } from "@heroicons/react/20/solid";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
 export default function Nav() {
+  const navigate = useNavigate();
   const [isCurrencyModalOpen, setCurrencyModalOpen] = useState(false);
+  const [isMenuVisible, setIsMenuVisible] = useState(false);
   const [openDropdown, setOpenDropdown] = useState(null);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isMobileView, setIsMobileView] = useState(window.innerWidth <= 768);
   const [isSearchVisible, setIsSearchVisible] = useState(false);
   const [openMobileDropdown, setOpenMobileDropdown] = useState(null);
+  const [isMainMenuOpen, setIsMainMenuOpen] = useState(false);
   const [currentStatIndex, setCurrentStatIndex] = useState(0);
   const [isHeaderVisible, setIsHeaderVisible] = useState(true);
   const [showCryptoTable, setShowCryptoTable] = useState(false);
+  const [isInsideNavbarOpen, setIsInsideNavbarOpen] = useState(false);
+  
   const cryptoTableRef = useRef(null);
 
   const stats = [
@@ -70,6 +65,17 @@ export default function Nav() {
   const openCurrencyModal = () => setCurrencyModalOpen(true);
   const closeCurrencyModal = () => setCurrencyModalOpen(false);
 
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+    setIsMainMenuOpen(!isMainMenuOpen);
+    setIsMenuVisible(!isMenuVisible);
+    if (isMenuVisible) {
+      document.body.style.overflow = "hidden"; // Prevent scrolling when menu is open
+    } else {
+      document.body.style.overflow = "auto"; // Allow scrolling when menu is closed
+    }
+  };
+
   const toggleCryptoTable = () => {
     setShowCryptoTable(!showCryptoTable);
     setTimeout(() => {
@@ -102,6 +108,15 @@ export default function Nav() {
     setOpenMobileDropdown(openMobileDropdown === dropdown ? null : dropdown);
   };
 
+  const handleMenuItemClick = (path) => {
+    setIsMenuOpen(false);
+    navigate(path);
+  };
+
+  const handleMainNavbarClick = () => {
+    setIsInsideNavbarOpen(false);
+  };
+
   return (
     <div className="App">
       <style>{`
@@ -114,7 +129,6 @@ export default function Nav() {
         .container {
           width: 100%;
           height: 100%;
-          
         }
         .nav {
           width: 100%;
@@ -256,22 +270,21 @@ export default function Nav() {
                     <div
                       className="nav-item my-2 inline-flex w-full justify-center gap-x-1 text-md font-bold text-black cursor-pointer"
                       onMouseEnter={() => handleMouseEnter("cryptocurrencies")}
+                      onClick={handleMainNavbarClick} // Add click handler
                     >
-                      <Link to="/">
-                      Cryptocurrencies
-                      </Link>
-                      
+                      <Link to="/" onClick={() => handleMenuItemClick('/')}>Cryptocurrencies</Link>
                     </div>
-                    {/* TempDeleted file will be pasted here */}
                   </Menu>
                   <Menu as="div" className="relative inline-block text-left">
                     <div
                       className="nav-item my-2 inline-flex w-full justify-center gap-x-1 text-md font-bold text-black cursor-pointer"
                       onMouseEnter={() => handleMouseEnter("exchanges")}
+                      onClick={handleMainNavbarClick} // Add click handler
                     >
                       <Link
                         to="/exchange"
                         className="text-md font-bold text-black"
+                        onClick={() => handleMenuItemClick('/exchange')}
                       >
                         Exchange
                       </Link>
@@ -281,6 +294,7 @@ export default function Nav() {
                     <div
                       className="nav-item my-2 inline-flex w-full justify-center gap-x-1 text-md font-bold text-black cursor-pointer"
                       onMouseEnter={() => handleMouseEnter("community")}
+                      onClick={handleMainNavbarClick} // Add click handler
                     >
                       Community
                     </div>
@@ -317,7 +331,6 @@ export default function Nav() {
                                       icon={faXTwitter}
                                       size="2x"
                                       className="ml-1"
-                                      
                                     />
                                     <span
                                       style={{
@@ -338,12 +351,15 @@ export default function Nav() {
                                 rel="noopener noreferrer"
                                 className="flex items-center"
                               >
-                                <FontAwesomeIcon icon={faDiscord} size="2x" style={{ color: "#5555dd" }}  />
+                                <FontAwesomeIcon
+                                  icon={faDiscord}
+                                  size="2x"
+                                  style={{ color: "#5555dd" }}
+                                />
                                 <span
                                   style={{
                                     marginLeft: "10px",
                                     lineHeight: "2.25",
-                                    
                                   }}
                                 >
                                   Discord
@@ -360,7 +376,7 @@ export default function Nav() {
                                   icon={faTelegram}
                                   size="2x"
                                   className="ml-1"
-                                  style={{ color: "#1DA1F2" }} 
+                                  style={{ color: "#1DA1F2" }}
                                 />
                                 <span
                                   style={{
@@ -381,18 +397,21 @@ export default function Nav() {
                     <div
                       className="nav-item my-2 inline-flex w-full justify-center gap-x-2 text-md font-bold text-black cursor-pointer"
                       onMouseEnter={() => handleMouseEnter("products")}
+                      onClick={handleMainNavbarClick} // Add click handler
                     >
                       <Link
                         to="/howtobuy"
                         className="text-md font-bold text-black"
+                        onClick={() => handleMenuItemClick('/howtobuy')}
                       >
                         How To Buy
                       </Link>
                     </div>
                   </Menu>
                   <Link
-                    
+                    to="/News"
                     className="nav-item my-2 inline-flex w-full justify-center gap-x-1 text-md font-bold text-black cursor-pointer"
+                    onClick={() => handleMenuItemClick('/News')}
                   >
                     News
                   </Link>
@@ -446,9 +465,7 @@ export default function Nav() {
               <div className="px-2 pt-2 pb-3 space-y-1 w-full">
                 <Menu>
                   <Menu.Button className="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50">
-                  <Link to="/">
-                      Cryptocurrencies
-                      </Link>
+                    <Link to="/" onClick={() => handleMenuItemClick('/')}>Cryptocurrencies</Link>
                   </Menu.Button>
                 </Menu>
                 <Menu>
@@ -456,7 +473,7 @@ export default function Nav() {
                     as={Link}
                     to="/exchange"
                     className="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50"
-                    onClick={() => toggleMobileDropdown("exchanges")}
+                    onClick={() => handleMenuItemClick('/exchange')}
                   >
                     Exchanges
                   </Menu.Button>
@@ -541,7 +558,7 @@ export default function Nav() {
                               icon={faTelegram}
                               size="2x"
                               className="ml-1"
-                              style={{ color: "#1DA1F2" }} 
+                              style={{ color: "#1DA1F2" }}
                             />
                             Telegram
                           </a>
@@ -559,22 +576,19 @@ export default function Nav() {
                   </Menu.Button>
                 </Menu>
                 <Link
-                  
+                  to="/News"
                   className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50 w-full"
+                  onClick={() => handleMenuItemClick('/News')}
                 >
                   News
                 </Link>
                 <div
-                      className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50 w-full"
-                      onMouseEnter={() => handleMouseEnter("products")}
-                    >
-                      <Link
-                        to="/howtobuy"
-                        
-                      >
-                        How To Buy
-                      </Link>
-                    </div>
+                  className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50 w-full"
+                  onMouseEnter={() => handleMouseEnter("products")}
+                  onClick={handleMainNavbarClick} // Add click handler
+                >
+                  <Link to="/howtobuy" onClick={() => handleMenuItemClick('/howtobuy')}>How To Buy</Link>
+                </div>
               </div>
             </div>
           )}

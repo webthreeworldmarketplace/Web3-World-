@@ -92,7 +92,7 @@ const SwitchBNBCard = ({ title, description, darkMode, image }) => (
         : "border-black text-black bg-white"
     }`}
   >
-    <img src={image} alt="Web3 World" className="w-10 h-11 mr-4" />
+    <img src={image} alt="Web3 World" className="w-9 h-10 mr-4" />
     <div>
       <h2 className="text-xl font-bold mb-2">{title}</h2>
       <p className="text-sm">{description}</p>

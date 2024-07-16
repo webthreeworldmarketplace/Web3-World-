@@ -50,7 +50,7 @@ function App() {
           <Route path="/ContactSupport" element={<ContactSupport />} />
           <Route path="/HireBlockchainDeveloper" element={<HireBlockchainDeveloper />} />
           <Route path="/Consulting" element={<Consulting />} />
-          <Route path="/detail/:id" element={<CryptoDetail />} />
+          <Route path="/detail/:id" element={<CryptoDetail  />} />
         </Routes>
         <Foot />
       </div>

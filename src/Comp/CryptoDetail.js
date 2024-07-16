@@ -16,7 +16,7 @@ const CryptoDetail = () => {
   const [showAllTags, setShowAllTags] = useState(false);
   const [activeSection, setActiveSection] = useState("chart");
   const [pricePerformance, setPricePerformance] = useState(null);
-
+  const [isMainMenuOpen, setIsMainMenuOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const chartRef = useRef(null);
   const marketsRef = useRef(null);
@@ -76,6 +76,10 @@ const CryptoDetail = () => {
       fetchPricePerformance();
     }
   }, [id]);
+
+  useEffect(() => {
+    setIsMainMenuOpen(false);
+  }, []);
 
   useEffect(() => {
     let lastScrollTop = 0;
@@ -423,6 +427,7 @@ const CryptoDetail = () => {
         </div>
       </div>
       <div className="w-2/3 ">
+      {!isMainMenuOpen && (
         <nav className="bg-white shadow-md mb-6 z-10 mobile-nav sticky ">
           <div className="container mx-auto px-4">
             <div className="flex space-x-8">
@@ -474,7 +479,7 @@ const CryptoDetail = () => {
             </div>
           </div>
         </nav>
-
+        )}
         <div
           id="chart"
           ref={chartRef}

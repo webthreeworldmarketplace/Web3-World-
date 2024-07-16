@@ -1,8 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import axios from "axios";
-import bitcoin from "./Images/Bitcoin.jpg";
 
-function News() {
+function NewsPage() {
   const [selectedNews, setSelectedNews] = useState(null);
   const [newsItems, setNewsItems] = useState([]);
   const mainNewsRef = useRef(null);
@@ -48,17 +47,14 @@ function News() {
 
   const fetchNewsData = async () => {
     try {
-      const response = await axios.get("http://localhost:5000/news"); // Replace with your backend API URL
+      const response = await axios.get("https://w3w.onrender.com/get"); // Replace with your backend API URL
       let fetchedNewsItems = response.data;
-
-      // Log the response to verify it contains title2 and content2
-      console.log("Fetched News Items:", fetchedNewsItems);
 
       // Sort news items by date in descending order
       fetchedNewsItems.sort((a, b) => new Date(b.date) - new Date(a.date));
 
       // Select the last 10 news items or all if less than 10
-      const lastTenNews = fetchedNewsItems.slice(0, 10);
+      const lastTenNews = fetchedNewsItems.slice(0, 10); // No need to reverse here
 
       setNewsItems(lastTenNews);
 
@@ -68,10 +64,6 @@ function News() {
       console.error("Error fetching news data:", error);
     }
   };
-
-  useEffect(() => {
-    console.log("News Items:", newsItems); // Log newsItems to verify data
-  }, [newsItems]);
 
   const handleNewsClick = (index) => {
     setSelectedNews(index);
@@ -88,7 +80,7 @@ function News() {
     }
 
     return (
-      <li key={index} className="mb-4">
+      <li key={index} className="pb-4 border-b border-gray-200 last:border-b-0">
         <div className="flex flex-col">
           <h3 className="text-lg font-bold text-gray-800 mb-2">
             <a
@@ -96,7 +88,7 @@ function News() {
               className="hover:text-blue-500"
               onClick={() => handleShortNewsClick(index)}
             >
-              {item.title2}
+              {item.title}
             </a>
           </h3>
           <div className="mb-2">
@@ -110,7 +102,6 @@ function News() {
             </a>
           </div>
           <p className="text-sm text-gray-600 mb-2">{item.date}</p>
-          <p className="text-sm text-gray-600 mb-2">{item.content2}</p>
           <a
             href="#"
             className="text-sm text-blue-500 hover:underline"
@@ -128,23 +119,23 @@ function News() {
       {/* Main News Section */}
       <div className="lg:w-4/5 flex-shrink-0 overflow-hidden">
         <div className="max-w-4xl mx-auto bg-white rounded-lg shadow-md h-full">
-          <div ref={mainNewsRef} className="max-h-full overflow-y-auto">
-            <div className="flex justify-center items-center mt-4">
+          <div ref={mainNewsRef}>
+            <h1 className="text-3xl font-bold mb-2 text-gray-800 p-6">
+              {newsItems[selectedNews]?.title || "Loading..."}
+            </h1>
+            <div className="flex justify-center items-center mt-2">
               {selectedNews !== null ? (
                 <img
                   src={newsItems[selectedNews]?.url}
                   alt={`Short News Image ${selectedNews + 1}`}
                   className="w-full h-full ml-4 mr-4 rounded-lg object-cover"
-                  style={{ maxHeight: "500px", maxWidth: "777px" }} // Corrected maxWidth spelling
+                  style={{ maxHeight: "400px", maxWidth: "700px" }} // Adjust max height as needed
                 />
               ) : null}
             </div>
             <div className="p-6">
               {selectedNews !== null ? (
                 <div>
-                  <h1 className="text-3xl font-bold mb-4 text-gray-800">
-                    {newsItems[selectedNews]?.title || "Loading..."}
-                  </h1>
                   <p className="text-lg text-gray-700 mb-4">
                     {newsItems[selectedNews]?.content || "Loading..."}
                   </p>
@@ -159,10 +150,10 @@ function News() {
       </div>
 
       {/* Short News Section on the Right (or below on small screens) */}
-      <div className="lg:w-1/5 lg:-ml-9 bg-white rounded-lg shadow-md">
-        <div className="p-3 h-full" ref={shortNewsRef}>
+      <div className="lg:w-1/5 bg-white rounded-lg shadow-md flex flex-col">
+        <div className="p-3 flex-grow overflow-y-auto custom-scrollbar" ref={shortNewsRef}>
           <h2 className="text-2xl font-bold mb-4 text-gray-800">Short News</h2>
-          <ul className="max-h-full overflow-y-auto custom-scrollbar">
+          <ul  className="space-y-4">
             {shortNewsItems}
           </ul>
         </div>
@@ -171,4 +162,4 @@ function News() {
   );
 }
 
-export default News;
+export default NewsPage;
