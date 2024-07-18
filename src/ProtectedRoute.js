@@ -6,7 +6,7 @@ const ProtectedRoute = () => {
   const isAuthenticated = localStorage.getItem("isAuthenticated") === "true";
 
   if (!isAuthenticated) {
-    return <Navigate to="/AdminLayout" replace />;
+    return <Navigate to="/signin" replace />;
   }
 
   return <Outlet />;

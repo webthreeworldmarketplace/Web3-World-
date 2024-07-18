@@ -18,10 +18,10 @@ const SignIn = () => {
         password,
       });
 
-      // If successful, save the authentication flag and navigate to admin
+      // If successful, save the token or flag and navigate to the dashboard
       if (response.data) {
-        localStorage.setItem("isAuthenticated", "true"); // Set authentication flag
-        navigate("/admin"); // Redirect to admin dashboard
+        localStorage.setItem("isAuthenticated", "true");
+        navigate("/admin"); // Redirect to dashboard
       }
     } catch (err) {
       setError(err.response?.data?.message || "Error signing in");
