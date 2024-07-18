@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-const SignUp = () => {
+const SignIn = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -13,17 +13,18 @@ const SignUp = () => {
     setError(""); // Reset error
 
     try {
-      const response = await axios.post("http://localhost:5000/signup", {
+      const response = await axios.post("http://localhost:5000/signin", {
         email,
         password,
       });
 
-      // If successful, navigate to sign in
+      // If successful, save the authentication flag and navigate to admin
       if (response.data) {
-        navigate("/signin");
+        localStorage.setItem("isAuthenticated", "true"); // Set authentication flag
+        navigate("/admin"); // Redirect to admin dashboard
       }
     } catch (err) {
-      setError(err.response?.data?.message || "Error signing up");
+      setError(err.response?.data?.message || "Error signing in");
     }
   };
 
@@ -33,7 +34,7 @@ const SignUp = () => {
         onSubmit={handleSubmit}
         className="max-w-lg w-full bg-white p-8 rounded shadow-md"
       >
-        <h2 className="text-3xl font-bold text-center mb-6">Sign Up</h2>
+        <h2 className="text-3xl font-bold text-center mb-6">Sign In</h2>
         {error && <div className="text-red-500 mb-4">{error}</div>}
 
         <div className="mb-4">
@@ -62,11 +63,20 @@ const SignUp = () => {
           type="submit"
           className="w-full bg-blue-500 text-white p-3 rounded hover:bg-blue-600 transition duration-200"
         >
-          Sign Up
+          Sign In
         </button>
+
+        <div className="mt-4 text-center">
+          <p>
+            Don't have an account?{" "}
+            <a href="/signup" className="text-blue-500 hover:underline">
+              Sign Up
+            </a>
+          </p>
+        </div>
       </form>
     </div>
   );
 };
 
-export default SignUp;
+export default SignIn;
