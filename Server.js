@@ -4,7 +4,7 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 const fs = require("fs");
 const path = require("path");
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcryptjs");
 const { News, User } = require("./models/News"); // Your News model
 
 // MongoDB connection
