@@ -60,7 +60,7 @@ app.post("/signup", async (req, res) => {
     await newUser.save();
     res.status(201).json({ message: "User registered successfully" });
   } catch (error) {
-    console.error("Error signing up:", error);
+    // console.error("Error signing up:", error);
     res.status(500).json({ message: "Server error" });
   }
 });
@@ -75,10 +75,10 @@ app.post("/add", upload.single("image"), async (req, res) => {
 
   try {
     await newArticle.save();
-    console.log("Article added successfully:", newArticle);
+    // console.log("Article added successfully:", newArticle);
     res.status(201).send("Article added successfully");
   } catch (error) {
-    console.error("Error adding article:", error);
+    // console.error("Error adding article:", error);
     res.status(500).send("Error adding article: " + error.message);
   }
 });
