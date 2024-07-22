@@ -4,8 +4,8 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 const fs = require("fs");
 const path = require("path");
-const { News, User } = require("./models/News"); // Your News model
 const bcrypt = require("bcrypt");
+const { News, User } = require("./models/News"); // Your News model
 
 // MongoDB connection
 const dbURI =
@@ -71,9 +71,11 @@ app.post("/add", upload.single("image"), async (req, res) => {
   const image = req.file ? req.file.path : null;
 
   const newArticle = new News({ title, image, content, date });
+  console.log("New Article:", newArticle); // Log new article details
 
   try {
     await newArticle.save();
+    console.log("Article added successfully:", newArticle);
     res.status(201).send("Article added successfully");
   } catch (error) {
     console.error("Error adding article:", error);
@@ -84,8 +86,10 @@ app.post("/add", upload.single("image"), async (req, res) => {
 // Route to get all news articles
 app.get("/articles", async (req, res) => {
   try {
-    const articles = await News.find(); // Fetch all articles from the database
-    res.status(200).json(articles); // Send articles as JSON
+    const articles = await News.find();
+    console.log("Fetched Articles:", articles); // Log fetched articles
+
+    res.status(200).json(articles);
   } catch (error) {
     console.error("Error fetching articles:", error);
     res.status(500).send("Error fetching articles: " + error.message);

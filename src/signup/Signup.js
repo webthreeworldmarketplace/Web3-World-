@@ -13,10 +13,13 @@ const SignUp = () => {
     setError(""); // Reset error
 
     try {
-      const response = await axios.post("http://localhost:5000/signup", {
-        email,
-        password,
-      });
+      const response = await axios.post(
+        "https://web3-world.onrender.com/signup",
+        {
+          email,
+          password,
+        }
+      );
 
       // If successful, navigate to sign in
       if (response.data) {

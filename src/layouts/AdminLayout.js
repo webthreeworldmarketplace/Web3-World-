@@ -8,12 +8,12 @@ const AdminLayout = () => {
         <h1 className="text-lg font-bold">Admin Panel</h1>
         <ul className="mt-5">
           <li>
-            <Link to="/admin/dashboard" className="block py-2">
+            <Link to="/admin/news" className="block py-2">
               News
             </Link>
           </li>
           <li>
-            <Link to="/admin/users" className="block py-2">
+            <Link to="/admin/newslist" className="block py-2">
               News List
             </Link>
           </li>

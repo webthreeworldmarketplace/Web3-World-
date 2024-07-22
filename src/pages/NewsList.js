@@ -9,7 +9,9 @@ const UserManagementPage = () => {
   useEffect(() => {
     const fetchArticles = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/articles");
+        const response = await axios.get(
+          "https://web3-world.onrender.com/articles"
+        );
         setArticles(response.data);
       } catch (err) {
         setError("Error fetching articles");
@@ -25,7 +27,7 @@ const UserManagementPage = () => {
   const handleDelete = async (id) => {
     if (window.confirm("Are you sure you want to delete this article?")) {
       try {
-        await axios.delete(`http://localhost:5000/articles/${id}`);
+        await axios.delete(`https://web3-world.onrender.com/articles/${id}`);
         setArticles(articles.filter((article) => article._id !== id));
         alert("Article deleted successfully");
       } catch (err) {

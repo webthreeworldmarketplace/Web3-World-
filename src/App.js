@@ -1,5 +1,3 @@
-//
-
 import React from "react";
 import {
   BrowserRouter as Router,
@@ -20,13 +18,41 @@ const App = () => {
         <Route path="/signup" element={<Signup />} />
         <Route path="/signin" element={<SignIn />} />
         <Route path="/" element={<Navigate to="/signin" />} />
-        <Route path="/admin" element={<AdminLayout />}>
-          <Route index element={<DashboardPage />} />
-          <Route path="dashboard" element={<DashboardPage />} />
-          <Route path="users" element={<UserManagementPage />} />
+
+        {/* Protected Routes */}
+        <Route element={<PrivateRoute />}>
+          <Route path="/admin" element={<AdminLayout />}>
+            <Route index element={<DashboardPage />} />
+            <Route path="news" element={<DashboardPage />} />
+            <Route path="newslist" element={<UserManagementPage />} />
+          </Route>
         </Route>
+
+        {/* Fallback route for all other paths */}
+        <Route path="*" element={<Navigate to="/signin" />} />
       </Routes>
     </Router>
+  );
+};
+
+// PrivateRoute component to check authentication for all routes
+const PrivateRoute = () => {
+  const isAuthenticated = localStorage.getItem("isAuthenticated");
+
+  if (!isAuthenticated) {
+    return <Navigate to="/signin" />;
+  }
+
+  return (
+    <>
+      <Routes>
+        <Route path="/admin" element={<AdminLayout />}>
+          <Route index element={<DashboardPage />} />
+          <Route path="news" element={<DashboardPage />} />
+          <Route path="newslist" element={<UserManagementPage />} />
+        </Route>
+      </Routes>
+    </>
   );
 };
 

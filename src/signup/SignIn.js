@@ -2,36 +2,70 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
+// Import statements remain the same
+
 const SignIn = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setError(""); // Reset error
-
+  const handleSignIn = async () => {
     try {
-      const response = await axios.post("http://localhost:5000/signin", {
-        email,
-        password,
-      });
+      const response = await axios.post(
+        "https://web3-world.onrender.com/signin",
+        {
+          email,
+          password,
+        }
+      );
 
-      // If successful, save the token or flag and navigate to the dashboard
       if (response.data) {
         localStorage.setItem("isAuthenticated", "true");
-        navigate("/admin"); // Redirect to dashboard
+        localStorage.setItem("lastInteraction", Date.now().toString());
+        navigate("/admin");
       }
     } catch (err) {
       setError(err.response?.data?.message || "Error signing in");
     }
   };
 
+  const handleSignOut = () => {
+    localStorage.removeItem("isAuthenticated");
+    localStorage.removeItem("lastInteraction");
+    navigate("/signin");
+  };
+
+  const checkSessionTimeout = () => {
+    const sessionTimeout = 1 * 60 * 1000; // 30 minutes in milliseconds
+    const lastInteraction = localStorage.getItem("lastInteraction");
+
+    if (
+      lastInteraction &&
+      Date.now() - parseInt(lastInteraction) > sessionTimeout
+    ) {
+      handleSignOut();
+    }
+  };
+
+  // useEffect with checkSessionTimeout dependency
+  React.useEffect(() => {
+    checkSessionTimeout(); // Check initially
+
+    const interval = setInterval(() => {
+      checkSessionTimeout(); // Check every minute
+    }, 60000);
+
+    return () => clearInterval(interval); // Clear interval on unmount
+  }, [checkSessionTimeout]); // Include checkSessionTimeout in the dependency array
+
   return (
     <div className="flex justify-center items-center min-h-screen bg-gray-100">
       <form
-        onSubmit={handleSubmit}
+        onSubmit={(e) => {
+          e.preventDefault();
+          handleSignIn();
+        }}
         className="max-w-lg w-full bg-white p-8 rounded shadow-md"
       >
         <h2 className="text-3xl font-bold text-center mb-6">Sign In</h2>

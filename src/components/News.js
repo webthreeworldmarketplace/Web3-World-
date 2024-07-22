@@ -26,6 +26,7 @@ const AdminPanel = () => {
 
     try {
       await axios.post("http://localhost:5000/add", formData, {
+        //https://web3-world.onrender.com/add
         headers: {
           "Content-Type": "multipart/form-data",
         },
