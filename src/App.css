@@ -1,9 +1,56 @@
+.fixed {
+  position: fixed;
+}
+
+.inset-0 {
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+.z-40 {
+  z-index: 40;
+}
+
+.z-50 {
+  z-index: 50;
+}
+
+.overflow-y-auto {
+  overflow-y: auto;
+}
+
+/* Add this to your existing CSS or in a style tag */
+.mobile-menu-enter {
+  opacity: 0;
+  transform: scale(0.9);
+}
+
+.mobile-menu-enter-active {
+  opacity: 1;
+  transform: translateX(0);
+  transition: opacity 300ms, transform 300ms;
+}
+
+.mobile-menu-exit {
+  opacity: 1;
+}
+
+.mobile-menu-exit-active {
+  opacity: 0;
+  transform: scale(0.9);
+  transition: opacity 300ms, transform 300ms;
+}
+
 @media (max-width: 768px) {
   .hide-navbar {
     display: none !important;
   }
   
-  /* Other CSS classes you provided */
+  .hide-navbar {
+    display: none !important;
+  }
   .chart-container {
     width: 150%;
     overflow-x: hidden;
@@ -123,6 +170,21 @@
   .mobile-only {
     display: block;
   }
+
+  /* Hide the CryptoDetail navbar by default */
+  .crypto-detail-navbar {
+    display: none;
+  }
+
+  /* Show the CryptoDetail navbar when it's active */
+  .crypto-detail-navbar.active {
+    display: block;
+  }
+
+  /* Hide the main navbar when the CryptoDetail navbar is active */
+  .main-navbar.hidden {
+    display: none;
+  }
 }
 
 @media (min-width: 769px) {
@@ -168,4 +230,18 @@
   .short-news::-webkit-scrollbar {
   display: none;
 }
+}
+
+.connect-wallet-button {
+  background-color: #e8edf9;
+  color: #467fcf;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.connect-wallet-button:hover {
+  background-color: #d0d9f2;
 }

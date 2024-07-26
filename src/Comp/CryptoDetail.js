@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom"; // Import useNavigate
 import axios from "axios";
 import Chart from "./Chart";
 import MarketTable from "./MarketTable";
@@ -8,6 +8,7 @@ import "../App.css";
 
 const CryptoDetail = () => {
   const { id } = useParams();
+  const navigate = useNavigate(); // Initialize useNavigate
   const [cryptoDetail, setCryptoDetail] = useState(null);
   const [error, setError] = useState(null);
   const [cryptoAmount, setCryptoAmount] = useState(1);
@@ -17,7 +18,7 @@ const CryptoDetail = () => {
   const [activeSection, setActiveSection] = useState("chart");
   const [pricePerformance, setPricePerformance] = useState(null);
   const [isMainMenuOpen, setIsMainMenuOpen] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
+  const [activeNavItem, setActiveNavItem] = useState(null); // New state for active nav item
   const chartRef = useRef(null);
   const marketsRef = useRef(null);
   const newsRef = useRef(null);
@@ -27,26 +28,23 @@ const CryptoDetail = () => {
 
   useEffect(() => {
     const fetchCryptoDetail = async () => {
-      setIsLoading(true);
       setError(null);
       try {
         const response = await axios.get(
-          `https://new-backend-s2dn.onrender.com/api/cryptocurrencies/${id}`
+          `https://api.webthreeworld.com/api/cryptocurrencies/${id}`
         );
         setCryptoDetail(response.data);
 
         if (response.data && response.data.data && response.data.data.slug) {
           const slug = response.data.data.slug;
           const performanceResponse = await axios.get(
-            `https://new-backend-s2dn.onrender.com/api/price-performance/${slug}`
+            `https://api.webthreeworld.com/api/price-performance/${slug}`
           );
           setPricePerformance(performanceResponse.data);
         }
       } catch (error) {
         console.error("Error fetching data:", error);
         setError(error.response ? error.response.data : "An error occurred");
-      } finally {
-        setIsLoading(false);
       }
     };
 
@@ -58,7 +56,7 @@ const CryptoDetail = () => {
       try {
         const cryptoName = cryptoDetail.data.name.toLowerCase();
         const response = await axios.get(
-          `https://new-backend-s2dn.onrender.com/api/price-performance/${cryptoName}`
+          `https://api.webthreeworld.com/api/price-performance/${cryptoName}`
         );
         const pricePerformanceData = response.data;
         if (pricePerformanceData) {
@@ -118,8 +116,6 @@ const CryptoDetail = () => {
 
   console.log("Crypto Detail Data:", cryptoDetail);
 
-  //const { data } = cryptoDetail;
-
   if (!cryptoDetail) {
     return <div>Loading...</div>;
   }
@@ -150,22 +146,11 @@ const CryptoDetail = () => {
   const USD = quote.USD;
   console.log("Quote", cryptoDetail.quote);
   console.log("Crypto Detail Data:", cryptoDetail);
-  //console.log("Quote", cryptoDetail.quote);
-  console.log("Crypto Detail Data:", cryptoDetail);
 
   if (!USD) {
     console.log("USD is not present in quote object");
     return <div>Price data not available for this cryptocurrency.</div>;
   }
-
-  // const USD = quote && quote.USD;
-  //console.log("USD",USD);
-  //console.log("quote",quote);
-  //console.log("Crypto Detail Data:", cryptoDetail);
-
-  //if (!USD) {
-  //return <div>Data for this cryptocurrency is not available.</div>;
-  //}
 
   const copyToClipboard = (text) => {
     navigator.clipboard.writeText(text).then(
@@ -196,6 +181,11 @@ const CryptoDetail = () => {
   const toggleShowAllTags = () => {
     setShowAllTags((prevShowAllTags) => !prevShowAllTags);
   };
+
+  const toggleNavItem = (item) => {
+    setActiveNavItem(activeNavItem === item ? null : item);
+  };
+
   console.log("Rendering CryptoDetail", { cryptoDetail, error });
 
   const displayedTags = cryptoDetail.data.tags
@@ -427,7 +417,6 @@ const CryptoDetail = () => {
         </div>
       </div>
       <div className="w-2/3 ">
-      {!isMainMenuOpen && (
         <nav className="bg-white shadow-md mb-6 z-10 mobile-nav sticky ">
           <div className="container mx-auto px-4">
             <div className="flex space-x-8">
@@ -436,10 +425,11 @@ const CryptoDetail = () => {
                 onClick={(e) => {
                   e.preventDefault();
                   scrollToTop();
+                  toggleNavItem("overview");
                   setActiveSection("overview");
                 }}
                 className={`mobile-only overview py-4 px-2 ${
-                  activeSection === "overview"
+                  activeNavItem === "overview"
                     ? "border-b-2 border-blue-500 text-blue-500"
                     : ""
                 }`}
@@ -448,8 +438,14 @@ const CryptoDetail = () => {
               </a>
               <a
                 href="#chart"
+                onClick={(e) => {
+                  e.preventDefault();
+                  scrollToTop();
+                  toggleNavItem("chart");
+                  setActiveSection("chart");
+                }}
                 className={`py-4 px-2 ${
-                  activeSection === "chart"
+                  activeNavItem === "chart"
                     ? "border-b-2 border-blue-500 text-blue-500"
                     : ""
                 }`}
@@ -458,8 +454,14 @@ const CryptoDetail = () => {
               </a>
               <a
                 href="#news"
+                onClick={(e) => {
+                  e.preventDefault();
+                  navigate("/News"); // Navigate to News component/page
+                  toggleNavItem("news");
+                  setActiveSection("news");
+                }}
                 className={`py-4 px-2 ${
-                  activeSection === "news"
+                  activeNavItem === "news"
                     ? "border-b-2 border-blue-500 text-blue-500"
                     : ""
                 }`}
@@ -468,8 +470,14 @@ const CryptoDetail = () => {
               </a>
               <a
                 href="#about"
+                onClick={(e) => {
+                  e.preventDefault();
+                  scrollToTop();
+                  toggleNavItem("about");
+                  setActiveSection("about");
+                }}
                 className={`py-4 px-2 ${
-                  activeSection === "about"
+                  activeNavItem === "about"
                     ? "border-b-2 border-blue-500 text-blue-500"
                     : ""
                 }`}
@@ -479,7 +487,6 @@ const CryptoDetail = () => {
             </div>
           </div>
         </nav>
-        )}
         <div
           id="chart"
           ref={chartRef}

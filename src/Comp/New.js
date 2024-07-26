@@ -26,7 +26,7 @@ function New() {
   useEffect(() => {
     const fetchTrendingData = async () => {
       try {
-        const response = await axios.get("https://new-backend-s2dn.onrender.com/api/trending");
+        const response = await axios.get("https://api.webthreeworld.com/api/trending");
         if (response.data && Array.isArray(response.data.data)) {
           setTrendingData(response.data.data.slice(0, 3));
         } else {
@@ -40,10 +40,10 @@ function New() {
     const fetchGainersAndLosers = async () => {
       try {
         const gainersResponse = await axios.get(
-          "https://new-backend-s2dn.onrender.com/api/top-gainers"
+          "https://api.webthreeworld.com/api/top-gainers"
         );
         const losersResponse = await axios.get(
-          "https://new-backend-s2dn.onrender.com/api/top-losers"
+          "https://api.webthreeworld.com/api/top-losers"
         );
 
         console.log("Gainers:", gainersResponse.data.data);

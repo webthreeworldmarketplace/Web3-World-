@@ -90,7 +90,7 @@ const CryptoTable = () => {
   const fetchData = async (page = 1) => {
     try {
       const response = await axios.get(
-        `https://new-backend-s2dn.onrender.com/api/cryptocurrencies?page=${page}&limit=${rowsToShow}`
+        `https://api.webthreeworld.com/api/cryptocurrencies?page=${page}&limit=${rowsToShow}`
       );
       setCryptocurrencies(
         response.data.data.map((crypto, index) => ({

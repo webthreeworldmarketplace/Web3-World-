@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Nav from "./Comp/Nav";
 import CryptoTable from "./Comp/CryptoTable";
 import Left from "./Comp/Leftover";
@@ -32,10 +32,16 @@ function Home() {
 }
 
 function App() {
+  const [isCryptoDetailNavbarVisible, setIsCryptoDetailNavbarVisible] = useState(true);
+
+  const toggleCryptoDetailNavbar = () => {
+    setIsCryptoDetailNavbarVisible(!isCryptoDetailNavbarVisible);
+  };
+
   return (
     <Router>
       <div>
-        <Nav />
+        <Nav isCryptoDetailNavbarVisible={isCryptoDetailNavbarVisible} />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/news" element={<News />} />
@@ -54,7 +60,7 @@ function App() {
             element={<HireBlockchainDeveloper />}
           />
           <Route path="/Consulting" element={<Consulting />} />
-          <Route path="/detail/:id" element={<CryptoDetail />} />
+          <Route path="/detail/:id" element={<CryptoDetail toggleCryptoDetailNavbar={toggleCryptoDetailNavbar} />} />
           <Route path="/demo" element={<Exchanges />} />
         </Routes>
         <Foot />
